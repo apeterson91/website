@@ -51,7 +51,7 @@ user_groups = ["Researchers", "Visitors"]
 [[social]]
   icon = "envelope"
   icon_pack = "fas"
-  link = "#contact"  # For a direct email link, use "mailto:test@example.org".
+  link = "mailto:atpvyc@umich.edu"  # For a direct email link, use "mailto:test@example.org".
 
 #[[social]]
 #  icon = "twitter"
@@ -79,4 +79,3 @@ user_groups = ["Researchers", "Visitors"]
 
 Adam Peterson is a graduate student in Biostatistics at the University of Michigan - Ann Arbor. Some of his research interests include bayesian statistics, with an interest in non-parametric methods, spatial statistics, and applications to studying the built environment. 
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate. 
