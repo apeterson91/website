@@ -77,5 +77,5 @@ user_groups = ["Researchers", "Visitors"]
 
 +++
 
-Adam Peterson is a graduate student in Biostatistics at the University of Michigan - Ann Arbor. Some of his research interests include bayesian statistics, with an interest in non-parametric methods, spatial statistics, and applications to studying the built environment. 
+Adam Peterson is a graduate student in Biostatistics at the University of Michigan - Ann Arbor. Some of his research interests include Bayesian statistics, with an interest in non-parametric methods, spatial statistics, and applications to studying the built environment. 
 
