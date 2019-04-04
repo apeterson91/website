@@ -24,7 +24,7 @@ email = ""
 # List (academic) interests or hobbies
 interests = [
   "Bayesian Statistics",
-  "Non Parametric Methods",
+  "Nonparametric Methods",
   "Spatial Statistics"
 ]
 
