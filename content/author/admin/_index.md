@@ -16,7 +16,7 @@ role = "Graduate Research Assistant"
 organizations = [ { name = "University of Michigan", url = "" } ]
 
 # Short bio (displayed in user profile at end of posts)
-bio = "My research interests include Bayesian statistics, nonparametric methods with applications to studying the built environment."
+bio = "My research interests include Bayesian statistics with applications to studying the built environment."
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
 email = ""
