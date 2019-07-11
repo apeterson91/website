@@ -13,10 +13,10 @@ role = "Graduate Research Assistant"
 
 # Organizations/Affiliations
 #   Separate multiple entries with a comma, using the form: `[ {name="Org1", url=""}, {name="Org2", url=""} ]`.
-organizations = [ { name = "University of Michigan", url = "" } ]
+organizations = [ { name = "University of Michigan", url = "https://umich.edu" } ]
 
 # Short bio (displayed in user profile at end of posts)
-bio = "My research interests include Bayesian statistics with applications to studying the built environment."
+bio = "Adam Peterson is Biostatistics PhD candidate at the University of Michigan."
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
 email = ""
@@ -25,14 +25,21 @@ email = ""
 interests = [
   "Bayesian Statistics",
   "Nonparametric Methods",
-  "Spatial Statistics"
+  "Spatial Statistics",
+  "Built Environment",
+  "Environmental Impact"
 ]
 
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
-user_groups = ["Researchers", "Visitors"]
+#user_groups = ["Researchers", "Visitors"]
 
 # List qualifications (such as academic degrees)
+[[education.courses]]
+  course = "PhD Biostatistics"
+  institution = "University of Michigan - Ann Arbor"
+  year = 2021
+
 [[education.courses]]
   course = "M.S. Biostatistics"
   institution = "University of Michigan - Ann Arbor"
@@ -77,5 +84,7 @@ user_groups = ["Researchers", "Visitors"]
 
 +++
 
-Adam Peterson is a graduate student in Biostatistics at the University of Michigan - Ann Arbor. Some of his research interests include Bayesian statistics, with an interest in non-parametric methods, spatial statistics, and applications to studying the built environment. 
+Adam Peterson is a Biostatistics PhD candidate at the University of Michigan. 
+He is interested in understanding the built environment's affect on human health and environmental impact
+of consumer choices through Bayesian modeling strategies. 
 
