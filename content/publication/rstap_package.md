@@ -1,4 +1,5 @@
 ---
+date = 2018-12-27
 title = rstap: An R Package for Spatial Temporal Aggregated Predictor Models
 ---
 

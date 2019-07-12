@@ -1,4 +1,5 @@
 ---
+date: 2018-04-18
 title: "Ann Arbor R User's Group"
 ---
 
