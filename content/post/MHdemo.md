@@ -1,6 +1,7 @@
 ---
 title: Metropolis Sampler Demo
 math: true
+summary: A quick demo and backstory on one of the first MCMC methods
 ---
 
 # The Ole' Metropolis Sampler
