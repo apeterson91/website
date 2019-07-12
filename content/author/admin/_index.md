@@ -85,6 +85,6 @@ interests = [
 +++
 
 Adam Peterson is a Biostatistics PhD candidate at the University of Michigan. 
-He is interested in understanding the built environment's affect on human health and environmental impact
+He is interested in understanding the built environment's effect on human health and the environmental impact
 of consumer choices through Bayesian modeling strategies. 
 
