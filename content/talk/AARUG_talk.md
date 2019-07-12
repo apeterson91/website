@@ -1,6 +1,6 @@
 ---
+title: Ann Arbor R User's Group
 date: 2018-04-18
-title: "Ann Arbor R User's Group"
 ---
 
 I recently gave a talk at the [Ann Arbor R User's Group](https://www.meetup.com/Ann-Arbor-R-User-Group/) about the [rstap](https://biostatistics4socialimpact.github.io/rstap/) package.
