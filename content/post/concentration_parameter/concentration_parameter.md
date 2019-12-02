@@ -1,5 +1,10 @@
-# The Curious Case of the Collapsing Concentration Parameter: Part I
-
+---
+date: 2019-12-01
+title: "The Curious Case of the Collapsing Concentration Parameter: Part I"
+summary: "A parameter collapses,a sophisticated model looms afoot and we find the start of a trail of clues in this unexpected mystery."
+tags: ["Dirichlet Process","Bayesian NonParametrics"]
+author: "Adam Peterson"
+---
 
 In the course of conducting statistical research, there are times when you can come across some computational-statistical behavior that can only be described as *weird*.
 While working on some of my dissertation research to develop a new application for an extension of the Dirichlet Process,
