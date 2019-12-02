@@ -62,7 +62,7 @@ After all this theory you may find yourself asking, "Ok... What is this fancy di
 Suppose you're interested in sorting some news articles by how how many words are in them.
 If you looked at a histogram of the word count you might see something like this.
 
-{{< figure src="fig1.jpg" title="Figure 1" lightbox="true" >}}
+![](fig1.png)
 
 Some articles don't have that many words, others have a moderate amount of words and others have a lot of words. One way you could cluster this is by
 fitting a mixture model with three components:
@@ -71,7 +71,7 @@ $$
 f(y) = \sum^{3} w_l \text{Poisson}(y|\lambda_l),
 $$
 
-where $f(y)$ is the density of the random word count, $y$, $\lambda$ is the mean of the $l$th Poisson cluster and $\sum_{l=1}^{3} w_l = 1, w_l \in (0,1)$.
+where $f(y)$ is the density of the random word count, $y$, $\lambda$ is the mean of the $l$th Poisson cluster and $\sum^{3} w_l = 1, w_l \in (0,1)$.
 
 An important assumption in the above model is that you only need **three** mixture components to estimate the density. This is a pretty big assumption - 
 after all, how often do you know the *right* number of clusters to include in your model? 
@@ -84,6 +84,7 @@ $$
 f(y) = \int \text{Poisson}(y|\lambda) G(\lambda).\\
 G\sim DP(\alpha,G_0)
 $$
+
 In the above we would say that we're using G, a realization from the Dirichlet Process, as a mixing measure to combine different Poisson components to estimate the density $f(y)$.
 
 
