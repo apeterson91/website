@@ -62,7 +62,7 @@ After all this theory you may find yourself asking, "Ok... What is this fancy di
 Suppose you're interested in sorting some news articles by how how many words are in them.
 If you looked at a histogram of the word count you might see something like this.
 
-{{< figure library="true" src="fig1.png" title="A caption" lightbox="true" >}}
+{{< figure library="true" src="fig1.png" title="" lightbox="true" >}}
 
 Some articles don't have that many words, others have a moderate amount of words and others have a lot of words. One way you could cluster this is by
 fitting a mixture model with three components:
@@ -104,16 +104,16 @@ but for now I'll focus on just a few of the results.
 
 The first thing we might look at is a plot of the pairwise probability of co-clustering like the one below.
 
-{{< figure src="fig2.png" title="Figure 2" lightbox="true" >}}
+{{< figure library="true" src="fig2.png" title="" lightbox="true" >}}
 
 This is great! We can see that we're captuing the three clusters clearly through the high probability of co-clustering within the three groups. Something must be working correctly!
 Let's check some of the other parameters. In fact, let's check that concentration parameter $\alpha$ which describes how closely the DP is centered around the base measure.
 
-{{< figure src="fig3.png" title="Figure 3" lightbox="true" >}}
+{{< figure library="true" src="fig3.png" title="" lightbox="true" >}}
 
 Uh-oh. It looks like our concentration parameter has *collapsed* at 0. Normally one would expect a traceplot of an MCMC sampler to look something more like the following.
 
-{{< figure src="fig4.png" title="Figure 4" lightbox="true" >}}
+{{< figure library="true" src="fig3.png" title="" lightbox="true" >}}
 
 Indeed, if we look at the other parameter estimates, they look like the above[^4] suggesting convergent model fit. In fact most model diagnostics will suggest nothing is wrong here.
 What is going on?
