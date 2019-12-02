@@ -5,6 +5,11 @@ summary: "A parameter collapses,a sophisticated model looms afoot and we find th
 tags: ["Dirichlet Process","Bayesian NonParametrics"]
 author: "Adam Peterson"
 markup: mmark
+image:
+  placement: 1
+  caption: "Collapsed Parameter"
+  focal_point: "Center"
+  preview_only: false
 ---
 
 In the course of conducting statistical research, there are times when you can come across some computational-statistical behavior that can only be described as *weird*.
@@ -40,7 +45,7 @@ tie-in to it's name:
 In the above $A_1,...,A_k$ can just be thought of as numbers. So what the above line says is that the probability of those numbers is distributed according to the [Dirichlet distribution](https://en.wikipedia.org/wiki/Dirichlet_distribution)
 whose parameters are determined by the base measure.
 
-There's been lots of development on the DP since the 70's. One particularly important development was first discussed In a 2001 [paper](http://people.ee.duke.edu/~lcarin/Yuting3.3.06.pdf), where Ishwaran and James showed that realizations, $G$, 
+There's been lots of development on the DP since the 70's. One particularly important development was popularized in a 2001 [paper](http://people.ee.duke.edu/~lcarin/Yuting3.3.06.pdf), where Ishwaran and James showed that realizations, $G$, 
 of the DP could be represented (and computationally approximated) as an infinite sum over some indicator functions, $\delta_{\theta}(\cdot)$ and weights, $\pi_l \in (0,1)$  
 
 $$
@@ -57,9 +62,7 @@ After all this theory you may find yourself asking, "Ok... What is this fancy di
 Suppose you're interested in sorting some news articles by how how many words are in them.
 If you looked at a histogram of the word count you might see something like this.
 
-<center>
-![](fig1.png)
-</center>
+{{< figure src="fig1.png" title="Figure 1" lightbox="true" >}}
 
 Some articles don't have that many words, others have a moderate amount of words and others have a lot of words. One way you could cluster this is by
 fitting a mixture model with three components:
