@@ -4,6 +4,7 @@ title: "The Curious Case of the Collapsing Concentration Parameter: Part I"
 summary: "A parameter collapses,a sophisticated model looms afoot and we find the start of a trail of clues in this unexpected mystery."
 tags: ["Dirichlet Process","Bayesian NonParametrics"]
 author: "Adam Peterson"
+markup: mmark
 ---
 
 In the course of conducting statistical research, there are times when you can come across some computational-statistical behavior that can only be described as *weird*.
@@ -57,7 +58,7 @@ Suppose you're interested in sorting some news articles by how how many words ar
 If you looked at a histogram of the word count you might see something like this.
 
 <center>
-![](fig1.png){ width=500px }
+![](fig1.png)
 </center>
 
 Some articles don't have that many words, others have a moderate amount of words and others have a lot of words. One way you could cluster this is by
@@ -102,20 +103,20 @@ but for now I'll focus on just a few of the results.
 The first thing we might look at is a plot of the pairwise probability of co-clustering like the one below.
 
 <center>
-![](fig2.png){ width=500px }
+![](fig2.png)
 </center>
 
 This is great! We can see that we're captuing the three clusters clearly through the high probability of co-clustering within the three groups. Something must be working correctly!
 Let's check some of the other parameters. In fact, let's check that concentration parameter $\alpha$ which describes how closely the DP is centered around the base measure.
 
 <center>
-![](fig3.png){ width=500px }
+![](fig3.png)
 </center>
 
 Uh-oh. It looks like our concentration parameter has *collapsed* at 0. Normally one would expect a traceplot of an MCMC sampler to look something more like the following.
 
 <center>
-![](fig4.png){ width=500px } 
+![](fig4.png)
 </center>
 
 Indeed, if we look at the other parameter estimates, they look like the above[^4] suggesting convergent model fit. In fact most model diagnostics will suggest nothing is wrong here.
