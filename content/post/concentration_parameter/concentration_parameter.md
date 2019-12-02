@@ -1,7 +1,7 @@
 ---
 date: 2019-12-01
 title: "The Curious Case of the Collapsing Concentration Parameter: Part I"
-summary: "A parameter collapses,a sophisticated model looms afoot and we find the start of a trail of clues in this unexpected mystery."
+summary: "A parameter collapses, a sophisticated model looms afoot and we find the start of a trail of clues in this unexpected mystery."
 tags: ["Dirichlet Process","Bayesian NonParametrics"]
 author: "Adam Peterson"
 markup: mmark
@@ -62,7 +62,7 @@ After all this theory you may find yourself asking, "Ok... What is this fancy di
 Suppose you're interested in sorting some news articles by how how many words are in them.
 If you looked at a histogram of the word count you might see something like this.
 
-![](fig1.png)
+{{< figure library="true" src="fig1.png" title="A caption" lightbox="true" >}}
 
 Some articles don't have that many words, others have a moderate amount of words and others have a lot of words. One way you could cluster this is by
 fitting a mixture model with three components:
