@@ -46,10 +46,10 @@ In the above $A_1,...,A_k$ can just be thought of as numbers. So what the above 
 whose parameters are determined by the base measure.
 
 There's been lots of development on the DP since the 70's. One particularly important development was popularized in a 2001 [paper](http://people.ee.duke.edu/~lcarin/Yuting3.3.06.pdf), where Ishwaran and James showed that realizations, $G$, 
-of the DP could be represented (and computationally approximated) as an infinite sum over some indicator functions, $\delta_{\theta}(\cdot)$ and weights, $\pi_l \in (0,1)$  
+of the DP could be computationally approximated as a finite sum over some indicator functions, $\delta_{\theta}(\cdot)$ and weights, $\pi_l \in (0,1)$  
 
 $$
-G  = \sum^\infty \pi_l \delta_{\theta}(\cdot)
+G  = \sum^K \pi_l \delta_{\theta}(\cdot) \quad K \in \mathcal{N}
 $$
 
 If you'd like try visualizing this and other manifestations of the dirichlet process you can check out this [interactive app](https://stablemarkets.shinyapps.io/dpmixapp/), which has a lot of great tools for looking at the DP.
