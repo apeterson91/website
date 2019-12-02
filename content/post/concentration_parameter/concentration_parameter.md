@@ -35,7 +35,7 @@ This process was first formally written about in a 1973 [article](https://www.js
 "A Bayesian Analysis of Some Nonparametric Problems". In this paper, Ferguson laid out the groundwork for the DP and many of its properties including the 
 tie-in to it's name:
 
-> a stochastic process $P$ ... is said to be a Dirichlet process ... with parameter $G_0$ if ... $(P(A_1),...,P(A_k))$ has a Dirichlet distribution with parameter ($G_0(A_1),...,G_0(A_k)))$ [^1]
+> a stochastic process $P$ ... is said to be a Dirichlet process ... with parameter $G_0$ if ... $(P(A_1),...,P(A_k))$ has a Dirichlet distribution with parameter ($\alpha G_0(A_1),...,\alpha G_0(A_k)))$ [^1]
 
 In the above $A_1,...,A_k$ can just be thought of as numbers. So what the above line says is that the probability of those numbers is distributed according to the [Dirichlet distribution](https://en.wikipedia.org/wiki/Dirichlet_distribution)
 whose parameters are determined by the base measure.
@@ -130,6 +130,6 @@ Well, I'll pursue all these questions and more in The Curious Case of the Collap
 
 
 [^1]: This is an abridged quote with edited notation to fit with the rest of this post. You can check out the original sentence 3/4 of the way down on the first page of Ferguson's [paper](https://www.jstor.org/stable/2958008?seq=1#metadata_info_tab_contents).
-[^2]: That's right, the DP is used as a prior in a bayesian paradigm. If you need an update on bayesian statistics I'd reccomend the textbook in footnote 3[^3]. 
+[^2]: That's right, the DP is used as a prior in a bayesian paradigm. If you need an update on bayesian statistics I'd reccomend the textbook in footnote 3. 
 [^3]: (Chapter 23 Gelman et al. (2013). Dirichlet Processes In *Bayesian Data Analysis* (pp.560-587) Chapman and Hall/CRC.
-[^4]: There may be some irregularities due to label switching, but these are expected. See Ch. 22 in the textbook[^3].
+[^4]: There may be some irregularities due to label switching, but these are expected. See Ch. 22 in the textbook footnoted above.
