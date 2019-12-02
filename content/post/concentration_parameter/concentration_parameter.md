@@ -113,7 +113,7 @@ Let's check some of the other parameters. In fact, let's check that concentratio
 
 Uh-oh. It looks like our concentration parameter has *collapsed* at 0. Normally one would expect a traceplot of an MCMC sampler to look something more like the following.
 
-{{< figure library="true" src="fig3.png" title="" lightbox="true" >}}
+{{< figure library="true" src="fig4.png" title="" lightbox="true" >}}
 
 Indeed, if we look at the other parameter estimates, they look like the above[^4] suggesting convergent model fit. In fact most model diagnostics will suggest nothing is wrong here.
 What is going on?
