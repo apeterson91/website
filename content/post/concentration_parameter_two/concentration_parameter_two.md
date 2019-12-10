@@ -74,7 +74,7 @@ process draws probabilities are to the base measure. In the posterior, the origi
 base measure. Looking at our marginal density after integrating out the DP we can find the following telling relationship between the base measure and [*empirical distribution function*](https://en.wikipedia.org/wiki/empirical_distribution).
 
 $$
-f(y) = \sum^{L}  ( \frac{n_c}{n+\alpha} )\mathcal{K}(y|\theta^*_c) + (\frac{\alpha}{n+\alpha})\int \mathcal{K}(y|\theta) dG_0(\theta)
+f(y) = \sum^{L}  ( \frac{n_l}{n+\alpha} )\mathcal{K}(y|\theta^*_l) + (\frac{\alpha}{n+\alpha})\int \mathcal{K}(y|\theta) dG_0(\theta)
 $$
 
 From the above, we can see that when $\alpha \to 0$ the marginal density estimate is entirely dependent on the estimated $\theta^*$ and not on the base measure. This
@@ -90,12 +90,12 @@ Let's look at that original definition of the Dirichlet Process from Part I.
 
 Clearly here, if the parameter $\alpha=0$ then we have a problem, since the Dirichlet Distribution will have all 0's for its parameters. However, when we look at the posterior distribution...
 
-> The posterior distribution of a DP conditional on Y is another DP with parameter $\alpha G_0 + \sum^L w_l \delta_{\theta_l}(\cdot)$
+> The posterior distribution of a DP conditional on y is another DP with parameter $\alpha G_0 + \sum_{l=1}^L \pi_l \delta_{\theta_l}(\cdot)$
 
-The above means that now a finite realization of the DP in the posterior has a Dirichlet Distribution with parameters $\alpha G_0 + \sum^L w_l \delta_{\theta_l}(\cdot)$. 
+The above means that now a finite realization of the DP in the posterior has a Dirichlet Distribution with parameters $\alpha G_0 + \sum_{l=1}^L \pi_l \delta_{\theta_l}(\cdot)$ .  
 This means that if $\alpha=0$ the rest of our distribution is still well defined *provided that* at least some of the $\pi_l \neq 0$.
 
-Having reached this point, it's time for a brief recap, before we look at what has been written about this in the literature about this subject thus far.
+Having reached this point, it's time for a brief recap, before we look at what has been written about this in the literature about this subject in the next post.
 
 
 ## What we've discovered
@@ -110,10 +110,6 @@ I'll see what there is to be found when we look through the literature's documen
 
 
 
-
-
-
-[^1]: Aha! You might say, this peculiarity must be a consequence of using the Gamma prior! No dear, friend, unfortunately not, as you can see in the derivation of 
-the alpha posterior in, e.g. [Ishwaran, Hemant, and Mahmoud Zarepour.](https://academic.oup.com/biomet/article/87/2/371/221380) or [Rodriguez, Dunson and Gelfand](https://amstat.tandfonline.com/doi/abs/10.1198/016214508000000553)
+[^1]: Aha! You might say, this peculiarity must be a consequence of using the Gamma prior! No dear, friend, unfortunately not, as you can see in the derivation of the alpha posterior in, e.g. [Ishwaran, Hemant, and Mahmoud Zarepour.](https://academic.oup.com/biomet/article/87/2/371/221380) or [Rodriguez, Dunson and Gelfand](https://amstat.tandfonline.com/doi/abs/10.1198/016214508000000553)
 [^2]: Component weights here means that they're not the actual weights $w_l$ that end up defining the probabilities, but rather the random variables that end up determining those weights.
 [^3]: Typically a DP models involve a large number of components to ensure that there are enough to estimate the mixture density well.
