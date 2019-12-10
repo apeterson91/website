@@ -95,8 +95,8 @@ Clearly here, if the parameter $\alpha=0$ then we have a problem, since the Diri
 
 > The posterior distribution of a DP conditional on y is another DP with parameter $\alpha G_0 + \sum_{l=1}^L \pi_l \delta_{\theta_l}(\cdot)$
 
-The above means that now a finite realization of the DP in the posterior has a Dirichlet Distribution with parameters $\alpha G_0 + \sum_{l=1}^L \pi_l \delta_{\theta_l}(\cdot)$ .  
-This means that if $\alpha=0$ the rest of our distribution is still well defined *provided that* at least some of the $\pi_l \neq 0$.
+The above means that now a finite realization of the DP in the posterior has a Dirichlet Distribution with parameters $\alpha G_0 + \sum^L \pi_l \delta_{\theta_l} (\cdot)$ .  
+This means that if $\alpha=0$ the rest of the distribution is still well defined *provided that* at least some of the $\pi_l \neq 0$[^4].
 
 Having reached this point, it's time for a brief recap, before we look at what has been written about this in the literature about this subject in the next post.
 
@@ -116,3 +116,4 @@ I'll see what there is to be found when we look through the literature's documen
 [^1]: Aha! You might say, this peculiarity must be a consequence of using the Gamma prior! No dear, friend, unfortunately not, as you can see in the derivation of the alpha posterior in, e.g. [Ishwaran, Hemant, and Mahmoud Zarepour.](https://academic.oup.com/biomet/article/87/2/371/221380) or [Rodriguez, Dunson and Gelfand](https://amstat.tandfonline.com/doi/abs/10.1198/016214508000000553)
 [^2]: Component weights here means that they're not the actual weights $w_l$ that end up defining the probabilities, but rather the random variables that end up determining those weights.
 [^3]: Typically a DP models involve a large number of components to ensure that there are enough to estimate the mixture density well.
+[^4]: This is my understanding anyway. I'd be interested to know why the case may be otherwise! Please reach out if you think this proves the distribution is no longer valid. 
