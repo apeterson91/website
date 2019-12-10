@@ -74,7 +74,7 @@ process draws probabilities are to the base measure. In the posterior, the origi
 base measure. Looking at our marginal density after integrating out the DP we can find the following telling relationship between the base measure and [*empirical distribution function*](https://en.wikipedia.org/wiki/empirical_distribution).
 
 $$
-f(y) = \sum_^{L} \left ( \frac{n_c}{n+\alpha} \right)\mathcal{K}(y|\theta^*_c) + \left(\frac{\alpha}{n+\alpha})\int \mathcal{K}(y|\theta) dG_0(\theta)
+f(y) = \sum^{L}  ( \frac{n_c}{n+\alpha} )\mathcal{K}(y|\theta^*_c) + (\frac{\alpha}{n+\alpha})\int \mathcal{K}(y|\theta) dG_0(\theta)
 $$
 
 From the above, we can see that when $\alpha \to 0$ the marginal density estimate is entirely dependent on the estimated $\theta^*$ and not on the base measure. This
