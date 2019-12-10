@@ -1,17 +1,26 @@
-# The Curious Case of the Collapsing Concentration Parameter: Part II
+---
+date: 2019-12-10
+title: "The Curious Case of the Collapsing Concentration Parameter: Part II"
+summary: "The mystery continues leading us down an algorithmic trail of clues."
+tags: ["Dirichlet Process","Bayesian NonParametrics"]
+author: "Adam Peterson"
+markup: mmark
+image:
+  placement: 1
+  caption: "Collapsed Parameter"
+  focal_point: "Center"
+  preview_only: false
+---
 
 
 In the Curious Case of the Collapsing Concentration Parameter: Part I, I described the Dirichlet Process (DP), some brief historical
 papers involved with its development, how it is most commonly used, and one specific peculiarity surrounding the
-concentration parameter's behavior that arose in a simple simulation.
-In part II I'm going to unpack more of the mystery behind why this collapse occurs, computationally and set the stage
-for our foray into the literature to discover who else has written on this subject.
+concentration parameter's behavior that arose in a simple simulation. In part II I'm going to unpack more of the mystery behind why this collapse occurs, computationally and set the stage
+for our foray into the literature to discover who else has written on this subject. There's a bit more math in this post, so buckle up.
 
 ## Computation 
 
-
-If you recall, we had a very simple simulation, in which we wanted to 
-see if our DP model could recover the simulated mixture components. However, in the course of examining our models' results
+If you recall, we had a very simple simulation, in which we wanted to see if our DP model could recover the simulated mixture components. However, in the course of examining our models' results
 we found that $\alpha$ the DP's concentration parameter had collapsed at zero. 
 Why did the infamous concentration parameter,$\alpha$, collapse? Well a simple look into the blocked [gibbs sampler](https://en.wikipedia.org/wiki/Gibbs_sampling)
 algorithm used to estimate $\alpha$ is a good place to start.
