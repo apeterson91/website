@@ -51,12 +51,15 @@ In the above, $n_l$ is the number of observations assigned to the  $h$th DP comp
 
 Let's suppose our model is doing a really good job. It's found the parameters, $\theta$ (e.g. the mean parameter of a Poisson mixture component) that best describe the data.
 In that case, we'll end up seeing more and more observations assigned to only those components neccessary to estimate the density[^3]. That means a few $n_l$ will be high, but the rest will be very low.
-In fact, if more ofthe $n_l$ go to zero , then we'll have $\sum_{l'=l+1}^{N} n_{l'} \to 0$.  If $\alpha \approx 0$ at this point then  $V_h$ is very likely to be $\approx 1$ from
+In fact, if more of the $n_l$ go to zero, then we'll have $\sum_{l'=l+1}^{N} n_{l'} \to 0$.  If $\alpha \approx 0$ at this point then  $V_h$ is very likely to be $\approx 1$ from
 the lopsided Beta distribution.
 
 Continuing on in our algorithm to the draw of $\alpha$ from the posterior, we can now see how $\alpha$ collapses. If $V_h \approx 1$ then that means 
 $1 - V_h \approx 0 \rightarrow \log(1-V_h) \approx \infty$. When this parameter becomes infinity, the gamma distribution becomes degenerate at 0. Since our model is doing "well",
 in that it is assigning observations with the highest probability to their appropriate components, this behavior doesn't change, and we see $\alpha = 0 $ for the entirety of the MCMC chain.
+
+
+{{< figure library="true" src="IIfig1.png" title="" lightbox="true" >}}
 
 
 That was some intense math we just walked through. If you don't think you got it, feel free to walk through things again in order to really understand what is happening.
