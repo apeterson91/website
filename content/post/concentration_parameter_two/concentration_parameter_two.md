@@ -94,7 +94,7 @@ Clearly here, if the parameter $\alpha=0$ then we have a problem, since the Diri
 
 > The posterior distribution of a DP conditional on y is another DP with parameter $\alpha$ $G_{0}$  $+ \sum^L \pi_{l} \delta_{\theta_{l}} (\cdot)$
 
-The above means that now a finite realization of the DP in the posterior has a Dirichlet Distribution with parameters $\alpha G_0 + \sum^L \pi_{l} \delta_{\theta_{l}} (\cdot)$ .  
+The above means that now a finite realization of the DP in the posterior has a Dirichlet Distribution with parameters $\alpha G_{0}$ $+ \sum^L \pi_{l} \delta_{\theta_{l}} (\cdot)$ .  
 This means that if $\alpha=0$ the rest of the distribution is still well defined *provided that* at least some of the $\pi_{l} \neq 0$[^4].
 
 Having reached this point, it's time for a brief recap, before we look at what has been written about this in the literature about this subject in the next post.
