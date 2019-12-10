@@ -15,15 +15,14 @@ image:
 
 In the Curious Case of the Collapsing Concentration Parameter: Part I, I described the Dirichlet Process (DP), some brief historical
 papers involved with its development, how it is most commonly used, and one specific peculiarity surrounding the
-concentration parameter's behavior that arose in a simple simulation. In part II I'm going to unpack more of the mystery behind why this collapse occurs, computationally and set the stage
+concentration parameter's behavior that arose in a simple simulation. In part II I'm going to unpack more of the mystery behind why this collapse occurs computationally and set the stage
 for our foray into the literature to discover who else has written on this subject. There's a bit more math in this post, so buckle up.
 
 ## Computation 
 
 If you recall, we had a very simple simulation, in which we wanted to see if our DP model could recover the simulated mixture components. However, in the course of examining our models' results
-we found that $\alpha$ the DP's concentration parameter had collapsed at zero. 
-Why did the infamous concentration parameter,$\alpha$, collapse? Well a simple look into the blocked [gibbs sampler](https://en.wikipedia.org/wiki/Gibbs_sampling)
-algorithm used to estimate $\alpha$ is a good place to start.
+we found that $\alpha$, the DP's concentration parameter, had collapsed at zero. 
+Why did it collapse? Well a simple look into the blocked [gibbs sampler](https://en.wikipedia.org/wiki/Gibbs_sampling) algorithm used to estimate $\alpha$ is a good place to start.
 
 While I would encourage a full derivation of the posterior with an arbitrary prior if you're interested, we can use the case 
 in which a [conjugate](https://en.wikipedia.org/wiki/Conjugate_prior) gamma prior is used (with shape and rate parameters) as shown in [Bayesian Data Analysis](http://www.stat.columbia.edu/~gelman/book/).
@@ -32,30 +31,30 @@ Since we're using a conjugate prior, the posterior is also a gamma distribution 
 
 
 $$
-\alpha|- \sim \text{Gamma}(a_{\alpha} + N - 1, b_{\alpha} - \sum_{l=1}^{N-1} \log(1 - V_l))
+\alpha|- \sim \text{Gamma}(a_{\alpha} + L - 1, b_{\alpha} - \sum_{l=1}^{L-1} \log(1 - V_l))
 $$
 
 
 There is a lot to unpack in the above, so let's get started. To begin with, $a_{\alpha}$ and $b_{\alpha}$ are the hyperparameters of the prior distribution of $\alpha$.
-So to be complete, we would write $\alpha \sim \text{Gamma}(a_{\alpha},b_{\alpha})$[^1]. $N$ is the sample size, and $V_l \in (0,1)$ are the parameter atom weight components[^2] from the 
+So to be complete, we would write $\alpha \sim \text{Gamma}(a_{\alpha},b_{\alpha})$[^1]. $L$ is the total number of sticks and $V_l \in (0,1)$ are the parameter atom weight components[^2] from the 
 DP's [stick breaking process](https://en.wikipedia.org/wiki/Dirichlet_process#The_stick-breaking_process), alluded to in Part I. The atom weight components become the weights
 through the following expression $\pi_l = V_l \prod^{h < l} (1-V_h)$.
 
 To show what that stick breaking process looks like in the posterior, I'll next write down the posterior distribution of the $V_l$:
 
 $$
-V_l| .. \sim Beta(1 + n_l, \alpha + \sum_{l'=l+1}^{N} n_{l'} )
+V_l| .. \sim Beta(1 + n_l, \alpha + \sum_{l'=l+1}^{L} n_{l'} )
 $$
 
 In the above, $n_l$ is the number of observations assigned to the  $h$th DP component and with that definition, we should now have enough to piece together a bit of what must be happening here.
 
 Let's suppose our model is doing a really good job. It's found the parameters, $\theta$ (e.g. the mean parameter of a Poisson mixture component) that best describe the data.
 In that case, we'll end up seeing more and more observations assigned to only those components neccessary to estimate the density[^3]. That means a few $n_l$ will be high, but the rest will be very low.
-In fact, if more of the $n_l$ go to zero, then we'll have $\sum_{l'=l+1}^{N} n_{l'} \to 0$.  If $\alpha \approx 0$ at this point then  $V_h$ is very likely to be $\approx 1$ from
+In fact, if more of the $n_l$ go to zero, then we'll have $\sum_{l'=l+1}^{L} n_{l'} \to 0$.  If $\alpha \approx 0$ at this point then  $V_l$ is very likely to be $\approx 1$ from
 the lopsided Beta distribution.
 
-Continuing on in our algorithm to the draw of $\alpha$ from the posterior, we can now see how $\alpha$ collapses. If $V_h \approx 1$ then that means 
-$1 - V_h \approx 0 \rightarrow \log(1-V_h) \approx \infty$. When this parameter becomes infinity, the gamma distribution becomes degenerate at 0. Since our model is doing "well",
+Continuing on in our algorithm to the draw of $\alpha$ from the posterior, we can now see how $\alpha$ collapses. If $V_l \approx 1$ then that means 
+$1 - V_l \approx 0 \rightarrow \log(1-V_l) \approx \infty$. When this parameter becomes infinity, the gamma distribution becomes degenerate at 0. Since our model is doing "well",
 in that it is assigning observations with the highest probability to their appropriate components, this behavior doesn't change, and we see $\alpha = 0 $ for the entirety of the MCMC chain.
 
 
@@ -93,7 +92,7 @@ Let's look at that original definition of the Dirichlet Process from Part I.
 
 Clearly here, if the parameter $\alpha=0$ then we have a problem, since the Dirichlet Distribution will have all 0's for its parameters. However, when we look at the posterior distribution...
 
-> The posterior distribution of a DP conditional on y is another DP with parameter $\alpha G_0 + \sum_{l=1}^L \pi_l \delta_{\theta_l}(\cdot)$
+> The posterior distribution of a DP conditional on y is another DP with parameter $\alpha G_0$ $+ \sum_{l=1}^L \pi_l \delta_{\theta_l} (\cdot)$
 
 The above means that now a finite realization of the DP in the posterior has a Dirichlet Distribution with parameters $\alpha G_0 + \sum^L \pi_l \delta_{\theta_l} (\cdot)$ .  
 This means that if $\alpha=0$ the rest of the distribution is still well defined *provided that* at least some of the $\pi_l \neq 0$[^4].
