@@ -1,7 +1,7 @@
 ---
 date: 2019-12-10
 title: "The Curious Case of the Collapsing Concentration Parameter: Part II"
-summary: "The mystery continues leading us down an algorithmic trail of clues."
+summary: "The mystery continues, leading us down an algorithmic path filled with broken sticks."
 tags: ["Dirichlet Process","Bayesian NonParametrics"]
 author: "Adam Peterson"
 markup: mmark
@@ -36,17 +36,18 @@ $$
 $$
 
 
-There is a lot to unpack in the above, so let's get started. $a_{\alpha}$ and $b_{\alpha}$ are the hyperparameters of the prior distribution of $\alpha$.
-So to be complete, we would write $\alpha \sim \text{Gamma}(a_{\alpha},b_{\alpha})$[^1].$N$ is the sample size, and $V_l \in (0,1)$ are the parameter atom weight components[^2] from the 
-DP's [stick breaking process](https://en.wikipedia.org/wiki/Dirichlet_process#The_stick-breaking_process), alluded to in Part I.
+There is a lot to unpack in the above, so let's get started. To begin with, $a_{\alpha}$ and $b_{\alpha}$ are the hyperparameters of the prior distribution of $\alpha$.
+So to be complete, we would write $\alpha \sim \text{Gamma}(a_{\alpha},b_{\alpha})$[^1]. $N$ is the sample size, and $V_l \in (0,1)$ are the parameter atom weight components[^2] from the 
+DP's [stick breaking process](https://en.wikipedia.org/wiki/Dirichlet_process#The_stick-breaking_process), alluded to in Part I. The atom weight components become the weights
+through the following expression $\pi_l = V_l \prod^{h < l} (1-V_h)$.
 
-To show how that stick breaking process looks like in the posterior, I'll next write down the posterior distribution of the $V_l$:
+To show what that stick breaking process looks like in the posterior, I'll next write down the posterior distribution of the $V_l$:
 
 $$
 V_l| .. \sim Beta(1 + n_l, \alpha + \sum_{l'=l+1}^{N} n_{l'} )
 $$
 
-In the above, $n_l$ is the number of observations assigned to the  $h$th DP component and with that definition,  we should now have enough to piece together a bit of what must be happening here.
+In the above, $n_l$ is the number of observations assigned to the  $h$th DP component and with that definition, we should now have enough to piece together a bit of what must be happening here.
 
 Let's suppose our model is doing a really good job. It's found the parameters, $\theta$ (e.g. the mean parameter of a Poisson mixture component) that best describe the data.
 In that case, we'll end up seeing more and more observations assigned to only those components neccessary to estimate the density[^3]. That means a few $n_l$ will be high, but the rest will be very low.
