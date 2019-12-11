@@ -50,11 +50,11 @@ In the above, $n_l$ is the number of observations assigned to the  $h$th DP comp
 
 Let's suppose our model is doing a really good job. It's found the parameters, $\theta$ (e.g. the mean parameter of a Poisson mixture component) that best describe the data.
 In that case, we'll end up seeing more and more observations assigned to only those components neccessary to estimate the density[^3]. That means a few $n_l$ will be high, but the rest will be very low.
-In fact, if more of the $n_l$ go to zero, then we'll have $\sum_{l'=l+1}^{L} n_{l'} \to 0$.  If $\alpha \approx 0$ at this point then  $V_l$ is very likely to be $\approx 1$ from
+In fact, if more of the $n_{l}$ go to zero, then we'll have $\sum_{l'=l+1}^{L} n_{l'} \to 0$.  If $\alpha \approx 0$ at this point then  $V_l$ is very likely to be $\approx 1$ from
 the lopsided Beta distribution.
 
-Continuing on in our algorithm to the draw of $\alpha$ from the posterior, we can now see how $\alpha$ collapses. If $V_l \approx 1$ then that means 
-$1 - V_l \approx 0 \rightarrow \log(1-V_l) \approx \infty$. When this parameter becomes infinity, the gamma distribution becomes degenerate at 0. Since our model is doing "well",
+Continuing on in our algorithm to the draw of $\alpha$ from the posterior, we can now see how $\alpha$ collapses. If $V_{l} \approx 1$ then that means 
+$1 - V_{l} \approx 0 \rightarrow \log(1-V_{l}) \approx \infty$. When this parameter becomes infinity, the gamma distribution becomes degenerate at 0. Since our model is doing "well",
 in that it is assigning observations with the highest probability to their appropriate components, this behavior doesn't change, and we see $\alpha = 0 $ for the entirety of the MCMC chain.
 
 
@@ -73,13 +73,13 @@ we can't have been the first to encounter this behavior if the model has been ar
 
 Let's begin with what $\alpha =0$ means in the context of the model. As we saw in Part I, the concentration parameter can increase or decrease how closely the 
 process draws probabilities are to the base measure. In the posterior, the original concentration parameter also tells us how dependent the posterior is on the prior 
-base measure. Looking at our marginal density after integrating out the DP we can find the following telling relationship between the base measure and [*empirical distribution function*](https://en.wikipedia.org/wiki/empirical_distribution).
+base measure. Looking at our marginal density after integrating out the DP we can find the following telling relationship between the base measure and posterior DP measure.
 
 $$
 f(y) = \sum^{L}  ( \frac{n_l}{n+\alpha} )\mathcal{K}(y|\theta^*_l) + (\frac{\alpha}{n+\alpha})\int \mathcal{K}(y|\theta) dG_0(\theta)
 $$
 
-From the above, we can see that when $\alpha \to 0$ the marginal density estimate is entirely dependent on the estimated $\theta^*$ and not on the base measure. This
+From the above, we can see that when $\alpha \to 0$ the marginal density estimate is entirely dependent on the estimated $\theta^*$ from the posterior random measure and not on the base measure. This
 makes sense intuitively, because in the simulated case we discussed in part I, there was quite a bit of data and not so many mixture components close together that
 the model wouldn't be able to identify them. The next question we might ask is whether or not the DP is well defined since $\alpha=0$. After all, in most other
 models if you have a parameter completely zero out, that probably means that your entire model is broken. In the case of the DP however, its not so obvious that something is wrong.
