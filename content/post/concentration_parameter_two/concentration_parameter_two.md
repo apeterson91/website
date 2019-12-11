@@ -50,7 +50,7 @@ In the above, $n_l$ is the number of observations assigned to the  $l$th DP comp
 
 Let's suppose our model is doing a really good job. It's found the parameters, $\theta$ (e.g. the mean parameter of a Poisson mixture component) that best describe the data.
 In that case, we'll end up seeing more and more observations assigned to only those components neccessary to estimate the density[^3]. That means a few $n_{l}$ will be high, but the rest will be very low.
-In fact, if more of the $n_{l}$ go to zero, then we'll have $\sum_{l'=l+1}^{L} n_{l'} \to 0$.  If $\alpha \approx 0$ at this point then  $V_{l}$ is very likely to be $\approx 1$ from
+In fact, if more of the $n_{l}$ go to zero, then we'll have $\sum_{l'} n_{l'} \to 0$.  If $\alpha \approx 0$ at this point then  $V_{l}$ is very likely to be $\approx 1$ from
 the lopsided Beta distribution.
 
 Continuing on in our algorithm to the draw of $\alpha$ from the posterior, we can now see how $\alpha$ collapses. If $V_{l} \approx 1$ then that means 
