@@ -13,7 +13,7 @@ image:
 ---
 
 
-In the Curious Case of the Collapsing Concentration Parameter: Parts I and II we learned about the Dirichlet Process, a cool
+In the Curious Case of the Collapsing Concentration Parameter: Parts I and II we learned about the Dirichlet Process(DP), a cool
 tool for clustering data, and an odd phenomena that occurs whenever you have a model that easily captures the data. Specifically,
 we saw that the concentration parameter $\alpha$ collapses at zero under specific conditions but it shouldn't affect 
 the resulting posterior inference. In this post we'll return to the history of the DP, looking at its original construction,
