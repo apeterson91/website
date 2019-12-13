@@ -6,6 +6,6 @@ tags:
 - Software
 image:
   focal_point: Smart
-external_link: http://example.org
+external_link: https://biostatistics4socialimpact.github.io/rstap
 ---
 
