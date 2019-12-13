@@ -11,7 +11,6 @@ image:
   focal_point: "Center"
   preview_only: false
 ---
-# The Curious Case of the Collapsing Concentration Parameter: Part III
 
 
 In the Curious Case of the Collapsing Concentration Parameter: Parts I and II we learned about the Dirichlet Process, a cool
