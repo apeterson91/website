@@ -5,8 +5,6 @@ summary: "A parameter collapses, a sophisticated model looms afoot and we find t
 tags: ["Dirichlet Process","Bayesian NonParametrics"]
 author: "Adam Peterson"
 markup: mmark
-header:
-  image: "header/CCCCPI_preview.png"
 image:
   placement: 1
   caption: "Collapsed Parameter"
