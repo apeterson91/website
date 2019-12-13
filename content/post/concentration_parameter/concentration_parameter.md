@@ -12,6 +12,8 @@ image:
   preview_only: false
 ---
 
+# Down the Rabbit Hole
+
 In the course of conducting statistical research, there are times when you can come across some computational-statistical behavior that can only be described as *weird*.
 While working on some of my dissertation research to develop a new application for an extension of the Dirichlet Process,
 I came across one of these oddities.  Since this is a subject on which I (and hopefully others) could benefit from more perspective, I thought I'd
