@@ -7,9 +7,9 @@ author: "Adam Peterson"
 markup: mmark
 image:
   placement: 1
-  caption: "Collapsed Parameter"
+  caption: ""
   focal_point: "Center"
-  preview_only: false
+  preview_only: true 
 ---
 
 # Down the Rabbit Hole
