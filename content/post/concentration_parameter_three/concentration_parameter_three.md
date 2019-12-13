@@ -1,7 +1,7 @@
 ---
 date: 2019-12-13
 title: "The Curious Case of the Collapsing Concentration Parameter: Part III"
-summary: "The mysteries multiply as we look through the literature but some answers are still forthcoming"
+summary: "The mysteries multiply as we look through the literature but some answers are still forthcoming."
 tags: ["Dirichlet Process","Bayesian NonParametrics"]
 author: "Adam Peterson"
 markup: mmark
@@ -37,7 +37,7 @@ to be zero. Quoting from Section 2 of Ferguson's paper:
 
 > The Dirichlet Distribution. The discussion of this section is well known but our definition of the Dirichlet distribution is slightly more general than the usual one...
 > We define the Dirichlet distribution slightly more generally than in Wilks[11], by allowing some of the variables to be degenerate at zero...
-> Use of the notation $\mathcal{D}$(\alpha_{1},...,\alpha_{k})$ is taken to imply that $\alpha_j \geq 0 \forall j$ and $\alpha_j >0$ for some $j$.[^1]
+> Use of the notation $\mathcal{D}(\alpha_{1},...,\alpha_{k})$ is taken to imply that $\alpha_{j} \geq 0 \forall j$ and $\alpha_{j} >0$ for some $j$.[^1]
 
 Again this doesn't mean that $\alpha=0$  *a priori* results in a non-degenerate distribution but it *can* be zero in the posterior, as long as some of the weights $\pi_{l}$ from our estimation
 are non-zero, as they were in our simulation.
@@ -92,16 +92,17 @@ Similarly in the Marginalized Nested Dirichlet Process paper:
 
 If we look at the data analysis in each paper, we find that Rodriguez et al.  uses informative priors, as Ishwaran and Zarepour discussed, while Zuanetti keeps $\alpha=\beta =1$:
 
-> Finally, we set $\alpha,\beta \sim \text{G}(3,3)$ a priori, implying that $E[\alpha] = E[\beta] = 1 ( a common choice in the literature) and $P(\alpha >3) = P(\beta >3) \approx 0.006$ - Rodriguez et al.
+> Finally, we set $\alpha,\beta \sim \text{G}(3,3)$ a priori, implying that $E[\alpha] = E[\beta] = 1$ ( a common choice in the literature) and $P(\alpha >3) = P(\beta >3) \approx 0.006$ - Rodriguez et al.
 
 
 I don't know about you, but all of this reading left me with a lot of questions. For example, in the Zuanetti et al. paper, they discuss how sampling for $\alpha$ and $\beta$ can be implemented for their model, but they don't do it themselves,
 so they leave their concentration parameters fixed at 1. In the Rodriguez et al. paper, they set a fairly informative prior on $\alpha$, $\beta$, in their 
 data application without any justification beyond saying that the mean is a common choice in the literature. After working through the DP as we have and seeing the tendency of $\alpha$ to collapse, I can't help but wonder if 
-the authors here make $\alpha, \beta$ fixed, or given an informative prior, in order to "sweep the numerical issue" under the table so they don't have to explain it. I'm also surprised that reviewers did not ask them
-to justify the use of these priors in either substantive or computational terms in their articles.
+the authors here assign $\alpha, \beta$ an informative prior, or simply keep it fixed, in order to "sweep the numerical issue" under the table so they don't have to explain it. I'm also surprised that reviewers did not ask them
+to justify the use of these priors in either substantive or computational terms. 
 
-Alright, after that foray into literature spanning over 40 years, I think it's time we take a step back, think about what we learned to take away from all of this.
+I'm obviously a bit perplexed, but other readers may think that this isn't unreasonable. I'll leave you to draw your own conclusions. 
+For now, I think it's time we take a step back, think about what we learned to take away from all of this.
 
 
 ## Lessons Learned in the Process of Learning about the Dirichlet Process
@@ -109,18 +110,14 @@ Alright, after that foray into literature spanning over 40 years, I think it's t
 In this post we delved through several different articles in the DP literature that described the initial construction of the DP and how it uses a non-traditional 
 Dirichlet Distribution, concerns with the numerical process of updating $\alpha$ and, finally, the manner in which $\alpha$ is currently used or updated in the literature.
 We found that, ever since an inference producedure for $\alpha$ was implemented, there have been numerical concerns about $\alpha$, though it is not clear, to me at least,
-that these issues neccessarily result in invalid model inference. Further, it seems plausible, that authors in this field try to work their way around these issues either by
-restricting the concentration parameters to be fixed, or by setting informative priors. I don't think either of these approaches are *bad*, as the model typically performs
-well in any of these settings, at least when there is a sufficient sample size. 
-
-However, I do think that everything we've discovered thus far does merit some new work on the Dirichlet Process' theoretical construction and what role
+that these issues neccessarily result in invalid model inference. Further, it seems plausible that authors in this field try to work their way around these issues either by
+restricting the concentration parameters to be fixed, or by setting informative priors. I don't think either of these approaches are "bad", as the model typically performs
+well in any of these settings, at least when there is a sufficient sample size.  However, I do think that everything we've discovered thus far does merit some new work on the Dirichlet Process' theoretical construction and what role
 the concentration parameter plays in its' behavior.
 
+Regarldess of what work may remain to be done, I thank you for joinging me on this journey.
 I hope, dear reader, that you've enjoyed this expedition into the dark nether realms of statistical research in Bayesian NonParametrics and that you've 
-learned something about the Dirichlet Process, the "process" of research itself and all the mysteries you can find diving into a rabbit hole, 
-looking for a collapsed concentration parameter
-
-
+learned something about the Dirichlet Process, the "process" of research itself and all the mysteries you can find diving down a rabbit hole in search for a collapsed concentration parameter
 
 
 [^1]: In the quote, the $\alpha$s mentioned are now scalar variables defined on $[0,\infty)$, rather than the non-null finite measure.
