@@ -61,7 +61,7 @@ After all this theory you may find yourself asking, "Ok... What is this fancy di
 
 ## Common Clustering Example
 
-Suppose you're interested in sorting some news articles by how how many words are in them.
+Suppose you're interested in clustering some news articles by how how many words are in them.
 If you looked at a histogram of the word count you might see something like this.
 
 {{< figure library="true" src="fig1.png" title="" lightbox="true" >}}
