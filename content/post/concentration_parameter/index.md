@@ -59,7 +59,7 @@ If you'd like try visualizing this and other manifestations of the DP  you can c
 After all this theory you may find yourself asking, "Ok... What is this fancy distribution on distributions even good for?". It's a worthwhile question that we'll look at next.
 
 
-## Cute Clustering Example
+## Common Clustering Example
 
 Suppose you're interested in sorting some news articles by how how many words are in them.
 If you looked at a histogram of the word count you might see something like this.
