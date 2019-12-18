@@ -31,7 +31,7 @@ Since the peculiarity in question arises in the context of working with the Diri
 The [Dirichlet Process](https://en.wikipedia.org/wiki/Dirichlet_process)(DP) is a distribution over probability measures. That is, similar
 to how a binomial distribution is defined by assigning probabilities to two discrete numbers, typically 0 and 1, the DP is defined 
 by assigning probabilities to **other** probabilities associated with numbers. So while "observations" or "random draws" from most distributions
-are numbers, a random draw from a dirichlet process is a distribution itself.  It's a little bit meta, but very useful in certain settings.
+are numbers, a random draw from a DP is a distribution itself.  It's a little bit meta, but very useful in certain settings.
 
 The aforementioned numbers that the DP draws are defined on, come from the "base measure", $G_0$, one of the two parameters that define the DP. The other parameter is a positive real
 scalar $\alpha >0$. Conceptually, the base measure serves as the mean of the DP, the distribution around which the process is centered, and
@@ -51,10 +51,10 @@ There's been lots of development on the DP since the 70's. One particularly impo
 of the DP could be computationally approximated as a finite sum over some indicator functions, $\delta_{\theta}(\cdot)$ and weights, $\pi_l \in (0,1)$  
 
 $$
-G  = \sum^K \pi_l \delta_{\theta}(\cdot) \quad K \in \mathcal{N}
+G  = \sum^K \pi_l \delta_{\theta}(\cdot) \quad K \in \mathbb{N}
 $$
 
-If you'd like try visualizing this and other manifestations of the dirichlet process you can check out this [interactive app](https://stablemarkets.shinyapps.io/dpmixapp/), which has a lot of great tools for looking at the DP.
+If you'd like try visualizing this and other manifestations of the DP  you can check out this [interactive app](https://stablemarkets.shinyapps.io/dpmixapp/), which has a lot of great tools for looking at the DP.
 
 After all this theory you may find yourself asking, "Ok... What is this fancy distribution on distributions even good for?". It's a worthwhile question that we'll look at next.
 
@@ -87,7 +87,7 @@ f(y) = \int \text{Poisson}(y|\lambda) G(\lambda).\\
 G\sim DP(\alpha,G_0)
 $$
 
-In the above we would say that we're using G, a realization from the Dirichlet Process, as a mixing measure to combine different Poisson components to estimate the density $f(y)$.
+In the above we would say that we're using G, a realization from the DP, as a mixing measure to combine different Poisson components to estimate the density $f(y)$.
 
 
 Everything make sense so far? Good, cause this is where things get weird.
