@@ -20,8 +20,8 @@ I came across one of these oddities.  Since this is a subject on which I (and ho
 write up a quick blog post or three detailing the path my research took, the weird behavior I observed along the way and the paper trail I worked through
 to try to reach some level of resolution in the matter. While I'd like to make this as accessible as possible to any interested readers,
 I'm not going to be able to get away from the fact that this stuff is pretty heavy on the math. My hope is that a master's level (Bio)Statistics student
-who had recently completed their theory courses could, with some effort, understand everything that is going on here. I've also written a 
-shorter, condensed version of this same series for those have a working familiarty with the Dirichlet Process available which will be posted soon.
+who had recently completed their theory courses could, with some effort, understand everything that is going on here. If you're already familiar
+with the Dirichlet Process then I suggest you skip to the **Computational Complications** sections below and start reading from there.
 
 Since the peculiarity in question arises in the context of working with the Dirichlet Process, I'll begin with some brief background on the subject.
 
@@ -100,8 +100,8 @@ Alright, so let's say we have some simulated data of article word counts like th
 Since we simulated the data, we know how many true clusters there are but we're still going to use our DP model because we want to make sure it is working correctly. 
 After all, when we get the real data, we won't know how many true clusters will be present. Best to make sure things work in this simple case. 
 
-How do we go about fitting the model? Well to keep things brief, since the posterior[^2] of a DP is  another DP, we're going to use a blocked Gibbs sampler. If you're 
-interested in seeing the full technical write-up you can check this reference[^3] or the simulation results [here](https://drive.google.com/file/d/18EZrw0hak00vXi2W5XUOl0Xz8n5w34x8/view?usp=sharing) (code is available [here](https://github.com/apeterson91/BEFcluster/blob/dad230313386839600fd63868022e79d928d5da7/src/rcppeigen_hello_world.cpp) )
+How do we go about fitting the model? Well to keep things brief, since the posterior[^2] of a DP is  another DP, we're going to use a blocked Gibbs sampler[^3]. If you're 
+interested in seeing the full technical write-up you can check this reference[^4] or the simulation results [here](https://drive.google.com/file/d/18EZrw0hak00vXi2W5XUOl0Xz8n5w34x8/view?usp=sharing) (code is available [here](https://github.com/apeterson91/BEFcluster/blob/dad230313386839600fd63868022e79d928d5da7/src/rcppeigen_hello_world.cpp) )
 but for now I'll focus on just a few of the results.
 
 The first thing we might look at is a plot of the pairwise probability of co-clustering like the one below.
@@ -117,7 +117,7 @@ Uh-oh. It looks like our concentration parameter has *collapsed* at 0. Normally 
 
 {{< figure library="true" src="fig4.png" title="" lightbox="true" >}}
 
-Indeed, if we look at the other parameter estimates, they look like the above[^4] suggesting convergent model fit. In fact most model diagnostics will suggest nothing is wrong here.
+Indeed, if we look at the other parameter estimates, they look like the above[^5] suggesting convergent model fit. In fact most model diagnostics will suggest nothing is wrong here.
 What is going on?
 
 ## The Cliffhanger
@@ -129,5 +129,6 @@ Well, I'll pursue all these questions and more in The Curious Case of the Collap
 
 [^1]: This is an abridged quote with edited notation to fit with the rest of this post. You can check out the original sentence 3/4 of the way down on the first page of Ferguson's [paper](https://www.jstor.org/stable/2958008?seq=1#metadata_info_tab_contents).
 [^2]: That's right, the DP is used as a prior in a bayesian paradigm. If you need an update on bayesian statistics I'd reccomend the textbook in footnote 3. 
-[^3]: (Chapter 23 Gelman et al. (2013). Dirichlet Processes In *Bayesian Data Analysis* (pp.560-587) Chapman and Hall/CRC.
-[^4]: There may be some irregularities due to label switching, but these are expected. See Ch. 22 in the textbook footnoted above.
+[^3]: There is another sampler available for working with the DP, but it's not quite as efficient as the blocked sampler. See Ishwaran and James 2001 paper on stick breaking priors for more details.
+[^4]: (Chapter 23 Gelman et al. (2013). Dirichlet Processes In *Bayesian Data Analysis* (pp.560-587) Chapman and Hall/CRC.
+[^5]: There may be some irregularities due to label switching, but these are expected. See Ch. 22 in the textbook footnoted above.
