@@ -19,7 +19,7 @@ copyright = "&copy; AdamPeterson {year}"
 googleAnalytics = ""
 
 # Enable comments by entering your Disqus shortname
-disqusShortname = ""
+disqusShortname = "https-www-apetersonsite-org."
 
 ############################
 ## Advanced options below ##
