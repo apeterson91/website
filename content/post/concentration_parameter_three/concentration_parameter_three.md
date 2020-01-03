@@ -100,7 +100,7 @@ the authors here assign $\alpha, \beta$ an informative prior, or simply keep it 
 to justify the use of these priors in either substantive or computational terms. 
 
 I'm obviously a bit perplexed, but other readers may think that this isn't unreasonable. I'll leave you to draw your own conclusions. 
-For now, I think it's time we take a step back, think about what we learned to take away from all of this.
+For now, I think it's time we take a step back, and think about what we learned to take away from all of this.
 
 
 ## Lessons Learned in the Process of Learning about the Dirichlet Process
@@ -115,7 +115,7 @@ the concentration parameter plays in its' behavior.
 
 Regarldess of what work may remain to be done, I thank you for joinging me on this journey.
 I hope, dear reader, that you've enjoyed this expedition into the dark nether realms of statistical research in Bayesian NonParametrics and that you've 
-learned something about the Dirichlet Process, the "process" of research itself and all the mysteries you can find diving down a rabbit hole in search for a collapsed concentration parameter
+learned something about the Dirichlet Process, the "process" of research itself and all the mysteries you can find diving down a rabbit hole in search for a collapsed concentration parameter.
 
 
 [^1]: In the quote, the $\alpha$s mentioned are now scalar variables defined on $[0,\infty)$, rather than the non-null finite measure.
