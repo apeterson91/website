@@ -44,7 +44,7 @@ different or counterfactual setting - getting vanilla instead of chocolate. Howe
 general truths that are relevant for an entire population,rather than just a single individual. In this case, there are some concepts that can be put to work in order to **identify** a causal effect.
 In the literature these are referred to as **identifiability conditions**. We'll go through each of them briefly to highlight how they can help us identify a causal effect.
 
-{{< figure library="true" src="CI_preface_fig1.png" title="Potential Outcomes Diagram" lightbox="true" >}}
+{{< figure library="true" src="CI_preface_fig1.jpeg" title="Potential Outcomes Diagram" lightbox="true" >}}
 
 ## Exchangeability
 
