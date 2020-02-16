@@ -77,7 +77,7 @@ vanilla ice cream, This should make sense intuitively, that it would be impossib
 we didn't observe anyone get vanilla ice cream. To be slightly technical, I'll put this in terms of probability below:
 
 $$
-P(\text{ice cream choice} = \text{chocolate}) >0 \\ \text{ AND } \\  P(\text{ice cream choice} = \text{vanilla}) > 0 
+P(\text{ice cream choice} = \text{chocolate}) >0 \\ \text{ AND } \\  P(\text{ice cream choice} = \text{vanilla}) > 0.
 $$
 
 An example in which the condition of consistency might be violated would be if the ice cream store runs out of one brand of 
