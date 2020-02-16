@@ -24,16 +24,16 @@ a causal relationship between these two variables would be the following:
 
 {{< figure library="true" src="CI_fig_one.png" title="Ice Cream DAG" lightbox="true" >}}
 
-The carrow pointing from the ice cream flavor node towards the experience node indicates that we are positing a causal relationship between ice cream flavor and 
+The arrow pointing from the ice cream flavor node towards the experience node indicates that we are positing a causal relationship between ice cream flavor and 
 one's experience (on average). Simple, right? As we get into confounding and Selection Bias, we'll see how these plots can become more complicated.
 
 
-# Confounding: The backdoor path
+# Confounding: The Backdoor Path
 
-The essential idea behind confounding is that there is some variable (a *confounder*) that is associated with both the causal intervention and outcome variable of interest.
+The essential idea behind confounding is that there is some variable (a **confounder**) that is associated with both the causal intervention and outcome variable of interest.
 In terms of the causal DAG, it can be said that there is a "backdoor path" between the intervention and outcome variable of interest, *through* the confounder. Our ice cream 
 example doesn't lend itself well to demonstrate this but suppose that people in a bad mood are more likely to order chocolate ice cream *and*, obviously, less likely to have a positive
-experience at the ice cream store. In this case, we would say that an individual's "background" mood, confounds the effect of ice cream flavor on ice cream store experience and represent this idea
+experience at the ice cream store. In this case, we would say that an individual's "background mood", confounds the effect of ice cream flavor on ice cream store experience and represent this idea
 using the following causal DAG.
 
 {{< figure library="true" src="CI_fig_two.png" title="Confounding Ice Cream DAG" lightbox="true" >}}
@@ -54,7 +54,7 @@ without ever knowing if this assumption is fully met.
 There's more to be said here, as confounding often rears its' head in surprising ways.  However, we'll stop here, leaving further examples for the textbook
 and turn our attention now to selection bias.
 
-# Selection Bias: The unseen filter 
+# Selection Bias: The Unseen Filter 
 
 Selection bias refers to the bias or inaccuracy introduced to a causal effect estimate as a consequence for how the sample population is chosen or *selected*. 
 In our ice cream store example, suppose that our chocolate ice cream is really bad. So bad in fact that that it makes costumer's less likely to fill out
