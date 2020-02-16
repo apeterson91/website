@@ -34,7 +34,7 @@ In the figure below, variable $Y$ is the causal outcome of $X$ and $U$. $X$ is a
 If we're interested in identifying the causal effect of $X$ on $Y$ then we need to find some way to control for $U$ to ensure *exchangeability*. However,
 if we're unable to measure $U$, then there is still hope for us via the use of IVs!
 
-{{< figure library="true" src="BEFIVpost/IV_fig_one.png" title="" lightbox="true" >}}
+{{< figure library="true" src="BEFIV_one.png" title="" lightbox="true" >}}
 
 In our above example $Z$ could be used as an IV because it satisfies the three instrumental conditions, which are as follows:
 1. $Z$ is associated with $X$.
@@ -48,7 +48,7 @@ as well as excess fast storage. In this case our diagram could be relabeled and 
 instrumental conditions.
 
 
-{{< figure library="true" src="BEFIVpost/IV_fig_two.png" title="" lightbox="true" >}}
+{{< figure library="true" src="BEFIV_two.png" title="" lightbox="true" >}}
 
 So does it satisfy the conditions? In order to determine this we need to ask the following questions, adapting the above to our specific case involving FFRs.
 
@@ -75,7 +75,7 @@ also have a higher proportion of wealthy individuals. Since affluence is also a 
 this causal framework.
 
 
-{{< figure library="true" src="BEFIVpost/IV_fig_three.png" title="" lightbox="true" >}}
+{{< figure library="true" src="BEFIV_three.png" title="" lightbox="true" >}}
 
 In order to remove this confounding and restore the ability of FFR proximity to act as an IV, we'll need to condition on subjects' income in order to account
 for the association between affluence and BMI[^2].
