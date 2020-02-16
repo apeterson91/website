@@ -30,21 +30,21 @@ happy confines of a randomized clinical trial generally requires constant concer
 However, nothing in life comes easy and IVs come with their own unique set of assumptions, the first set of which are appropriately named "the three instrumental conditions".
 Before we explore these and more in greater detail, let's return to a generic set-up in which we're interested in identifying some causal relationship. 
 
-In the figure below, variable $Y$ is the causal outcome of $X$ and $U$. $X$ is also causally determined by variable $z$ which is independent of any of the other variables.
+In the figure below, variable $Y$ is the causal outcome of $X$ and $U$. $X$ is also causally determined by variable $Z$ which is independent of any of the other variables.
 If we're interested in identifying the causal effect of $X$ on $Y$ then we need to find some way to control for $U$ to ensure *exchangeability*. However,
 if we're unable to measure $U$, then there is still hope for us via the use of IVs!
 
 {{< figure library="true" src="BEFIV_one.png" title="" lightbox="true" >}}
 
-In our above example $Z$ could be used as an IV because it satisfies the three instrumental conditions, which are as follows:
+In our above example $Z$ could be used as an IV if it satisfies the three instrumental conditions, which are as follows:
 1. $Z$ is associated with $X$.
 2. $Z$ is not associated with $Y$ except through $X$.
 3. $Z$ and $Y$ do not share causes.
 
 The IV can be thought of as (amongst other things) a kind of upstream or proxy variable that measures what we're really interested in but can't feasibly measure.
-For example, define $Z$ the distance between subjects and the nearest fast food restaurant (FFR), 
-$X$ as excess junk food consumption, $Y$ as body mass index (BMI) and $U$ a (hypothetical) genetic factor that is linked to both excess junk food consumption
-as well as excess fast storage. In this case our diagram could be relabeled and we can now consider whether FFR distance satisfies the 
+For example, define $Z$ as the distance between individuals living in a city and the nearest fast food restaurant (FFR) to them. 
+Similarly, define $X$ as excess junk food consumption, $Y$ as body mass index (BMI) and $U$ a (hypothetical) genetic factor that is linked to both excess junk food consumption
+as well as excess fat storage. In this case our diagram could be relabeled and we can now consider whether FFR distance satisfies the 
 instrumental conditions.
 
 
@@ -56,7 +56,8 @@ So does it satisfy the conditions? In order to determine this we need to ask the
 2. Is FFR proximity independent of BMI except through excess junk food consumption?
 3. Does FFR proximity share causes with BMI?
 
-This is where things become tricky and why this example represents a departure from hypothetical to realistic.
+This is where things become tricky and why this example represents a departure from hypothetical to realistic. Let's work through these 
+questions one-by-one in order to see how FFR proximity fails or succeeds to be an effective IV.
 
 ### 1. Is FFR proximity associated with excess junk food consumption? 
 
@@ -77,7 +78,7 @@ this causal framework.
 
 {{< figure library="true" src="BEFIV_three.png" title="" lightbox="true" >}}
 
-In order to remove this confounding and restore the ability of FFR proximity to act as an IV, we'll need to condition on subjects' income in order to account
+In order to remove this confounding and restore the ability of FFR proximity to act as an IV, we'll need to condition on subjects' income, or something similar, in order to account
 for the association between affluence and BMI[^2].
 
 With this obstacle overcome, are we done? Can we safely measure and use the distance between subjects and FFRs as an IV? Well ... not quite.
@@ -89,8 +90,8 @@ In our example, we're probably looking at more than one FFR and more than one ty
 If we're to lump these all together, do we assume they all have the same effect?  This question speaks to the assumption of homogeneity and can be understood
 in relation to the consistency condition described in the preface blog post. If we're trying to estimate the causal effect of excess junk food consumption on
 BMI, it is not *likely* that all FFRs result in the same level of excess junk food consumption, however this may be an assumption we have to make. Furthermore,
-if we are to  model the affect of multiple FFRs we will have to make some assumption as to whether the relationship is additive - linear in the number of FFRs
-or nonlinear. Models that I've worked on, that have been implemented in software like [`rstap`](https://biostatistics4socialimpact.github.io/rstap) and [`bbnet`](https://apeterson91.github.io/bbnet/) 
+if we are to  model the affect of multiple FFRs we will have to make some assumption as to whether the relationship is additive - linear in the number of FFRs - 
+or nonlinear. Models that I've developed, that have been implemented in software like [`rstap`](https://biostatistics4socialimpact.github.io/rstap) and [`bbnet`](https://apeterson91.github.io/bbnet/),
 make this assumption for computational and interpretable convenience, but it is likely not true[^3]. As with most things in science, these assumptions 
 are starting points upon which to build more sophisticate models that offer more flexibility.
 
@@ -105,8 +106,7 @@ In the next blog post we'll complicate matters further, by considering what role
 
 
 
-[^1]:An outlandish example would be to imagine if there were a brand of FFR's that also offered gyms (many McDonalds used to have playgrounds in the 90s). In this way FFR's would affect BMI through both
-junk food consumption *and* access to physical recreation, invalidating assumption 2.
+[^1]:An outlandish example would be to imagine if there were a brand of FFR's that also offered gyms (many McDonalds used to have playgrounds in the 90s). In this way FFR's would affect BMI through both junk food consumption *and* access to physical recreation, invalidating assumption 2.
 [^2]: If you find yourself asking, "Wait, wasn't the whole point of using IVs to remove all that confounding business?" The answer is yes, kind of. By using the IV we're removing the confounding associated with junk good consumption - but not the instrument itself. As it happens affluence is likely correlated with both.
 [^3]: Technically `rstap` also allows for a log-linear relationship, but it takes a long time to fit and the results are not as interpretable.
 
