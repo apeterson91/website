@@ -23,13 +23,17 @@ I write about the results of a specific model. I'm happy to say that I found the
 provided much more. While I did find myself occassionally irked by the consistently Frequentist approach, that was a very minor
 inconvenience and as much a matter of my taste (perhaps) as anything else.
 As I reached the end of the book, I found myself wanting an excuse to write-up
-the things I had learned and even sketch out how they applied to my current and future work. Thus,
-I intend to write a multi-part blog post series, where each post takes a look at some of the concepts from causal inference. 
+the things I had learned and even sketch out how they applied to my current and future work. 
+
+Thus, I intend to write a multi-part blog post series, where each post takes a look at some of the concepts from causal inference. 
 I'm planning to begin very generally, as in the book, reiterating the main principles that allow for valid causal inference to be 
 drawn and then highlight a specific application of a tool for causal inference - Instrumental Variables - in my research. Finally, I'm hoping to 
 apply some of the ideas from the final section of the book, on time varying treatments and confounders, to some general thoughts about how 
-we can understand, plan and evaluate different features of the built environment. With that introductory motivation out of the way,
-let's get into some CI!
+we can understand, plan and evaluate different features of the built environment. If you're interested in learning some basic CI or 
+maybe even just seeing how CI principles are applied in the practice of science I hope you'll enjoy reading what follows. Though
+the use of some jargon or notation is inevitable, I'll do my best to explain things as they're introduced.
+
+With that introduction out of the way, let's talk about Causal Inference!.
 
 
 # Identifiability Conditions
@@ -56,6 +60,8 @@ each time you applied force to it. If you used a variety of different kinds of b
 the change in position to be different for balls of different mass, even though the same force was applied to them. In order to account for this, you would have to include 
 the information - mass - that accounts for the relevant difference between balls change in position. This would create **conditional exchangeability** between the balls.
 That is, by conditioning on the information of the mass, we would be able to make these balls comparable in terms of how force affects their change in position. 
+
+{{< figure library="true" src="CIprefacefig2.png" title="Mass matters" lightbox="true" >}}
 
 In order to identify a causal effect of chocolate/vanilla ice cream on a population's experience at an ice cream store, we would need to assume, before 
 doing any kind of analysis that the individuals at the ice cream store we observe are somehow similar in how ice cream flavor affects their ice cream store experience : that they are 
