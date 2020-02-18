@@ -107,7 +107,7 @@ By taking the ratio, the IV estimand tries to adjust the estimate of the change 
 For a continuous variable, the estimand becomes:
 
 $$
-\hat{IV} = \frac{\text{Cov}(X,Y)}{\text{Cov}(A,Z)} = \frac{\text{Cov}(\text{FFR Proximity},BMI)}{\text{Cov}(\text{calories of Junk Food},\text{FFR proximity})} .
+\hat{IV} = \frac{\text{Cov}(X,Y)}{\text{Cov}(A,Z)} = \frac{\text{Cov}(\text{FFR Proximity},BMI)}{\text{Cov}(\text{Calories of Junk Food},\text{FFR proximity})} .
 $$
 
 This expression reflects the same idea.
