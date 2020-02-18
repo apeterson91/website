@@ -41,7 +41,7 @@ In our above example $Z$ could be used as an IV if it satisfies the three instru
 2. $Z$ is not associated with $Y$ except through $X$.
 3. $Z$ and $Y$ do not share causes.
 
-The IV can be thought of as (amongst other things) a kind of upstream or proxy variable that measures what we're really interested in but can't feasibly measure.
+The IV can be thought of as (amongst other things) a kind of upstream or proxy variable that measures what we're really interested in but are worried about confounding.
 For example, define $Z$ as the distance between individuals living in a city and the nearest fast food restaurant (FFR) to them. 
 Similarly, define $X$ as excess junk food consumption, $Y$ as body mass index (BMI) and $U$ a (hypothetical) genetic factor that is linked to both excess junk food consumption
 as well as excess fat storage. In this case our diagram could be relabeled and we can now consider whether FFR distance satisfies the 
@@ -94,6 +94,30 @@ if we are to  model the affect of multiple FFRs we will have to make some assump
 or nonlinear. Models that I've developed, that have been implemented in software like [`rstap`](https://biostatistics4socialimpact.github.io/rstap) and [`bbnet`](https://apeterson91.github.io/bbnet/),
 make this assumption for computational and interpretable convenience, but it is likely not true[^3]. As with most things in science, these assumptions 
 are starting points upon which to build more sophisticate models that offer more flexibility.
+
+# Using FFR proximity as an IV
+
+After all that work and *assuming*, we can finally use FFR proximity as an instrumental variable. The IV estimand for a binary IV would be:
+
+$$
+\hat{IV} = \frac{E[Y|Z=1]-E[Y|Z=0]}{E[A|Z=1]-E[A|Z=0]}.
+$$
+
+By taking the ratio, the IV estimand tries to adjust the estimate of the change in $Y$ as a function of $Z$ by how strongly $Z$ predicts $A$.
+For a continuous variable, the estimand becomes:
+
+$$
+\hat{IV} = \frac{\text{Cov}(X,Y)}{\text{Cov}(A,Z)} = \frac{\text{Cov}(\text{FFR Proximity},BMI)}{\text{Cov}(\text{calories of Junk Food},\text{FFR proximity})} .
+$$
+
+This expression reflects the same idea.
+
+# In practice
+
+In my work we rarely have data on junk food consumption, though some of the studies I've linked above did. Consequently, we're forced to look
+at the effect of $Z$ or FFR proximity on BMI without adjusting for the calories of junk food consumed, and hope that our data 
+reflect the same relationships that have been shown in previous studies. It isn't neccessarily a bad assumption but certainly one 
+that's worth being aware of and checking when possible.
 
 
 # Recap
