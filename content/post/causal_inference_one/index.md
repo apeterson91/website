@@ -14,10 +14,10 @@ image:
 
 # A Recap and DAG intro
 
-In the [previous post](https://www.apetersonsite.org/post/causal_inference_preface/causal_inference_preface/) I talked through some of the 
-fundamental assumptions needed for Causal Inference as presented in Hernan and Robbins' [textbook](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/):
-(1) Exchangeability, (2) Positivity and (3) Consistency. In this post I'm planning to work through
-a brief discussion of two of the main obstacles to the fulfillment of the Exchangeability assumption: (1) Confounding and (2) Selection Bias.
+In the [previous post](https://www.apetersonsite.org/post/causal_inference_preface/) I talked through some of the 
+fundamental assumptions needed for Causal Inference as presented in Hernan and Robbins'
+[textbook](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/): (1) Exchangeability, (2) Positivity and (3) Consistency.
+In this post I'm planning to work through a brief discussion of two of the main obstacles to the fulfillment of the Exchangeability assumption: (1) Confounding and (2) Selection Bias.
 To do so, I'll be using Directed Acyclic Graphs or DAGS, which graphically represent the flow of causal information. If we were to consider
 our toy example from the preface post, on whether chocolate or vanilla ice cream results in a better ice cream store experience, the DAG that displays 
 a causal relationship between these two variables would be the following:
@@ -47,7 +47,8 @@ accounts for this adjustment looks like the following - note the changed color a
 
 {{< figure library="true" src="CI_fig_three.png" title="Confounding Ice Cream DAG" lightbox="true" >}}
 
-If we failed to include or *adjust* for this information, our estimate of the causal effect of ice cream flavor would become biased, or incorrect. In more complicated examples, 
+In this example, conditioning on background mood ensures we have conditional exchangeability. If we failed to include or *adjust* for this information, 
+ our estimate of the causal effect of ice cream flavor would become biased, or incorrect. In more complicated examples, 
 since we don't always know all the variables that could possibly confound the causal effect of interest, a scientist has to "assume conditional exchangeability" (as mentioned briefly in the preface),
 without ever knowing if this assumption is fully met.
 

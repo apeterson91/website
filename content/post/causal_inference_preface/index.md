@@ -33,7 +33,7 @@ we can understand, plan and evaluate different features of the built environment
 maybe even just seeing how CI principles are applied in the practice of science I hope you'll enjoy reading what follows. Though
 the use of some jargon or notation is inevitable, I'll do my best to explain things as they're introduced.
 
-With that introduction out of the way, let's talk about Causal Inference!.
+With that introduction out of the way, let's talk about Causal Inference!
 
 
 # Identifiability Conditions
@@ -59,7 +59,7 @@ the change in position[^2]. You might imagine that in order to perform this expe
 each time you applied force to it. If you used a variety of different kinds of balls, where some were lighter or heavier than others, you would expect
 the change in position to be different for balls of different mass, even though the same force was applied to them. In order to account for this, you would have to include 
 the information - mass - that accounts for the relevant difference between balls change in position. This would create **conditional exchangeability** between the balls.
-That is, by conditioning on the information of the mass, we would be able to make these balls comparable in terms of how force affects their change in position. 
+That is, by conditioning or including  the information of each ball's mass, we would be able to make these balls comparable in terms of how force affects their change in position. 
 
 {{< figure library="true" src="CIprefacefig2.png" title="Mass matters" lightbox="true" >}}
 

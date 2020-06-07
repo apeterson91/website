@@ -93,7 +93,7 @@ BMI, it is not *likely* that all FFRs result in the same level of excess junk fo
 if we are to  model the affect of multiple FFRs we will have to make some assumption as to whether the relationship is additive - linear in the number of FFRs - 
 or nonlinear. Models that I've developed, that have been implemented in software like [`rstap`](https://biostatistics4socialimpact.github.io/rstap) and [`bbnet`](https://apeterson91.github.io/bbnet/),
 make this assumption for computational and interpretable convenience, but it is likely not true[^3]. As with most things in science, these assumptions 
-are starting points upon which to build more sophisticate models that offer more flexibility.
+are starting points upon which to build more sophisticated models that offer more flexibility.
 
 # Using FFR proximity as an IV
 
