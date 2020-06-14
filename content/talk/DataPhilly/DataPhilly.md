@@ -1,6 +1,6 @@
 ---
 title: Data Philly
-date: 2020-06-17
+date: 2020-06-17T18:00:00
 ---
 
  I'm giving a talk this upcoming Wednesday at the DataPhilly [Meetup](https://www.meetup.com/DataPhilly/events/270919143/?rv=ea1_v2&_xtd=gatlbWFpbF9jbGlja9oAJGEyYTNlM2FjLTBkNWYtNDVjMi04NzRmLWRiZDlhOTlhYWY2YQ).
