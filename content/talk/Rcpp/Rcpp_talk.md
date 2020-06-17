@@ -1,6 +1,7 @@
 ---
 title: Rcpp Guest Lecture
 date: 2020-01-11T10:00:00
+url_slides: "files/RcppIntro_handout.pdf"
 ---
 
 I recently gave a guest lecture to the Biostatistics PhD students at [Drexel](https://drexel.edu/dornsife/) on [Rcpp](http://www.rcpp.org/).
