@@ -75,12 +75,12 @@ interests = [
   icon_pack = "fab"
   link = "https://github.com/apeterson91"
 
-# Link to a PDF of your resume/CV from the About widget.
-# To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
-# [[social]]
-#   icon = "Resume"
-#   icon_pack = "ai"
-#   link = "files/cv.pdf"
+ Link to a PDF of your resume/CV from the About widget.
+ To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
+ [[social]]
+   icon = "CV"
+   icon_pack = "ai"
+   link = "files/resume.pdf"
 
 +++
 
