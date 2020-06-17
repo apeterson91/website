@@ -1,6 +1,6 @@
 ---
 title: Data Philly 
-date: 2020-06-17T18:00:00
+date: 2020-06-17
 url_slides: "files/DataPhilly.pdf"
 event_url: https://www.meetup.com/DataPhilly/events/270919143/
 ---
