@@ -7,4 +7,3 @@ event_url: https://ww2.amstat.org/meetings/jsm/2020/program.cfm
 ---
 
 See the link(s) for some work I'm presenting on Estimating Heterogeneous Effects in the Built Environment at the Joint Statistical Meetings (JSM) this year.
-
