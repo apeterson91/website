@@ -1,6 +1,6 @@
 ---
 title: JSM 2020
-date: 2020-08-03
+date: 2020-07-28
 all_day: true 
 url_slides: "files/Peterson_JSM.pdf"
 ---
