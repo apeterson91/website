@@ -1,7 +1,8 @@
 ---
 title: Ann Arbor R User's Group
 date: 2018-04-11T18:30:00
+url_slides: "files/AARUG_RSTAP_handout.pdf"
+url_video:  https://www.periscope.tv/w/1ypKdvRdkDvJW
+event_url: https://www.meetup.com/Ann-Arbor-R-User-Group/
 ---
 
-I recently gave a talk at the [Ann Arbor R User's Group](https://www.meetup.com/Ann-Arbor-R-User-Group/) about the [rstap](https://biostatistics4socialimpact.github.io/rstap/) package.
-The slides for the talk are available [here](https://drive.google.com/file/d/13ZOZ9Y9hbSyxFMb2zEesTAsJ46yvGCxP/view?usp=sharing) and the video can be seen [here](https://www.periscope.tv/w/1ypKdvRdkDvJW).

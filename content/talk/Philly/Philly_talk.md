@@ -3,6 +3,7 @@ title: Data Philly
 date: 2020-06-17
 all_day: true 
 url_slides: "files/DataPhilly.pdf"
+url_video:  https://youtu.be/ruO2TwmaKD
 event_url: https://www.meetup.com/DataPhilly/events/270919143/
 ---
 

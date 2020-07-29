@@ -1,6 +1,7 @@
 ---
 title:  Latent Gaussian Process for Spike Data
 date: 2018-11-26
+url_slides: "files/LGP_paper.pdf"
 ---
 
 While I'm  no longer able to participate in the [Statistical Learning](https://zhenkewu.com/teaching/statistical_learning_reading_group) Reading Group at Michigan,

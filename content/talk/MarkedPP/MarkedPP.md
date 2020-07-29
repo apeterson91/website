@@ -1,6 +1,7 @@
 ---
 title: Marked Poisson Processes
 date: 2019-02-19
+url_slides: "files/MPP_paper_handout.pdf"
 ---
 
 Another aticle presented for the [Statistical Learning](https://zhenkewu.com/teaching/statistical_learning_reading_group) Reading Group at Michigan,
