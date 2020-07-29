@@ -1,6 +1,5 @@
 ---
 title: rstapDP 
-summary: Heterogeneous Built Environment Effect Estimation in R
 date:  2020-07-29
 tags:
 - Software
