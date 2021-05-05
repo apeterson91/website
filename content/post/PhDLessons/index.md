@@ -16,7 +16,7 @@ image:
 # Preface
 
 I’m offering the following key observations on things I learned in my PhD as a way of documenting for myself some of my major lessons learned. 
-It is also my hope that others may find it useful as a kind of reference list from which they might learn as I have learned greatly benefited from other PhD students or professor’s documentation of similar references and tools.
+It is also my hope that others may find it useful as a kind of reference list from which they might learn, as I have greatly benefited from other PhD students or professor’s documentation of similar references and tools.
 
 
 # Philosophical 
