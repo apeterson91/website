@@ -1,5 +1,5 @@
 ---
-date: 2021-5-4
+date: 2021-05-05
 title: "PhD Lessons Learned"
 summary: "A few lessons learned along the way in completing my PhD"
 tags: ["Statistics"]
@@ -95,7 +95,7 @@ Document your simulation progress using vignettes/markdown notebooks - they’ll
 You read a lot of textbooks in grad school. Some are good, others aren’t. Here are the ones I continue to reference after first exposure.
 
 
-Statistics:
+#### Statistics:
 
 * Casella and Berger (2nd edition 2001)
 * Bayesian Data Analysis (Gelman et al. 3rd edition 2013)
@@ -109,7 +109,7 @@ Statistics:
 * Machine Learning: A Probabilistic Perspective (Murphy 2013)
 
 
-Computational:
+#### Computational:
 
 * [R for data science](https://r4ds.had.co.nz/) (Wickham and Grolemund)
 * [R packages](https://r-pkgs.org/) (Wickham)
@@ -119,25 +119,27 @@ Computational:
 * [Geocomputation with R](https://geocompr.robinlovelace.net/) (Lovelace)
 
 
+##### R packages
+
+Rstudio has a good list of well supported R packages across a wide range of domains [here](https://support.rstudio.com/hc/en-us/articles/201057987-Quick-list-of-useful-R-packages).
+
 Here are the (non-specialized) R packages I’ve come to use regularly.
 
 * Drake + dflow (currently transitioning to [targets](https://github.com/ropensci/targets) + [tflow](https://github.com/MilesMcBain/tflow))
-* May use [renv](https://rstudio.github.io/renv/articles/renv.html), depending on circumstances
 * [Tidyverse](https://www.tidyverse.org/) of course
 * The [brms](https://paul-buerkner.github.io/brms/) package for most “standard” bayesian modeling - E.g. Bayesian (potentially hierarchical) glms
 * The [rstan](https://mc-stan.org/users/interfaces/rstan) package for some “non-standard” bayesian modeling
 * [Rcpp](https://rcpp.org) (and associated Rcpp packages like RcppEigen, RcppProgress,RcppParallel) for other “non-standard” bayesian models. 
-* --- It can often help to read the code of other developers working in this space, as well as R in general
- * The [gtsummary](http://www.danieldsjoberg.com/gtsummary/) package for paper/presentation tables
+* -- It can often help to read the code of other developers working in this space, as well as R in general
+* The [gtsummary](http://www.danieldsjoberg.com/gtsummary/) package for paper/presentation tables
 * -- I sometimes use [gt](https://gt.rstudio.com/) directly
 
 For making other packages:
 * [usethis](https://usethis.r-lib.org/)
 * [devtools](https://devtools.r-lib.org/) (including roxygen2, etc.)
-* renv
+* [renv](https://rstudio.github.io/renv/articles/renv.html) - can also be useful for analyses potentially
 
 
-Rstudio has a good list of well supported R packages across a wide range of domains [here](https://support.rstudio.com/hc/en-us/articles/201057987-Quick-list-of-useful-R-packages).
 
 Specialized R Packages I use for spatial analysis:
 
