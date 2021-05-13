@@ -43,7 +43,7 @@ There’s two things to think about under this heading: (i) The Science (referri
 
 (i) This is where a statistician would typically collaborate with “subject-matter experts”. That is, other scientists who are more familiar with the conceptual models, standards in the field and so on that define the current state of knowledge and research within the domain of study. Questions in this domain may follow fairly easily from the questions that are most often posed in the literature, or they may be more subtly hidden.
 
-(ii) Concerns research that extends old or develops new statistical ideas for the purposes of providing statisticians with more tools to model natural phenomenon. E.g. creating a new distribution on the space of some species of graphs I’d consider to be something like “Pure” Statistics research. It may be the case (for the better) that this developed with an application in mind and so the statistical idea may be merely an adaptation or tweaking of previously established methods to a new kind of data structure or problem. Both would fall under the heading of what’s called “Method’s Research”
+(ii) Concerns research that extends old or develops new statistical ideas for the purposes of providing statisticians or other scientists with more tools to model natural phenomenon. For example creating a new distribution on the space of some species of graphs I’d consider to be something like “Pure” Statistics research. It may be the case (for the better) that this is developed with an application in mind and so the statistical idea may be merely an adaptation or tweaking of previously established methods to a new kind of data structure or problem. Both would fall under the heading of what’s called “Methods Research”.
 
 
 ## (3) Statistical Philosophy
@@ -54,7 +54,7 @@ There’s good reason for this as this approach laid the groundwork for much of 
 From the get-go though, I was interested in and hearing about the “new kid on the block”: Bayesian statistics. 
 Of course, this philosophy isn’t all that new, with the first documented work describing Bayesian statistics, going way back to the 1700s, with a work authored by Laplace. 
 I found there to be a number of reasons Bayesian statistics is worth learning in the modern era, principal among them the phenomenon of "concentration of measure", which
-provides evidence to suggest that the posterior mode (the frequentist's maximum likelihood estimate) is not an "appropriate" description of the posterior distribution in 
+provides evidence that the posterior mode (the frequentist's standard maximum likelihood estimator) is not an "appropriate" description of the posterior distribution in 
 high dimensional spaces. As high dimensional spaces characterize a lot of the work in advanced statistics, this is of increasing importance. There is a nice [case study](https://mc-stan.org/users/documentation/case-studies/curse-dims.html) by Bob Carpenter,
 that tries to provide intuition for these ideas via simulation, as well as a more technical discussion of these ideas [here](https://discourse.mc-stan.org/t/concentration-of-measure-and-typical-sets/2786) in the stan forums.
 
