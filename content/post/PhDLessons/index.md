@@ -99,12 +99,13 @@ You read a lot of textbooks in grad school. Some are good, others aren’t. Here
 
 * Casella and Berger (2nd edition 2001)
 * Bayesian Data Analysis (Gelman et al. 3rd edition 2013)
-* The Matrix Cookbook (Petersen 2012)
 * Regression and Other Stories (Gelman et al. 2020)
 * Applied Longitudinal Analysis (Fitzmaurice & Laird 2008)
+* Hierarchical Modeling and Analysis for Spatial Data (Banerjee, 2004)
 * Generalized Additive Models: an Introduction with R (Wood, 2016)
 * Causal Inference – What if? (Hernan and Robins 2020)
 * Mastering Metric (Angrist & Pischke 2014)
+* The Matrix Cookbook (Petersen 2012)
 * Handbook of Markov Chain Monte Carlo (Brooks et al. 2011)
 * Machine Learning: A Probabilistic Perspective (Murphy 2013)
 
