@@ -16,7 +16,7 @@ role = "Data Scientist"
 organizations = [ { name = "Google", url = "google.com" } ]
 
 # Short bio (displayed in user profile at end of posts)
-bio = "Adam is Data Scientist at Google."
+bio = "Adam is a Data Scientist at Google."
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
 email = ""
@@ -64,7 +64,7 @@ interests = [
 #  icon_pack = "fab"
 #  link = "https://twitter.com/ehtupetey"
 
-®[[social]]
+#[[social]]
 #  icon = "google-scholar"
 #  icon_pack = "ai"
 #  link = "https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ"
