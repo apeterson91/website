@@ -9,25 +9,24 @@ authors = ["admin"]
 superuser = true
 
 # Role/position
-role = "Graduate Research Assistant"
+role = "Data Scientist"
 
 # Organizations/Affiliations
 #   Separate multiple entries with a comma, using the form: `[ {name="Org1", url=""}, {name="Org2", url=""} ]`.
-organizations = [ { name = "University of Michigan", url = "https://umich.edu" } ]
+organizations = [ { name = "Google", url = "google.com" } ]
 
 # Short bio (displayed in user profile at end of posts)
-bio = "Adam Peterson is Biostatistics PhD candidate at the University of Michigan."
+bio = "Adam is Data Scientist at Google."
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
 email = ""
 
 # List (academic) interests or hobbies
 interests = [
-  "Bayesian Statistics",
-  "Nonparametric Methods",
+  "Bayesian Methods",
   "Spatial Statistics",
   "Built Environment",
-  "Environmental Impact"
+  "Causal Inference"
 ]
 
 # Organizational groups that you belong to (for People widget)
@@ -65,7 +64,7 @@ interests = [
 #  icon_pack = "fab"
 #  link = "https://twitter.com/ehtupetey"
 
-#[[social]]
+®[[social]]
 #  icon = "google-scholar"
 #  icon_pack = "ai"
 #  link = "https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ"
@@ -84,5 +83,5 @@ interests = [
 
 +++
 
-I am a Biostatistics PhD candidate at the University of Michigan. My professional interests focus on developing
-statistical methodologies and software tools that improve urban life.
+I am a Data Scientist at Google. I received my PhD in 
+Biostatistics from the University of Michigan in 2021. 
