@@ -85,6 +85,6 @@ interests = [
 
 I am a Data Scientist at Google. I received my PhD in 
 Biostatistics from the University of Michigan in 2021. 
-While I ocassionally write about explicitly statistical ideas here,
+While I occassionally write about explicitly statistical ideas here,
 I write more frequently about ideas related to the built environment
 and statistics at [xstreetvalidated.com](https://xstreetvalidated.com/).
