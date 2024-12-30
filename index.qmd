@@ -29,11 +29,15 @@ University of Michigan in 2021.
 I write about statistical ideas [here](blog.html), and ideas related to the 
 built environment at my blog [xstreetvalidated](https://xstreetvalidated.com).
 
+You can get updated when I write anywhere via my 
+[substack](https://articulatednote.substack.com/?r=6395r&utm_campaign=pub-share-checklist).
+
 <p></p>
 
 ## Selected Projects
 
-**[Complex Survey Notes](https://apeterson91.github.io/ComplexSurveys/ComplexSurveyNotes.html)** | Notes on Thomas Lumley's [book]() and [software](). | 2024 
+**[Complex Survey Notes](https://apeterson91.github.io/ComplexSurveys/ComplexSurveyNotes.html)** | Notes on Thomas Lumley's [book](https://g.co/kgs/ozy1gEy) and 
+[software](https://r-survey.r-forge.r-project.org/survey/). | 2024 
 
 **[rsstap](https://apeterson91.github.io/rsstap/)** | Spline models for spatial temporal aggregated predictor models | 2020  
 
