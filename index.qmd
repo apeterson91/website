@@ -1,0 +1,40 @@
+---
+title: "Adam Peterson"
+image: avatar.png
+about:
+  template: trestles
+  links: 
+    - text: LinkedIn
+      url: https://www.linkedin.com/in/adam-peterson-8b456062/
+    - text: 🦋 Bluesky
+      url: "https://bsky.app/profile/xstreetvalidated.bsky.social"
+    - text: GitHub
+      icon: github
+      url: "https://github.com/apeterson91"
+    - text: Email
+      url: "mailto:adampeterso@gmail.com"
+    - text: Blog
+      url: "blog.html"
+    - text: Resume
+      url: "resume.pdf"
+comments: false
+---
+::: {.column-page}
+
+## Bio
+
+I am a Data Scientist at Google. I received my PhD in Biostatistics from the 
+University of Michigan in 2021. 
+
+I write about statistical ideas [here](blog.html), and ideas related to the 
+built environment at my blog [xstreetvalidated](https://xstreetvalidated.com).
+
+<p></p>
+
+## Selected Projects
+
+**[Complex Survey Notes](https://apeterson91.github.io/ComplexSurveys/ComplexSurveyNotes.html)** | Notes on Thomas Lumley's [book]() and [software](). | 2024 
+
+**[rsstap](https://apeterson91.github.io/rsstap/)** | Spline models for spatial temporal aggregated predictor models | 2020  
+
+:::

@@ -1,0 +1,30 @@
+---
+---
+# 2023
+
+* **Adam T. Peterson**. Veronica J. Berrocal. Emma V. Sanchez-Vaznaugh.
+Brisa N. Sánchez. "How close and how much? Linking health outcomes to built 
+environment spatial distributions." Ann. Appl. Stat. 17 (2) 1641 - 1662,
+June 2023. [doi](https://doi.org/10.1214/22-AOAS1687)
+
+# 2022
+
+* Jingjing Li, Amy H. Auchincloss, Jana A. Hirsch, Steven J. Melly, 
+Kari A. Moore, **Adam Peterson**, Brisa N. Sánchez, Exploring the spatial scale 
+effects of built environments on transport walking: Multi-Ethnic Study of
+Atherosclerosis, Health & Place, Volume 73, 2022, 102722, ISSN 1353-8292,
+[doi](https://doi.org/10.1016/j.healthplace.2021.102722).
+
+* Li, J., **Peterson, A.**, Auchincloss, A.H. et al. Comparing effects of 
+Euclidean buffers and network buffers on associations between built environment 
+and transport walking: the Multi-Ethnic Study of Atherosclerosis. Int J Health
+Geogr 21, 12 (2022). [doi](https://doi.org/10.1186/s12942-022-00310-7)
+
+*  Massey PM, Kearney MD, Rideau A, **Peterson A**, Gipson JD, Nianogo RA, 
+Bornstein M, Prelip ML, Glik DC. Measuring impact of storyline engagement on 
+health knowledge, attitudes, and norms: A digital evaluation of an online 
+health-focused serial drama in West Africa. J Glob Health. 2022 May 14;12:04039.
+[doi](https://pmc.ncbi.nlm.nih.gov/articles/PMC9107188/): 10.7189/jogh.12.04039.
+PMID: 35567587; PMCID: PMC9107188.
+
+

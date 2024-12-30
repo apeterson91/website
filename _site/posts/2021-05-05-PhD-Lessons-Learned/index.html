@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Adam Peterson">
+<meta name="dcterms.date" content="2021-05-05">
+<meta name="description" content="A few lessons learned along the way in completing my PhD">
+
+<title>Adam Peterson - PhD Lessons Learned</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Adam Peterson - PhD Lessons Learned">
+<meta property="og:description" content="A few lessons learned along the way in completing my PhD">
+<meta property="og:image" content="banner.png">
+<meta property="og:site-name" content="Adam Peterson">
+<meta property="og:locale" content="en-US">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Adam Peterson</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html" rel="" target="">
+ <span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../resume.pdf" rel="" target="">
+ <span class="menu-text">Resume</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../papers" rel="" target="">
+ <span class="menu-text">Papers</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">PhD Lessons Learned</h1>
+                  <div>
+        <div class="description">
+          A few lessons learned along the way in completing my PhD
+        </div>
+      </div>
+                </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Adam Peterson </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 5, 2021</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#philosophical" id="toc-philosophical" class="nav-link" data-scroll-target="#philosophical">Philosophical</a>
+  <ul class="collapse">
+  <li><a href="#personal-attitude" id="toc-personal-attitude" class="nav-link" data-scroll-target="#personal-attitude">(1) Personal Attitude</a></li>
+  <li><a href="#approach-to-the-problem-research-philosophy" id="toc-approach-to-the-problem-research-philosophy" class="nav-link" data-scroll-target="#approach-to-the-problem-research-philosophy">(2) Approach to the Problem; Research Philosophy</a></li>
+  <li><a href="#statistical-philosophy" id="toc-statistical-philosophy" class="nav-link" data-scroll-target="#statistical-philosophy">(3) Statistical Philosophy</a></li>
+  </ul></li>
+  <li><a href="#conceptual-workflow" id="toc-conceptual-workflow" class="nav-link" data-scroll-target="#conceptual-workflow">Conceptual Workflow</a>
+  <ul class="collapse">
+  <li><a href="#working-on-methods" id="toc-working-on-methods" class="nav-link" data-scroll-target="#working-on-methods">Working on methods?</a></li>
+  <li><a href="#working-on-an-analysis" id="toc-working-on-an-analysis" class="nav-link" data-scroll-target="#working-on-an-analysis">Working on an analysis?</a></li>
+  </ul></li>
+  <li><a href="#technical" id="toc-technical" class="nav-link" data-scroll-target="#technical">Technical</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="preface" class="level1">
+<h1>Preface</h1>
+<p>I’m offering the following key observations on things I learned in my PhD as a way of documenting for myself some of my major lessons learned. It is also my hope that others may find it useful as a kind of reference list from which they might learn, as I have greatly benefited from other PhD students or professor’s documentation of similar references and tools.</p>
+</section>
+<section id="philosophical" class="level1">
+<h1>Philosophical</h1>
+<p>Few different layers here worth exploring (1) Personal Attitude (2) Approach to Problem, or Research Philosophy and (3) Statistical Philosophy.</p>
+<section id="personal-attitude" class="level2">
+<h2 class="anchored" data-anchor-id="personal-attitude">(1) Personal Attitude</h2>
+<p>One’s personal attitude towards the PhD will define everything else learned from it. One key lesson worth learning early on is to let go of your ego. This is easier said than done, as everyone in academia care’s a lot about their intelligence – obviously. That’s how we got to be in graduate school after all – so learning to accept that you’re not that smart and that there’s still a lot one has to learn before becoming a peer of the academy can take some getting used to. Further, it helps to be acclimated to the lifestyle. You need to be very self-driven to get a PhD, as there is much less structure as compared to a M.S. program and one’s experience is largely determined by what the student makes of it. This means that while, yes you can get up any time you want in the day, it helps if you’re self-disciplined enough to get up at such a time that you still get the things done that you need to in order to make progress in your research.</p>
+</section>
+<section id="approach-to-the-problem-research-philosophy" class="level2">
+<h2 class="anchored" data-anchor-id="approach-to-the-problem-research-philosophy">(2) Approach to the Problem; Research Philosophy</h2>
+<p>There’s two things to think about under this heading: (i) The Science (referring to a specific branch of science) and (ii) the Statistics</p>
+<ol type="i">
+<li><p>This is where a statistician would typically collaborate with “subject-matter experts”. That is, other scientists who are more familiar with the conceptual models, standards in the field and so on that define the current state of knowledge and research within the domain of study. Questions in this domain may follow fairly easily from the questions that are most often posed in the literature, or they may be more subtly hidden.</p></li>
+<li><p>Concerns research that extends old or develops new statistical ideas for the purposes of providing statisticians or other scientists with more tools to model natural phenomenon. For example creating a new distribution on the space of some species of graphs I’d consider to be something like “Pure” Statistics research. It may be the case (for the better) that this is developed with an application in mind and so the statistical idea may be merely an adaptation or tweaking of previously established methods to a new kind of data structure or problem. Both would fall under the heading of what’s called “Methods Research”.</p></li>
+</ol>
+</section>
+<section id="statistical-philosophy" class="level2">
+<h2 class="anchored" data-anchor-id="statistical-philosophy">(3) Statistical Philosophy</h2>
+<p>My foundational training was in what is commonly referred to as “classical” or Frequentist statistics. There’s good reason for this as this approach laid the groundwork for much of the applied statistical work that is done today. From the get-go though, I was interested in and hearing about the “new kid on the block”: Bayesian statistics. Of course, this philosophy isn’t all that new, with the first documented work describing Bayesian statistics, going way back to the 1700s, with a work authored by Laplace. I found there to be a number of reasons Bayesian statistics is worth learning in the modern era, principal among them the phenomenon of “concentration of measure”, which provides evidence that the posterior mode (the frequentist’s standard maximum likelihood estimator) is not an “appropriate” description of the posterior distribution in high dimensional spaces. As high dimensional spaces characterize a lot of the work in advanced statistics, this is of increasing importance. There is a nice <a href="https://mc-stan.org/users/documentation/case-studies/curse-dims.html">case study</a> by Bob Carpenter, that tries to provide intuition for these ideas via simulation, as well as a more technical discussion of these ideas <a href="https://discourse.mc-stan.org/t/concentration-of-measure-and-typical-sets/2786">here</a> in the stan forums.</p>
+</section>
+</section>
+<section id="conceptual-workflow" class="level1">
+<h1>Conceptual Workflow</h1>
+<section id="working-on-methods" class="level3">
+<h3 class="anchored" data-anchor-id="working-on-methods">Working on methods?</h3>
+<p>Think about the question you’re trying to answer. Think long. Think hard.</p>
+<p>Some things you might do to guide your thinking:</p>
+<ul>
+<li>Brainstorm on established statistical methods/techniques = read literature</li>
+<li>Write simple theoretical models down</li>
+<li>Run simple simulations to jog intuition</li>
+</ul>
+<p>Think you’ve got a worthy idea? Run it by someone else if possible, regardless run it in the lab:</p>
+<ul>
+<li>Run a simple simulation - does the generating data make sense?</li>
+<li>Does the model make sense? Can the model recapture the data?</li>
+<li>Start making a package to document the development of your code used to estimate the model</li>
+</ul>
+<p>Document your simulation progress using vignettes/markdown notebooks - they’ll make it easy to refer back to. Try to version everything with git to make it easier to keep track of.</p>
+</section>
+<section id="working-on-an-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="working-on-an-analysis">Working on an analysis?</h3>
+<ul>
+<li>Think about the question you’re trying to answer. Typically this is more concretely defined than in the broad methods setting since here, you’re likely to use a more standard method.</li>
+<li>Run descriptives, make simple plots at first (fancier plots after :-D )</li>
+<li>Come up with a model that answers or approximates the question as best possible with the available data (consider more idyllic data/experimental setting as well in your documentation)</li>
+<li>Follow (with judicious liberality) the workflow in Gelman et al.’s 2020 “Bayesian workflow” - using reproducible tools if possible</li>
+<li>At most this includes a git versioned R project with data manipulation, modelling, and presentations all documented and included for future modification and reference</li>
+<li>Jeff Leek has some good writing on this subject. You can check out his <a href="https://leanpub.com/modernscientist">book</a> or his <a href="https://github.com/jtleek">github</a> repos that touch on these topics in different ways.</li>
+</ul>
+</section>
+</section>
+<section id="technical" class="level1">
+<h1>Technical</h1>
+<p>You read a lot of textbooks in grad school. Some are good, others aren’t. Here are the ones I continue to reference after first exposure.</p>
+<section id="statistics" class="level4">
+<h4 class="anchored" data-anchor-id="statistics">Statistics:</h4>
+<ul>
+<li>Casella and Berger (2nd edition 2001)</li>
+<li>Bayesian Data Analysis (Gelman et al.&nbsp;3rd edition 2013)</li>
+<li>Regression and Other Stories (Gelman et al.&nbsp;2020)</li>
+<li>Applied Longitudinal Analysis (Fitzmaurice &amp; Laird 2008)</li>
+<li>Hierarchical Modeling and Analysis for Spatial Data (Banerjee, 2004)</li>
+<li>Generalized Additive Models: an Introduction with R (Wood, 2016)</li>
+<li>Causal Inference – What if? (Hernan and Robins 2020)</li>
+<li>Mastering Metric (Angrist &amp; Pischke 2014)</li>
+<li>The Matrix Cookbook (Petersen 2012)</li>
+<li>Handbook of Markov Chain Monte Carlo (Brooks et al.&nbsp;2011)</li>
+<li>Machine Learning: A Probabilistic Perspective (Murphy 2013)</li>
+</ul>
+</section>
+<section id="computational" class="level4">
+<h4 class="anchored" data-anchor-id="computational">Computational:</h4>
+<ul>
+<li><a href="https://r4ds.had.co.nz/">R for data science</a> (Wickham and Grolemund)</li>
+<li><a href="https://r-pkgs.org/">R packages</a> (Wickham)</li>
+<li><a href="https://adv-r.hadley.nz/">Advanced R</a> (Wickham)</li>
+<li>C++ Primer (Lipmann et al.&nbsp;fifth edition)</li>
+<li><a href="https://teuder.github.io/rcpp4everyone_en/">Rcpp for everyone</a> (Tsuda)</li>
+<li><a href="https://geocompr.robinlovelace.net/">Geocomputation with R</a> (Lovelace)</li>
+</ul>
+<section id="r-packages" class="level5">
+<h5 class="anchored" data-anchor-id="r-packages">R packages</h5>
+<p>Rstudio has a good list of well supported R packages across a wide range of domains <a href="https://support.rstudio.com/hc/en-us/articles/201057987-Quick-list-of-useful-R-packages">here</a>.</p>
+<p>Here are the (non-specialized) R packages I’ve come to use regularly.</p>
+<ul>
+<li>Drake + dflow (currently transitioning to <a href="https://github.com/ropensci/targets">targets</a> + <a href="https://github.com/MilesMcBain/tflow">tflow</a>)</li>
+<li><a href="https://www.tidyverse.org/">Tidyverse</a> of course</li>
+<li>The <a href="https://paul-buerkner.github.io/brms/">brms</a> package for most “standard” bayesian modeling - E.g. Bayesian (potentially hierarchical) glms</li>
+<li>The <a href="https://mc-stan.org/users/interfaces/rstan">rstan</a> package for some “non-standard” bayesian modeling</li>
+<li><a href="https://rcpp.org">Rcpp</a> (and associated Rcpp packages like RcppEigen, RcppProgress,RcppParallel) for other “non-standard” bayesian models.</li>
+<li>– It can often help to read the code of other developers working in this space, as well as R in general</li>
+<li>The <a href="http://www.danieldsjoberg.com/gtsummary/">gtsummary</a> package for paper/presentation tables</li>
+<li>– I sometimes use <a href="https://gt.rstudio.com/">gt</a> directly</li>
+</ul>
+<p>For making other packages: * <a href="https://usethis.r-lib.org/">usethis</a> * <a href="https://devtools.r-lib.org/">devtools</a> (including roxygen2, etc.) * <a href="https://rstudio.github.io/renv/articles/renv.html">renv</a> - can also be useful for analyses potentially</p>
+<p>Specialized R Packages I use for spatial analysis:</p>
+<ul>
+<li>The <a href="https://r-spatial.github.io/sf/">sf</a> package</li>
+<li>The <a href="https://github.com/NCAR/fields">fields</a> package</li>
+<li>The <a href="http://spatstat.org/">spatstat</a> package</li>
+<li>The <a href="https://github.com/dkahle/ggmap">ggmap</a>, or <a href="https://rstudio.github.io/leaflet/">leaflet</a> packages for visualization</li>
+</ul>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="apeterson91/website" data-repo-id="" data-category="General" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© Copyright 2024 Adam Peterson. Except where otherwise noted, all text and images licensed CC-BY-NC 4.0.</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

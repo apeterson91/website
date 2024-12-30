@@ -1,0 +1,34 @@
+project:
+  type: website
+  resources:
+    - resume.pdf
+
+website:
+  title: "Adam Peterson"
+  open-graph:
+    locale: en-US
+  comments:
+    giscus:
+      repo: apeterson91/website
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - text: "Blog"
+        href: blog.html
+      - text: "Resume"
+        href: resume.pdf
+      - text: "Papers"
+        href: papers
+  page-footer:
+   left: "© Copyright 2024 Adam Peterson. Except where otherwise noted, all text and images licensed CC-BY-NC 4.0."
+
+format:
+  html:
+    theme:
+      light: [lumen, _variables.scss]
+      dark: darkly
+    css: styles.css
+
+execute:
+  freeze: auto

@@ -1,6 +1,0 @@
----
-title: Heterogeneous Effects in the Built Environment
-date: 2021-07-01
-publication: arxiv
-abstract: We present an approach to estimate distance-dependent heterogeneous associations between point-referenced exposures to built environment characteristics and health outcomes. By estimating associations that depend non-linearly on distance between subjects and point-referenced exposures, this method addresses the modifiable area-unit problem that is pervasive in the built environment literature. Additionally, by estimating heterogeneous effects, the method also addresses the uncertain geographic context problem. The key innovation of our method is to combine ideas from the non-parametric function estimation literature and the Bayesian Dirichlet process literature. The former is used to estimate nonlinear associations between subject's outcomes and proximate built environment features, and the latter identifies clusters within the population that have different effects. We study this method in simulations and apply our model to study heterogeneity in the association between fast food restaurant availability and weight status of children attending schools in Los Angeles, California.
----
