@@ -14,8 +14,12 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - text: "Blog"
-        href: blog.html
+      - text: "Blogs"
+        menu:
+          - text: "Statistics"
+            href: blog.html
+          - text: "Built Environment"
+            href: https://xstreetvalidated.com
       - text: "Resume"
         href: resume.pdf
       - text: "Papers"
