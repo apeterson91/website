@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Adam Peterson">
+<meta name="dcterms.date" content="2025-04-30">
+<meta name="description" content="An overview of different sampling designs">
+
+<title>Adam Peterson - Sampling Designs and Algorithms: A Review</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Adam Peterson - Sampling Designs and Algorithms: A Review">
+<meta property="og:description" content="An overview of different sampling designs">
+<meta property="og:image" content="index_files/figure-html/bernoulli_sample_variance-1.png">
+<meta property="og:site-name" content="Adam Peterson">
+<meta property="og:locale" content="en-US">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Adam Peterson</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-blogs" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Blogs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-blogs">    
+        <li>
+    <a class="dropdown-item" href="../../blog.html" rel="" target="">
+ <span class="dropdown-text">Statistics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://xstreetvalidated.com" rel="" target="">
+ <span class="dropdown-text">Built Environment</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../resume.pdf" rel="" target="">
+ <span class="menu-text">Resume</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../papers" rel="" target="">
+ <span class="menu-text">Papers</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Sampling Designs and Algorithms: A Review</h1>
+                  <div>
+        <div class="description">
+          An overview of different sampling designs
+        </div>
+      </div>
+                </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Adam Peterson </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">April 30, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a>
+  <ul class="collapse">
+  <li><a href="#sampling-design" id="toc-sampling-design" class="nav-link" data-scroll-target="#sampling-design">Sampling Design</a></li>
+  </ul></li>
+  <li><a href="#element-sampling-designs" id="toc-element-sampling-designs" class="nav-link" data-scroll-target="#element-sampling-designs">Element Sampling Designs</a>
+  <ul class="collapse">
+  <li><a href="#sec-notation" id="toc-sec-notation" class="nav-link" data-scroll-target="#sec-notation">Notation</a></li>
+  <li><a href="#bernoulli-sampling" id="toc-bernoulli-sampling" class="nav-link" data-scroll-target="#bernoulli-sampling">Bernoulli Sampling</a>
+  <ul class="collapse">
+  <li><a href="#properties" id="toc-properties" class="nav-link" data-scroll-target="#properties">Properties</a></li>
+  </ul></li>
+  <li><a href="#simple-random-sampling" id="toc-simple-random-sampling" class="nav-link" data-scroll-target="#simple-random-sampling">Simple Random Sampling</a>
+  <ul class="collapse">
+  <li><a href="#properties-1" id="toc-properties-1" class="nav-link" data-scroll-target="#properties-1">Properties</a></li>
+  <li><a href="#considerations" id="toc-considerations" class="nav-link" data-scroll-target="#considerations">Considerations</a></li>
+  </ul></li>
+  <li><a href="#systematic-sampling" id="toc-systematic-sampling" class="nav-link" data-scroll-target="#systematic-sampling">Systematic Sampling</a>
+  <ul class="collapse">
+  <li><a href="#variance-difficulties" id="toc-variance-difficulties" class="nav-link" data-scroll-target="#variance-difficulties">Variance Difficulties</a></li>
+  <li><a href="#considerations-1" id="toc-considerations-1" class="nav-link" data-scroll-target="#considerations-1">Considerations</a></li>
+  </ul></li>
+  <li><a href="#poisson-sampling" id="toc-poisson-sampling" class="nav-link" data-scroll-target="#poisson-sampling">Poisson Sampling</a>
+  <ul class="collapse">
+  <li><a href="#properties-2" id="toc-properties-2" class="nav-link" data-scroll-target="#properties-2">Properties</a></li>
+  <li><a href="#considerations-2" id="toc-considerations-2" class="nav-link" data-scroll-target="#considerations-2">Considerations</a></li>
+  </ul></li>
+  <li><a href="#pps-sampling" id="toc-pps-sampling" class="nav-link" data-scroll-target="#pps-sampling">PPS Sampling</a>
+  <ul class="collapse">
+  <li><a href="#properties-3" id="toc-properties-3" class="nav-link" data-scroll-target="#properties-3">Properties</a></li>
+  </ul></li>
+  <li><a href="#stratified-sampling" id="toc-stratified-sampling" class="nav-link" data-scroll-target="#stratified-sampling">Stratified Sampling</a>
+  <ul class="collapse">
+  <li><a href="#considerations-3" id="toc-considerations-3" class="nav-link" data-scroll-target="#considerations-3">Considerations</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#what-to-use-in-practice" id="toc-what-to-use-in-practice" class="nav-link" data-scroll-target="#what-to-use-in-practice">What to Use in Practice</a>
+  <ul class="collapse">
+  <li><a href="#what-sample-designs-do-and-do-not-offer" id="toc-what-sample-designs-do-and-do-not-offer" class="nav-link" data-scroll-target="#what-sample-designs-do-and-do-not-offer">What Sample Designs do and do not offer</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
+
+
+
+
+<section id="preface" class="level1">
+<h1>Preface</h1>
+<p>After writing up my <a href="https://apeterson91.github.io/ComplexSurveys/ComplexSurveyNotes.html">notes</a> on Thomas Lumley’s excellent book detailing how to use his survey methods software <a href="https://r-survey.r-forge.r-project.org/survey/">package</a> and some of the associated theory, I found myself wanting to cover the subject further. In particular, I found myself reading Lumley’s main theoretical reference for his book, <span class="citation" data-cites="sarndal2003model">(<a href="#ref-sarndal2003model" role="doc-biblioref">Särndal, Swensson, and Wretman 2003</a>)</span>, and enjoying it immensely.</p>
+<p>Consequently this post will be the first in a series breaking down more advanced topics in design based inference drawing from <span class="citation" data-cites="sarndal2003model">(<a href="#ref-sarndal2003model" role="doc-biblioref">Särndal, Swensson, and Wretman 2003</a>)</span> and other sources. In particular, where my notes from Lumley’s text focused more on how to analyze samples, this post will focus on different ways to draw samples.</p>
+<section id="sampling-design" class="level2">
+<h2 class="anchored" data-anchor-id="sampling-design">Sampling Design</h2>
+<p>In this post I’ll provide an overview of several different types of sampling designs one might encounter in design based inference. The inferential goal to start will simply be descriptive, i.e.&nbsp;what is the mean or total for some variable in a population, though its worth noting causal inference and experimental design share many of the same motivations and ideas.</p>
+<p>While sampling designs are defined by the probability distribution of drawing any given sample, the implementation of any algorithm that produces the desired sampling distribution is another matter that can have implications on how easily one can draw a sample in practice — this is especially true in the world of big data.</p>
+<p>Details here become complicated depending on what’s being measured and the infrastructure in place determining how easily samples can be drawn and/or measured. I’ll address some of these issues and refer to my own experience in working in this area to highlight what I think are the best strategies.</p>
+</section>
+</section>
+<section id="element-sampling-designs" class="level1 page-columns page-full">
+<h1>Element Sampling Designs</h1>
+<p><span class="citation" data-cites="sarndal2003model">(<a href="#ref-sarndal2003model" role="doc-biblioref">Särndal, Swensson, and Wretman 2003</a>)</span> provide a formal definition for the technical requirements of a sampling design but in this post, it’ll suffice to say that a sampling design provides some procedure by which elements are drawn <em>probabilistically</em> from a population. The use of the word “probabilistically” here is key, as it denotes that the realized sample was one of possible samples and grounds our inference as a method that can provided unbiased estimators with quantifiable uncertainty. A further distinction worth noting here is that we are sampling the elements of the population themselves upon which we’ll construct our measurement. This distinction is worth making because more complex survey designs will sample clusters of elements in some way before the elements themselves to reduce the overall cost of the design and/or improve efficiency of estimate’s precision.</p>
+<p><span class="citation" data-cites="sarndal2003model">(<a href="#ref-sarndal2003model" role="doc-biblioref">Särndal, Swensson, and Wretman 2003</a>)</span> lists the following six element sampling designs in chapter 3:</p>
+<ol type="1">
+<li>Bernoulli Sampling</li>
+<li>Simple random sampling with(out) replacement</li>
+<li>Systematic Sampling</li>
+<li>Poisson Sampling</li>
+<li>Probability proportional to size sampling with(out) replacement</li>
+<li>Stratified Sampling.</li>
+</ol>
+<p>Each of these designs have various advantages and disadvantages that correspond to their properties for estimating a population quantity via some estimator. For example, when (2) and (5) are used to sample with replacement there’s an increase in the variance of the estimator because there’s a possibility — large or small depending on the population size — that duplicate samples are drawn. For this reason, I’ll omit these from my current discussion.</p>
+<p>For those with training in a conventional statistics curriculum, it is worth highlighting how in the absence of a specified model we do not have the typical theoretical tools — like the <a href="https://en.wikipedia.org/wiki/Rao%E2%80%93Blackwell_theorem">rao-blackwell theorem</a> for example — to guarantee the efficiency of our estimators. Instead, we have to analyze the design in place of the model to understand how different sampling designs, coupled with a specified estimator, may be better or worse at estimating the quantity of interest. In general, I’ll focus on comparing estimators to the <a href="https://en.wikipedia.org/wiki/Horvitz%E2%80%93Thompson_estimator">Horvitz Thompson</a> (HTE) or <span class="math inline">\pi</span> estimator, as <span class="citation" data-cites="sarndal2003model">(<a href="#ref-sarndal2003model" role="doc-biblioref">Särndal, Swensson, and Wretman 2003</a>)</span> refers to it. To more explicitly define these estimators, I’ll introduce some basic notation.</p>
+<section id="sec-notation" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="sec-notation">Notation</h2>
+<p>I’ll assume that every element in the population can be drawn into the sample and subsequently measured. Indexing each element as <span class="math inline">i=1,...,N</span>, so that there are <span class="math inline">N</span> total elements in the population, the measurement on each subject is <span class="math inline">y_i</span> which can have any <a href="https://en.wikipedia.org/wiki/Support#:~:text=in%20commutative%20algebra-,Statistics,or%20probability%20density%20is%20positive">support</a> - discrete or continuous. The typical target of estimation is the population total, <span class="math inline">T = \sum_{i=1}^{N} y_i</span>, or mean <span class="math inline">\mu = \frac{T}{N}</span>.</p>
+<p>The sampling design defines how we sample the elements of the population. This structure is in part encoded by their sampling probabilities, <span class="math inline">\pi_i</span>, which are defined for each element. The sampling probability represents, as its name implies, the probability that the element is included in the sample, <span class="math inline">\mathrm{S}</span>, from the population; <span class="math inline">P(i \in \mathrm{S}) = \pi_i</span>:</p>
+<p>The <span class="math inline">\pi</span> estimator, is constructed by weighting each measured element in <span class="math inline">\mathrm{S}</span>, where <span class="math inline">|\mathrm{S}| = n &lt; N</span>, according to the inverse of its sampling probability.</p>
+<p><span class="math display">
+\hat{T}_{\pi} = \sum_{i=1}^{n} \frac{y_i}{\pi_i}.
+</span></p>
+<p>By weighting the measurements, we can ensure that the resulting estimate is unbiased for the true population total. The proof is straightforward and can be found <a href="https://apeterson91.github.io/ComplexSurveys/ComplexSurveyNotes.html#chapter-1-appendix">here</a>.</p>
+<p>Similarly the variance has the following general form, <span class="math display">
+\hat{V}[T_{\pi}] = \sum_{i=1}^{n}\sum_{j=1}^{n} \frac{y_i y_j}{\pi_{ij}} - \frac{y_i}{\pi_i}\frac{y_j}{\pi_j},
+</span></p>
+<p>where <span class="math inline">\pi_{ij}</span> is the probability that the <span class="math inline">i</span>th and <span class="math inline">j</span>th elements are sampled together. Again, a proof is found here in <a href="https://apeterson91.github.io/ComplexSurveys/ComplexSurveyNotes.html#exercises">question 10</a>.</p>
+<aside>
+Note that a different formulation of this estimator is used for designs that sample with replacement.
+</aside>
+<p>As I work through the different designs it’ll become clear that the way in which we structure the sampling can have a profound impact on our ability to efficiently estimate any population quantity. In particular, depending on how the <span class="math inline">\pi_i</span> are constructed from the sampling design, our variance expression shown above can change for the better or worse.</p>
+</section>
+<section id="bernoulli-sampling" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="bernoulli-sampling">Bernoulli Sampling</h2>
+<p>A Bernoulli sample is arguably the simplest sampling design. Iterating through each element of the population, flip a coin that shows heads with some specified probability. If the coin shows heads, include the sample in your population, if not, don’t include it. The same principle can be applied by using a random uniform number generator and applying a cutoff according to the same principle. The probability of flipping a heads, <span class="math inline">\pi</span> is the sampling probability for all elements. Since each indicator is independent of the other, the joint sampling probability is simply the product, <span class="math inline">\pi_{ij} = \pi_i^2, i \neq j</span>.</p>
+<p>This algorithm is straightforward and can be implemented in a variety of ways, if the population can be stored in memory in a simple vector, the function below shows one way to draw a Bernoulli sample.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>bernoulli_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(population_data, pi) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  N <span class="ot">&lt;-</span> <span class="fu">length</span>(population_data)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(population_data[<span class="fu">runif</span>(<span class="at">n =</span> N) <span class="sc">&lt;=</span> pi])</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Alternatively, a call to <a href="https://dplyr.tidyverse.org/reference/slice.html"><code>dplyr::slice_sample()</code></a> on a <code>data.frame</code> will perform the same operation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">prop =</span> .<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              mpg cyl  disp  hp drat   wt qsec vs am gear carb
+Merc 240D    24.4   4 146.7  62 3.69 3.19 20.0  1  0    4    2
+Merc 230     22.8   4 140.8  95 3.92 3.15 22.9  1  0    4    2
+Ferrari Dino 19.7   6 145.0 175 3.62 2.77 15.5  0  1    5    6</code></pre>
+</div>
+</div>
+<p>Note that the inclusion probability independence property here — and elsewhere — will allow this sampling design to be easily parallelized if the entire population’s information is stored on disk or <a href="https://en.wikipedia.org/wiki/Shard_(database_architecture)">sharded</a>.</p>
+<p>However, this advantage comes at a cost. Since the sample indicators are all independent, the size of the sample is also random. This can be undesirable for administrative purposes and also causes the <span class="math inline">\pi</span> estimator for this design to be less efficient than the straightforward sample mean <span class="math inline">\bar{y}</span> — scaled by <span class="math inline">N</span> if estimating the population total. This greater efficiency comes from adjusting the estimate according to the observed sample size, rather than relying on the random sample size information from the sampling probabilities.</p>
+<aside>
+The alternative estimator uses the observed sample size, <span class="math inline">n</span>, as opposed to the expected sample size, <span class="math inline">E[n] = N \pi</span>.
+</aside>
+<p>In my work with large sharded datasets, I often find myself using the Bernoulli sample to quickly from large data sets when I’m trying to get a quick sense of what the data looks like as it is so quick to run. As long as the variable of interest isn’t rare and measurement isn’t expensive, this can be a very effective sample design.</p>
+<section id="properties" class="level3">
+<h3 class="anchored" data-anchor-id="properties">Properties</h3>
+<p>For a Bernoulli sample with a single inclusion probability the <span class="math inline">\pi</span> estimator of the population total is <span class="math inline">\hat{T} = \frac{1}{\pi} \sum_{i=1}^{n} y_i</span>.</p>
+<p>With variance estimated by <span class="math display">
+\hat{V}[\hat{T}_{\pi}] = \frac{1}{\pi}\left (\frac{1}{\pi} - 1 \right)\sum_{i=1}^{n} y_i^2.
+</span></p>
+<p>The more efficient estimator’s variance estimator is</p>
+<p><span class="math display">
+\hat{V}[\hat{T}_{a}] = \frac{1 - \pi}{n} \frac{1}{n-1} \sum_{i=1}^{n} (y-\bar{y})^2,
+</span> which follows from classic iid sample variance estimate.</p>
+<p><span class="citation" data-cites="sarndal2003model">(<a href="#ref-sarndal2003model" role="doc-biblioref">Särndal, Swensson, and Wretman 2003</a>)</span> derives the ratio of the two estimators variance to show the latter is more efficient than the former. You can see a plot below showing a comparison of the two estimators estimating the total of the <code>mpg</code> column of the <code>mtcars</code> data set. The alternative estimator is <strong>much</strong> more efficient than the <span class="math inline">\pi</span> estimator.</p>
+<div class="cell">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">pi =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fl">0.01</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">map</span>(pi, <span class="cf">function</span>(pi_) mtcars <span class="sc">|&gt;</span> <span class="fu">slice_sample</span>(<span class="at">prop =</span> pi_) <span class="sc">|&gt;</span> <span class="fu">pull</span>(mpg))</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pi) <span class="sc">|&gt;</span> </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(y) <span class="sc">|&gt;</span> </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># min function here simply takes one of the values since we have duplicates</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># within each pi group </span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">var_pi =</span> <span class="fu">min</span>(<span class="dv">1</span> <span class="sc">/</span> pi <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">/</span> pi <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="fu">sum</span>(y<span class="sc">^</span><span class="dv">2</span>))),</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">var_alt =</span> <span class="fu">min</span>((<span class="dv">1</span> <span class="sc">-</span> pi) <span class="sc">/</span> <span class="fu">n</span>() <span class="sc">*</span> <span class="fu">var</span>(y) <span class="sc">*</span> (<span class="fu">var</span>(y)))</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="fu">contains</span>(<span class="st">"var"</span>), <span class="at">key =</span> <span class="st">"Estimator"</span>, <span class="at">value =</span> <span class="st">"Variance"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Estimator =</span> <span class="fu">if_else</span>(Estimator <span class="sc">==</span> <span class="st">"var_pi"</span>, <span class="st">"pi"</span>, <span class="st">"alt"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> pi, <span class="at">y =</span> Variance, <span class="at">color =</span> Estimator)) <span class="sc">+</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Sampling Probability"</span>) <span class="sc">+</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Estimator Variance"</span>) <span class="sc">+</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Estimator Variance Comparison"</span>, </span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle =</span> <span class="st">"Bernoulli Sample Design"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/bernoulli_sample_variance-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="simple-random-sampling" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="simple-random-sampling">Simple Random Sampling</h2>
+<p>A simple random sample (SRS) is likely the most common sample design.</p>
+<p>The design is defined by setting equal probability on all samples of fixed size <span class="math inline">n</span>. From this it follows that the first order inclusion probabilities are <span class="math inline">\pi_i = \frac{n}{N}</span> and <span class="math inline">\pi_{ij} = \frac{n(n-1)}{N(N-1)} \quad k \neq l = 1</span>. Note that the <span class="math inline">\pi_{ij} \neq \pi_i \pi_j</span> because of the fact that we’re sampling <em>without</em> replacement. However, if <span class="math inline">n</span> is small relative to <span class="math inline">N</span> <span class="math inline">\pi_{ij}</span> in this design will approach its independent counterpart.</p>
+<p>One simple algorithm for drawing a SRS is as follows:</p>
+<ol type="1">
+<li>Draw <span class="math inline">\epsilon_1,...,\epsilon_N \stackrel{iid}{\sim}</span> Uniform(<span class="math inline">0,1</span>).</li>
+<li>If <span class="math inline">\epsilon_1 &lt; \frac{n}{N},</span> <span class="math inline">i=1</span> is included in the sample, otherwise not.</li>
+<li>For <span class="math inline">i=2,...,N</span> let <span class="math inline">n_i</span> be the number of elements selected among the first <span class="math inline">i-1</span> elements in the list.</li>
+<li>Include element <span class="math inline">i</span> if <span class="math inline">\epsilon_i &lt; \frac{n - n_i}{N - i + 1}</span></li>
+<li>Terminate when <span class="math inline">n</span> elements are selected</li>
+</ol>
+<p>This same algorithm is shown below in R, but can also be utilized by calling the <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/sample"><code>sample()</code></a> or <a href="https://dplyr.tidyverse.org/reference/slice.html"><code>slice_sample()</code></a> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>simple_random_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(N, n) {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  random_indicators <span class="ot">&lt;-</span> <span class="fu">runif</span>(N)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (random_indicators[<span class="dv">1</span>] <span class="sc">&lt;</span> n <span class="sc">/</span> N) {</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    sample_index_container <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    sample_index_container <span class="ot">&lt;-</span> <span class="fu">vector</span>()</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  n_i <span class="ot">&lt;-</span> <span class="fu">length</span>(sample_index_container)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>N) {</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    prob_frac <span class="ot">&lt;-</span> n <span class="sc">-</span> n_i <span class="sc">/</span> (N <span class="sc">-</span> i <span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (random_indicators[i] <span class="sc">&lt;</span> prob_frac) {</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>      sample_index_container <span class="ot">&lt;-</span> <span class="fu">c</span>(sample_index_container, i)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(sample_index_container)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+Merc 240D      24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+AMC Javelin    15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+Toyota Corona  21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+Camaro Z28     13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1</code></pre>
+</div>
+</div>
+<p>This is one of a class of sampling algorithms called “Reservoir samplers” of which you can read more about, both in theoretical and implementation details from wikipedia <a href="https://en.wikipedia.org/wiki/Reservoir_sampling">here</a>. I also enjoyed <a href="https://florian.github.io/">Florian Hartmann’s</a> blog post on reservoir sampling with streaming data <a href="https://florian.github.io/reservoir-sampling/">here</a> based on <span class="citation" data-cites="vitter1985random">(<a href="#ref-vitter1985random" role="doc-biblioref">Vitter 1985</a>)</span>.</p>
+<p>Note that in contrast to the Bernoulli sample design, here the sample size is fixed by design, so the <span class="math inline">\pi</span> estimator and scaled sample mean are equivalent.</p>
+<section id="properties-1" class="level3">
+<h3 class="anchored" data-anchor-id="properties-1">Properties</h3>
+<p><span class="math display">
+\hat{T}_{\pi} = N\bar{y} = \frac{N}{n}\sum_{i=1}^{n} y_i
+</span></p>
+<p>with variance, <span class="math display">
+\hat{V}_{SRS}[\hat{T}_{\pi}] = N \frac{N - n}{n} \frac{1}{n-1}\sum_{i=1}^{n}(y_i - \bar{y})^2
+</span> The population mean can be estimated with the sample mean, and the variance is the same as before but now divided by the population size scaling factor; <span class="math inline">\hat{V}_{SRS}[\hat{\bar{y}}] = \frac{N-n}{n} \frac{1}{n-1} \sum_{i=1}^{n} (y_i - \bar{y})^{2}</span></p>
+</section>
+<section id="considerations" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="considerations">Considerations</h3>
+<p>In my work I often prefer a fixed sample size when I know that the cost of measurement on the sampled units will be expensive and / or there are serious memory constraints to consider. I generally balance these considerations against how long it takes to draw the sample, as reservoir samplers are typically more time intensive with <span class="math inline">\mathcal{O}(n)</span> computational complexity.</p>
+<aside>
+Read more about Big O notation <a href="https://en.wikipedia.org/wiki/Big_O_notation">here</a>.
+</aside>
+</section>
+</section>
+<section id="systematic-sampling" class="level2">
+<h2 class="anchored" data-anchor-id="systematic-sampling">Systematic Sampling</h2>
+<p>A systematic sample offers a huge advantage in terms of drawing the sample. As <span class="citation" data-cites="sarndal2003model">(<a href="#ref-sarndal2003model" role="doc-biblioref">Särndal, Swensson, and Wretman 2003</a>)</span> describes the sampling procedure:</p>
+<blockquote class="blockquote">
+<p>A first element is drawn at random, and with equal probability, among the first <span class="math inline">a</span> elements in the population list. The positive integer <span class="math inline">a</span> is fixed in advance and is called the <em>sampling interval</em>. No further draw is needed. The rest of the sample is determined by systematically taking every <span class="math inline">a</span>th element thereafter until the end of the list.</p>
+</blockquote>
+<p>One simple algorithm to conduct this sample could be written as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>systematic_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(N, n, a) {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  random_start <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>a, <span class="dv">1</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  sample_indices <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> random_start, <span class="at">to =</span> N, <span class="at">by =</span> a)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># or alternatively</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sample_indices &lt;- seq(from = random_start, to = N, length.out = n)</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(sample_indices)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If sampling via SQL interface, a Modulus operator could be used in conjunction with the <code>ROW_NUMBER()</code> function. There’s an analogous implementation via tidyverse functions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a is chosen prior to sampling</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>random_start <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>a, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">row_number</span>() <span class="sc">%%</span> random_start <span class="sc">==</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+Merc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+Lotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
+</div>
+</div>
+<p>This approach leads to straightforward determination of <span class="math inline">\pi_i</span> and <span class="math inline">\pi_{ij}</span>. Since, under this paradigm, each sample is non-overlapping, <span class="math inline">\pi_i = \frac{1}{a} \quad \forall i</span>. Similarly, <span class="math display">
+\pi_{ij} =
+\begin{cases} \frac{1}{a} &amp; i \text{ and } j \in \mathrm{S} \\ 0 &amp; \text{o.w.}
+\end{cases}
+</span></p>
+<p>Note that this implies that <span class="math inline">\pi_{ij} \ngeq 0 \quad \forall i, j</span>. Which requires a separate derivation and consideration of the variance from the formula previously given. The total estimate is still the same - <span class="math inline">\hat{T}_{\pi} = a \sum_{i=1}^{n} y_i</span></p>
+<section id="variance-difficulties" class="level3">
+<h3 class="anchored" data-anchor-id="variance-difficulties">Variance Difficulties</h3>
+<p><span class="citation" data-cites="sarndal2003model">(<a href="#ref-sarndal2003model" role="doc-biblioref">Särndal, Swensson, and Wretman 2003</a>)</span> goes into great detail elaborating on the conditions under which systematic sampling is more or less efficient than a comparable simple random sample.</p>
+<p>The key property is how the data are ordered - if neighboring variables are very similar to each other, then taking a systematic sample will encourage distinct values are included in the sample and the variability across repeated sampling will be lower than a comparable simple random sample. In spite of this <em>potential</em> systematic sampling offers further difficulty in that no unbiased estimator of the variance is available. <span class="citation" data-cites="sarndal2003model">(<a href="#ref-sarndal2003model" role="doc-biblioref">Särndal, Swensson, and Wretman 2003</a>)</span> offers various ways in which one might bound the variability of the estimator if certain details about the data are known prior to sampling but it’ll suffice for my purposes to say that systematic sampling, while easy to implement, has difficult estimation properties.</p>
+<section id="other-methods-for-handling-systematic-variance" class="level4">
+<h4 class="anchored" data-anchor-id="other-methods-for-handling-systematic-variance">Other Methods for Handling Systematic Variance</h4>
+<p>While <span class="citation" data-cites="sarndal2003model">(<a href="#ref-sarndal2003model" role="doc-biblioref">Särndal, Swensson, and Wretman 2003</a>)</span> finishes their discussion of the systematic variance there, it is briefly worth noting that this method is still of practical relevance, as the US census employs it in their American Community Survey. In order to accurately compute the variance of their methods they use <a href="http://www.asasrms.org/Proceedings/y2011/Files/302108_67867.pdf">successive difference replicate weights</a>, one of a class of replicate weights on which you can find more discussion in my <a href="https://apeterson91.github.io/ComplexSurveys/ComplexSurveyNotes.html#replicate-weights">notes</a> from Lumley’s book. The interested reader should also look into the <a href="https://bschneidr.github.io/svrep/index.html">svrep</a> package, if they want to make successive difference replicate weights.</p>
+</section>
+</section>
+<section id="considerations-1" class="level3">
+<h3 class="anchored" data-anchor-id="considerations-1">Considerations</h3>
+<p>I’ve never used a systematic sampling design, as it has always been easier for me to simply draw a sample. However, I can see the appeal and may use it in the future given its ease to draw and the — relatively recent — ability to correctly estimate the variance via successive difference weights.</p>
+</section>
+</section>
+<section id="poisson-sampling" class="level2">
+<h2 class="anchored" data-anchor-id="poisson-sampling">Poisson Sampling</h2>
+<p>Poisson sampling is the first design discussed thus far that specifically allows for unequal probability of sampling. In notation, we designate the sampling probability for the <span class="math inline">i</span>th element as <span class="math inline">\pi_i, i = 1,...,N</span>. These sampling probabilities are determined by some method prior to drawing the sample, which I’ll discuss further in the next section. As a natural generalization of the Bernoulli sampling design, Poisson sampling similarly draws elements independently from the population, resulting in <span class="math inline">\pi_{ij} = \pi_i \pi_j</span>.</p>
+<p>Similar to Bernoulli sampling, the sample size is random, with an average value equal to the sum of the sampling probabilities and variance equal to the sum of Bernoulli variances:</p>
+<p><span class="math display">
+E[n_s] = \sum_{i=1}^{N} \pi_i \\
+V[n_s] = \sum_{i=1}^{N} \pi_i(1 - \pi_i).
+</span> The <span class="math inline">\pi</span> estimator has the usual form and the variance can be estimated via</p>
+<p><span class="math display">
+V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
+</span></p>
+<p><span class="citation" data-cites="sarndal2003model">(<a href="#ref-sarndal2003model" role="doc-biblioref">Särndal, Swensson, and Wretman 2003</a>)</span> warns that the variance above can be quite high because of the variability in the sample size. Similar to the Bernoulli sampling design this is the main disadvantage of an independent sampling scheme. However, its simplicity is appealing and if a variable sample size is not problematic, the poisson sample design can be effective.</p>
+<p>Now that there are element specific sampling probabilities <code>slice_sample</code>’s algorithm <a href="https://github.com/tidyverse/dplyr/blob/893dbac96d9b1b0931cbfa222d19105f4a5346a1/R/slice.R#L22">will not weight</a> the elements appropriately when drawing the samples.</p>
+<p>In contrast, the <a href="https://cran.r-project.org/web/packages/sampling/index.html"><code>sampling</code></a> R package uses the following simple implementation - where <code>pik</code> is a vector of inclusion probabilities and <code>runif()</code> draws random variables from a Uniform(<span class="math inline">0,1)</span> distribution.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sampling<span class="sc">::</span>UPpoisson</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>function (pik) 
+{
+    if (any(is.na(pik))) 
+        stop("there are missing values in the pik vector")
+    as.numeric(runif(length(pik)) &lt; pik)
+}
+&lt;bytecode: 0x12e3e1588&gt;
+&lt;environment: namespace:sampling&gt;</code></pre>
+</div>
+</div>
+<section id="properties-2" class="level3">
+<h3 class="anchored" data-anchor-id="properties-2">Properties</h3>
+<p>The <span class="math inline">\pi</span> estimator works here exactly as intended, but the variance estimator is <span class="math display">
+\hat{V}_{\pi}[T] = \sum_{i=1}^{n}(1-\pi_i)\frac{y_i^2}{\pi_i},
+</span></p>
+<p>which can result in a high variance. Similar to the Bernoulli sampling design an alternative estimator, and associated variance estimator can be employed using the expected sample size:</p>
+<p><span class="math display">
+\hat{T}_{alt} = \frac{N}{\hat{N}} \sum_{i=1}^{n} \frac{y_i}{\pi_i}, \\
+\hat{N} = \sum_{i=1}^{n} \frac{1}{\pi_i}.
+</span></p>
+<p>Which is a simpler case of a regression estimator for the mean. <span class="citation" data-cites="sarndal2003model">(<a href="#ref-sarndal2003model" role="doc-biblioref">Särndal, Swensson, and Wretman 2003</a>)</span> gives the approximate variance for this but no estimator for the variance. I haven’t used a poisson design in this setting before but I’m guessing I would either use the variance estimator from the regression model implemented in the <code>survey</code> R package, or the straightforward HTE variance, since the alternative isn’t given.</p>
+</section>
+<section id="considerations-2" class="level3">
+<h3 class="anchored" data-anchor-id="considerations-2">Considerations</h3>
+<p>Although less efficient because of its variable sample size, the Poisson sampling design does highlight how a more efficient design could be constructed. Indeed, <span class="citation" data-cites="sarndal2003model">(<a href="#ref-sarndal2003model" role="doc-biblioref">Särndal, Swensson, and Wretman 2003</a>)</span> shows that if an expected fixed sample size is used where <span class="math inline">\pi_i \propto y_i</span> then <span class="math inline">\hat{T}_{\pi} = nc</span>, for some constant <span class="math inline">c</span>, meaning that the the variance of the estimate of <span class="math inline">\hat{T}_{\pi}</span> would zero. In reality, the <span class="math inline">\pi_i</span> are constructed <em>before</em> the <span class="math inline">y_i</span> are measured, and so constructing them to be perfectly proportional is not feasible. However, following the principle that the more proportional the <span class="math inline">\pi_i</span> are to <span class="math inline">y_i</span>, the lower the variance of the estimate is still very useful. Consequently, this principle motivates the next design.</p>
+</section>
+</section>
+<section id="pps-sampling" class="level2">
+<h2 class="anchored" data-anchor-id="pps-sampling">PPS Sampling</h2>
+<p>Probability Proportional-to-Size Sampling or PPS Sampling builds off of the insight from Poisson sampling, that sampling with values proportional to <span class="math inline">y</span> will lead to a lower variance in the HTE estimator.</p>
+<p>In practice, one can’t use the <span class="math inline">y</span> values themselves to draw the sample, as they are obviously the measurement of focus for the survey itself. However, it is often the case that some auxiliary variable, <span class="math inline">x</span>, may be correlated with <span class="math inline">y</span> which can be used instead to draw the sample.</p>
+<p>Still, further complications remain, as drawing a sample that satisfies the properties required for the <span class="math inline">\pi_i</span> to be truly proportional to the <span class="math inline">x_k</span> in, say, a fixed-size design without replacement can be quite complicated. For this sampling design then, I’ll list a few broad ideas alongside references for the reader interested learning more and then move to some examples.</p>
+<ul>
+<li><p><span class="citation" data-cites="sarndal2003model">(<a href="#ref-sarndal2003model" role="doc-biblioref">Särndal, Swensson, and Wretman 2003</a>)</span> cites <span class="citation" data-cites="sunter1977list">(<a href="#ref-sunter1977list" role="doc-biblioref">Sunter 1977</a>)</span>’s list-sequential scheme that is ofen found to be “good enough” for drawing proportional samples.</p>
+<ul>
+<li>It appears that <span class="citation" data-cites="tillesampling">(<a href="#ref-tillesampling" role="doc-biblioref">Tillé and Matei 2023</a>)</span>, the <code>sampling</code> R package uses this same algorithm in their <code>inclusionprobabilities()</code> function.</li>
+</ul></li>
+</ul>
+<p>After computing the inclusion probabilities comes the actual sampling itself.</p>
+<ul>
+<li><p>Again, the <code>sampling</code> R package has several functions that can be used of which I typically use the <code>UPbrewer()</code> function, though there are others too with various pros/cons for computing and using second order inclusion probabilities.</p></li>
+<li><p>When sampling in a “big data” setting I’ve used <span class="citation" data-cites="cohen2009stream">(<a href="#ref-cohen2009stream" role="doc-biblioref">Cohen et al. 2009</a>)</span>’s method with great success. A simple implementation in go can be found <a href="https://github.com/lightstep/varopt">here</a> which can then be implemented in various other parallel data streaming software libraries like Apache’s <a href="https://beam.apache.org/">beam</a>, for example.</p></li>
+</ul>
+<p>Here’s a brief example of how to draw a weighted sample from my ComplexSurvey <a href="https://apeterson91.github.io/ComplexSurveys/ComplexSurveyNotes.html#other-preliminary-items">notes</a> using the <code>sampling</code> package functions described above. Below that, I plot the variable of interest for each of the elements in the population alongside their respective sampling probabilities to show how they relate to one another.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1E3</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Income =</span> <span class="fl">5E4</span> <span class="sc">*</span> <span class="fu">rlnorm</span>(<span class="fl">1E3</span>, <span class="at">meanlog =</span> <span class="dv">0</span>, <span class="at">sdlog =</span> <span class="fl">0.5</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>weighted_sample <span class="ot">&lt;-</span> population <span class="sc">%&gt;%</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">pi =</span> sampling<span class="sc">::</span><span class="fu">inclusionprobabilities</span>(<span class="fu">floor</span>(population<span class="sc">$</span>Income), <span class="dv">50</span>),</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">in_weighted_sample =</span> sampling<span class="sc">::</span><span class="fu">UPbrewer</span>(pi) <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>weighted_sample <span class="sc">|&gt;</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Income <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Income, <span class="at">y =</span> pi)) <span class="sc">+</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="fu">expression</span>(pi)) <span class="sc">+</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Income vs. Sampling Probability"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>This relationship is exactly as we expect, the sampling probabilities are proportional to the income variable along the line shown.</p>
+<section id="properties-3" class="level3">
+<h3 class="anchored" data-anchor-id="properties-3">Properties</h3>
+<p>This is the setting in which the <span class="math inline">\pi</span> estimator provides optimal properties. The estimator is unbiased and the variance is expected to be low or zero if we somehow were able to construct the <span class="math inline">\pi_i</span> to be exactly proportional to <span class="math inline">y_i</span>; the estimators are the same as listed in <a href="#sec-notation">Section&nbsp;2.1</a>.</p>
+</section>
+</section>
+<section id="stratified-sampling" class="level2">
+<h2 class="anchored" data-anchor-id="stratified-sampling">Stratified Sampling</h2>
+<p>The benefits of stratified sampling have already been covered in my notes on Lumley’s text <a href="https://apeterson91.github.io/ComplexSurveys/ComplexSurveyNotes.html#stratified-sampling">here</a>. To recap briefly, stratified samples gain their power from identifying some categorical measure that is associated with the outcome of interest. By ensuring that a sufficient number of elements are sampled within this group, a better estimate of the overall population value can be obtained. Additionally, if the strata represent some domain of interest - race, income group or other area of interest, stratified sampling can ensure that the measurement within that domain attains the desired estimate precision.</p>
+<p>Stratified sampling is easily combined with any of the sampling designs described previously. One can draw a SRS within strata, or a PPS sample, etc. The key principle is that each strata contains an unbiased estimate of the measure of interest, with associated variance which is then added to the other independent stratified samples.</p>
+<p>Here’s a simple example of how to draw a stratified sample with SRS using tidyverse functions, though functions from the <code>sampling</code> R package can also be used here.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 11
+# Groups:   cyl [3]
+    mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1  30.4     4  95.1   113  3.77  1.51  16.9     1     1     5     2
+2  26       4 120.     91  4.43  2.14  16.7     0     1     5     2
+3  24.4     4 147.     62  3.69  3.19  20       1     0     4     2
+4  18.1     6 225     105  2.76  3.46  20.2     1     0     3     1
+5  19.7     6 145     175  3.62  2.77  15.5     0     1     5     6
+6  17.8     6 168.    123  3.92  3.44  18.9     1     0     4     4
+7  15.5     8 318     150  2.76  3.52  16.9     0     0     3     2
+8  13.3     8 350     245  3.73  3.84  15.4     0     0     3     4
+9  15       8 301     335  3.54  3.57  14.6     0     1     5     8</code></pre>
+</div>
+</div>
+<section id="considerations-3" class="level3">
+<h3 class="anchored" data-anchor-id="considerations-3">Considerations</h3>
+<p>I use stratified sampling regularly. It can be used in a pinch as a heuristic for PPS or to ensure that you’ll attain decent estimate precision in what would otherwise be a sparse area of the population. Considerate use of stratified sampling is critical for an applied statistician in my opinion.</p>
+<p>When there are explicit costs associated with measuring sampled units, there are a variety of formulas that will attempt to provide optimal precision for the least cost. These formulas are in my other notes I’ve linked above.</p>
+</section>
+</section>
+</section>
+<section id="what-to-use-in-practice" class="level1">
+<h1>What to Use in Practice</h1>
+<p>In practice choosing the right combination of the sampling designs discussed above is more of an art than a science. Not only does one need to keep in mind the cost associated with measuring sampled units, but also the level of precision desired for any of the various target estimates. These estimates may be at the population or sub-population level, further guiding and complicating one’s design.</p>
+<p>As such, I have no explicit formula of what specific sample design one should or <strong>must</strong> use in a given circumstance. I’ve listed my brief 2-3 sentence take on the various designs above and summarized my general opinion on these different designs in <a href="#tbl-design">Table&nbsp;1</a> below.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-design" class="anchored">
+
+<div id="cluwcehnzw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cluwcehnzw table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#cluwcehnzw thead, #cluwcehnzw tbody, #cluwcehnzw tfoot, #cluwcehnzw tr, #cluwcehnzw td, #cluwcehnzw th {
+  border-style: none;
+}
+
+#cluwcehnzw p {
+  margin: 0;
+  padding: 0;
+}
+
+#cluwcehnzw .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#cluwcehnzw .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#cluwcehnzw .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#cluwcehnzw .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#cluwcehnzw .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cluwcehnzw .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cluwcehnzw .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cluwcehnzw .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#cluwcehnzw .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#cluwcehnzw .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#cluwcehnzw .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#cluwcehnzw .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#cluwcehnzw .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#cluwcehnzw .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#cluwcehnzw .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#cluwcehnzw .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#cluwcehnzw .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#cluwcehnzw .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#cluwcehnzw .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cluwcehnzw .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#cluwcehnzw .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#cluwcehnzw .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#cluwcehnzw .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cluwcehnzw .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#cluwcehnzw .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#cluwcehnzw .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cluwcehnzw .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cluwcehnzw .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#cluwcehnzw .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cluwcehnzw .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#cluwcehnzw .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cluwcehnzw .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cluwcehnzw .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cluwcehnzw .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cluwcehnzw .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cluwcehnzw .gt_left {
+  text-align: left;
+}
+
+#cluwcehnzw .gt_center {
+  text-align: center;
+}
+
+#cluwcehnzw .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#cluwcehnzw .gt_font_normal {
+  font-weight: normal;
+}
+
+#cluwcehnzw .gt_font_bold {
+  font-weight: bold;
+}
+
+#cluwcehnzw .gt_font_italic {
+  font-style: italic;
+}
+
+#cluwcehnzw .gt_super {
+  font-size: 65%;
+}
+
+#cluwcehnzw .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#cluwcehnzw .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#cluwcehnzw .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#cluwcehnzw .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#cluwcehnzw .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#cluwcehnzw .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#cluwcehnzw .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#cluwcehnzw .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#cluwcehnzw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><caption>Table&nbsp;1:  <p>Sampling Designs</p> </caption>
+  <thead>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Description">Description</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Bernoulli">Bernoulli</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="SRS WoR<span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;&quot;><sup>1,2</sup></span>">SRS WoR<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;"><sup>1,2</sup></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Systematic">Systematic</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Poisson">Poisson</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="PPS WoR<span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;&quot;><sup>2,3</sup></span>">PPS WoR<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;"><sup>2,3</sup></span></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="Description" class="gt_row gt_left">Sample Size</td>
+<td headers="Bernoulli" class="gt_row gt_left">Random</td>
+<td headers="SRS WoR" class="gt_row gt_left">Fixed</td>
+<td headers="Systematic" class="gt_row gt_left">Fixed</td>
+<td headers="Poisson" class="gt_row gt_left">Random</td>
+<td headers="PPS WoR" class="gt_row gt_left">Fixed</td></tr>
+    <tr><td headers="Description" class="gt_row gt_left">Optimal Estimator for Population Total</td>
+<td headers="Bernoulli" class="gt_row gt_left">Scaled Sample Mean</td>
+<td headers="SRS WoR" class="gt_row gt_left">Scaled Sample Mean</td>
+<td headers="Systematic" class="gt_row gt_left">HTE</td>
+<td headers="Poisson" class="gt_row gt_left">HTE</td>
+<td headers="PPS WoR" class="gt_row gt_left">HTE</td></tr>
+    <tr><td headers="Description" class="gt_row gt_left">Pros</td>
+<td headers="Bernoulli" class="gt_row gt_left">Easy to Run with Big Data</td>
+<td headers="SRS WoR" class="gt_row gt_left">Great General Utility</td>
+<td headers="Systematic" class="gt_row gt_left">Easy to Administrate</td>
+<td headers="Poisson" class="gt_row gt_left">Easy to Run with Big Data</td>
+<td headers="PPS WoR" class="gt_row gt_left">Lower Variance</td></tr>
+    <tr><td headers="Description" class="gt_row gt_left">Cons</td>
+<td headers="Bernoulli" class="gt_row gt_left">Variable Sample Size</td>
+<td headers="SRS WoR" class="gt_row gt_left">Slower with Big Data</td>
+<td headers="Systematic" class="gt_row gt_left">Complex Variance Estimation</td>
+<td headers="Poisson" class="gt_row gt_left">Variable Sample Size</td>
+<td headers="PPS WoR" class="gt_row gt_left">May be difficult to construct sampling probabilities and draw sample.</td></tr>
+  </tbody>
+  
+  <tfoot class="gt_footnotes">
+    <tr>
+      <td class="gt_footnote" colspan="6"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;"><sup>1</sup></span> SRS = Simple Random Sample</td>
+    </tr>
+    <tr>
+      <td class="gt_footnote" colspan="6"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;"><sup>2</sup></span> <div data-qmd-base64="V29SID0gKipXaXRob3V0KiogUmVwbGFjZW1lbnQ="><div class="gt_from_md"><p>WoR = <strong>Without</strong> Replacement</p>
+</div></div></td>
+    </tr>
+    <tr>
+      <td class="gt_footnote" colspan="6"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;"><sup>3</sup></span> <div data-qmd-base64="UFBTID0gUHJvYmFiaWxpdHkgb2YgU2FtcGxpbmcgUHJvcG9ydGlvbmFsIHRvIFNpemU="><div class="gt_from_md"><p>PPS = Probability of Sampling Proportional to Size</p>
+</div></div></td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+</div>
+</div>
+</div>
+<section id="what-sample-designs-do-and-do-not-offer" class="level2">
+<h2 class="anchored" data-anchor-id="what-sample-designs-do-and-do-not-offer">What Sample Designs do and do not offer</h2>
+<p>This post covered a wide array of sampling designs and their various advantages and disadvantages when drawing a sample from a finite population. There’s still more that can be said here in terms of how elements are drawn from the population or subsequently measured. I’ll turn my attention to some of the issues in the latter category soon.</p>
+</section>
+</section>
+<section id="references" class="level1">
+
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-cohen2009stream" class="csl-entry" role="listitem">
+Cohen, Edith, Nick Duffield, Haim Kaplan, Carsten Lund, and Mikkel Thorup. 2009. <span>“Stream Sampling for Variance-Optimal Estimation of Subset Sums.”</span> In <em>Proceedings of the Twentieth Annual ACM-SIAM Symposium on Discrete Algorithms</em>, 1255–64. SIAM.
+</div>
+<div id="ref-sarndal2003model" class="csl-entry" role="listitem">
+Särndal, Carl-Erik, Bengt Swensson, and Jan Wretman. 2003. <em>Model Assisted Survey Sampling</em>. Springer Science &amp; Business Media.
+</div>
+<div id="ref-sunter1977list" class="csl-entry" role="listitem">
+Sunter, AB. 1977. <span>“List Sequential Sampling with Equal or Unequal Probabilities Without Replacement.”</span> <em>Journal of the Royal Statistical Society Series C: Applied Statistics</em> 26 (3): 261–68.
+</div>
+<div id="ref-tillesampling" class="csl-entry" role="listitem">
+Tillé, Yves, and Alina Matei. 2023. <em>Sampling: Survey Sampling</em>. <a href="https://CRAN.R-project.org/package=sampling">https://CRAN.R-project.org/package=sampling</a>.
+</div>
+<div id="ref-vitter1985random" class="csl-entry" role="listitem">
+Vitter, Jeffrey S. 1985. <span>“Random Sampling with a Reservoir.”</span> <em>ACM Transactions on Mathematical Software (TOMS)</em> 11 (1): 37–57.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="apeterson91/website" data-repo-id="MDEwOlJlcG9zaXRvcnkxNzg2Mjg5Mzk=" data-category="General" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© Copyright 2024 Adam Peterson. Except where otherwise noted, all text and images licensed CC-BY-NC 4.0.</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>
