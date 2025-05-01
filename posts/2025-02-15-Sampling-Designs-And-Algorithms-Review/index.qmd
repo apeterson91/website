@@ -268,8 +268,8 @@ The design is defined by setting equal probability on all samples of fixed size
 $n$. From this it follows that the first order inclusion probabilities are 
 $\pi_i = \frac{n}{N}$ and $\pi_{ij} = \frac{n(n-1)}{N(N-1)} \quad k \neq l = 1$.
 Note that the $\pi_{ij} \neq \pi_i \pi_j$ because of the fact that we're 
-sampling *without* replacement. However, if $n$ is small relative to $N$ 
-$\pi_{ij}$ in this design will approach its independent counterpart.
+sampling *without* replacement. However, if $n$ is small relative to $N$ then 
+the $\pi_{ij}$ in this design will approach its independent counterpart.
 
 
 One simple algorithm for drawing a SRS is as follows:
@@ -452,8 +452,8 @@ equal to the sum of the sampling probabilities and variance equal to the sum
 of Bernoulli variances:
 
 $$
-E[n_s] = \sum_{i=1}^{N} \pi_i \\
-V[n_s] = \sum_{i=1}^{N} \pi_i(1 - \pi_i).
+E[n] = \sum_{i=1}^{N} \pi_i \\
+V[n] = \sum_{i=1}^{N} \pi_i(1 - \pi_i).
 $$
 The $\pi$ estimator has the usual form and the variance can be estimated via
 

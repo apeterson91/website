@@ -343,10 +343,10 @@ Note that a different formulation of this estimator is used for designs that sam
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">prop =</span> .<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>              mpg cyl  disp  hp drat   wt qsec vs am gear carb
-Merc 240D    24.4   4 146.7  62 3.69 3.19 20.0  1  0    4    2
-Merc 230     22.8   4 140.8  95 3.92 3.15 22.9  1  0    4    2
-Ferrari Dino 19.7   6 145.0 175 3.62 2.77 15.5  0  1    5    6</code></pre>
+<pre><code>                mpg cyl  disp hp drat    wt  qsec vs am gear carb
+Honda Civic    30.4   4  75.7 52 4.93 1.615 18.52  1  1    4    2
+Toyota Corolla 33.9   4  71.1 65 4.22 1.835 19.90  1  1    4    1
+Porsche 914-2  26.0   4 120.3 91 4.43 2.140 16.70  0  1    5    2</code></pre>
 </div>
 </div>
 <p>Note that the inclusion probability independence property here — and elsewhere — will allow this sampling design to be easily parallelized if the entire population’s information is stored on disk or <a href="https://en.wikipedia.org/wiki/Shard_(database_architecture)">sharded</a>.</p>
@@ -403,7 +403,7 @@ The alternative estimator uses the observed sample size, <span class="math inlin
 <section id="simple-random-sampling" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="simple-random-sampling">Simple Random Sampling</h2>
 <p>A simple random sample (SRS) is likely the most common sample design.</p>
-<p>The design is defined by setting equal probability on all samples of fixed size <span class="math inline">n</span>. From this it follows that the first order inclusion probabilities are <span class="math inline">\pi_i = \frac{n}{N}</span> and <span class="math inline">\pi_{ij} = \frac{n(n-1)}{N(N-1)} \quad k \neq l = 1</span>. Note that the <span class="math inline">\pi_{ij} \neq \pi_i \pi_j</span> because of the fact that we’re sampling <em>without</em> replacement. However, if <span class="math inline">n</span> is small relative to <span class="math inline">N</span> <span class="math inline">\pi_{ij}</span> in this design will approach its independent counterpart.</p>
+<p>The design is defined by setting equal probability on all samples of fixed size <span class="math inline">n</span>. From this it follows that the first order inclusion probabilities are <span class="math inline">\pi_i = \frac{n}{N}</span> and <span class="math inline">\pi_{ij} = \frac{n(n-1)}{N(N-1)} \quad k \neq l = 1</span>. Note that the <span class="math inline">\pi_{ij} \neq \pi_i \pi_j</span> because of the fact that we’re sampling <em>without</em> replacement. However, if <span class="math inline">n</span> is small relative to <span class="math inline">N</span> then the <span class="math inline">\pi_{ij}</span> in this design will approach its independent counterpart.</p>
 <p>One simple algorithm for drawing a SRS is as follows:</p>
 <ol type="1">
 <li>Draw <span class="math inline">\epsilon_1,...,\epsilon_N \stackrel{iid}{\sim}</span> Uniform(<span class="math inline">0,1</span>).</li>
@@ -436,13 +436,13 @@ The alternative estimator uses the observed sample size, <span class="math inlin
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                mpg cyl  disp  hp drat    wt  qsec vs am gear carb
-Mazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
-Mazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
-Merc 240D      24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
-AMC Javelin    15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
-Toyota Corona  21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
-Camaro Z28     13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
-Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1</code></pre>
+Ferrari Dino   19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+Fiat 128       32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+Merc 280       19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+Merc 280C      17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+Ford Pantera L 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+Toyota Corona  21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1</code></pre>
 </div>
 </div>
 <p>This is one of a class of sampling algorithms called “Reservoir samplers” of which you can read more about, both in theoretical and implementation details from wikipedia <a href="https://en.wikipedia.org/wiki/Reservoir_sampling">here</a>. I also enjoyed <a href="https://florian.github.io/">Florian Hartmann’s</a> blog post on reservoir sampling with streaming data <a href="https://florian.github.io/reservoir-sampling/">here</a> based on <span class="citation" data-cites="vitter1985random">(<a href="#ref-vitter1985random" role="doc-biblioref">Vitter 1985</a>)</span>.</p>
@@ -489,13 +489,37 @@ Read more about Big O notation <a href="https://en.wikipedia.org/wiki/Big_O_nota
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">row_number</span>() <span class="sc">%%</span> random_start <span class="sc">==</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+Datsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
 Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+Valiant             18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
 Merc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+Merc 230            22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+Merc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+Merc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
 Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
 Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+Fiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+Honda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
 Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+Toyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
+AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
 Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+Fiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+Porsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
 Lotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
 Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
 </div>
 </div>
@@ -524,8 +548,8 @@ Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></
 <p>Poisson sampling is the first design discussed thus far that specifically allows for unequal probability of sampling. In notation, we designate the sampling probability for the <span class="math inline">i</span>th element as <span class="math inline">\pi_i, i = 1,...,N</span>. These sampling probabilities are determined by some method prior to drawing the sample, which I’ll discuss further in the next section. As a natural generalization of the Bernoulli sampling design, Poisson sampling similarly draws elements independently from the population, resulting in <span class="math inline">\pi_{ij} = \pi_i \pi_j</span>.</p>
 <p>Similar to Bernoulli sampling, the sample size is random, with an average value equal to the sum of the sampling probabilities and variance equal to the sum of Bernoulli variances:</p>
 <p><span class="math display">
-E[n_s] = \sum_{i=1}^{N} \pi_i \\
-V[n_s] = \sum_{i=1}^{N} \pi_i(1 - \pi_i).
+E[n] = \sum_{i=1}^{N} \pi_i \\
+V[n] = \sum_{i=1}^{N} \pi_i(1 - \pi_i).
 </span> The <span class="math inline">\pi</span> estimator has the usual form and the variance can be estimated via</p>
 <p><span class="math display">
 V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
@@ -542,7 +566,7 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
         stop("there are missing values in the pik vector")
     as.numeric(runif(length(pik)) &lt; pik)
 }
-&lt;bytecode: 0x12e3e1588&gt;
+&lt;bytecode: 0x115915e58&gt;
 &lt;environment: namespace:sampling&gt;</code></pre>
 </div>
 </div>
@@ -622,15 +646,15 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
 # Groups:   cyl [3]
     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1  30.4     4  95.1   113  3.77  1.51  16.9     1     1     5     2
-2  26       4 120.     91  4.43  2.14  16.7     0     1     5     2
-3  24.4     4 147.     62  3.69  3.19  20       1     0     4     2
-4  18.1     6 225     105  2.76  3.46  20.2     1     0     3     1
-5  19.7     6 145     175  3.62  2.77  15.5     0     1     5     6
-6  17.8     6 168.    123  3.92  3.44  18.9     1     0     4     4
-7  15.5     8 318     150  2.76  3.52  16.9     0     0     3     2
-8  13.3     8 350     245  3.73  3.84  15.4     0     0     3     4
-9  15       8 301     335  3.54  3.57  14.6     0     1     5     8</code></pre>
+1  22.8     4 141.     95  3.92  3.15  22.9     1     0     4     2
+2  33.9     4  71.1    65  4.22  1.84  19.9     1     1     4     1
+3  30.4     4  75.7    52  4.93  1.62  18.5     1     1     4     2
+4  17.8     6 168.    123  3.92  3.44  18.9     1     0     4     4
+5  21       6 160     110  3.9   2.62  16.5     0     1     4     4
+6  21.4     6 258     110  3.08  3.22  19.4     1     0     3     1
+7  15.2     8 276.    180  3.07  3.78  18       0     0     3     3
+8  14.7     8 440     230  3.23  5.34  17.4     0     0     3     4
+9  15.8     8 351     264  4.22  3.17  14.5     0     1     5     4</code></pre>
 </div>
 </div>
 <section id="considerations-3" class="level3">
@@ -648,23 +672,23 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
 <div class="cell-output-display">
 <div id="tbl-design" class="anchored">
 
-<div id="cluwcehnzw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#cluwcehnzw table {
+<div id="inxggwndyw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#inxggwndyw table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#cluwcehnzw thead, #cluwcehnzw tbody, #cluwcehnzw tfoot, #cluwcehnzw tr, #cluwcehnzw td, #cluwcehnzw th {
+#inxggwndyw thead, #inxggwndyw tbody, #inxggwndyw tfoot, #inxggwndyw tr, #inxggwndyw td, #inxggwndyw th {
   border-style: none;
 }
 
-#cluwcehnzw p {
+#inxggwndyw p {
   margin: 0;
   padding: 0;
 }
 
-#cluwcehnzw .gt_table {
+#inxggwndyw .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -690,12 +714,12 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   border-left-color: #D3D3D3;
 }
 
-#cluwcehnzw .gt_caption {
+#inxggwndyw .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#cluwcehnzw .gt_title {
+#inxggwndyw .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -707,7 +731,7 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   border-bottom-width: 0;
 }
 
-#cluwcehnzw .gt_subtitle {
+#inxggwndyw .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -719,7 +743,7 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   border-top-width: 0;
 }
 
-#cluwcehnzw .gt_heading {
+#inxggwndyw .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -731,13 +755,13 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   border-right-color: #D3D3D3;
 }
 
-#cluwcehnzw .gt_bottom_border {
+#inxggwndyw .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#cluwcehnzw .gt_col_headings {
+#inxggwndyw .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -752,7 +776,7 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   border-right-color: #D3D3D3;
 }
 
-#cluwcehnzw .gt_col_heading {
+#inxggwndyw .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -772,7 +796,7 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   overflow-x: hidden;
 }
 
-#cluwcehnzw .gt_column_spanner_outer {
+#inxggwndyw .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -784,15 +808,15 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   padding-right: 4px;
 }
 
-#cluwcehnzw .gt_column_spanner_outer:first-child {
+#inxggwndyw .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#cluwcehnzw .gt_column_spanner_outer:last-child {
+#inxggwndyw .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#cluwcehnzw .gt_column_spanner {
+#inxggwndyw .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -804,11 +828,11 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   width: 100%;
 }
 
-#cluwcehnzw .gt_spanner_row {
+#inxggwndyw .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#cluwcehnzw .gt_group_heading {
+#inxggwndyw .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -834,7 +858,7 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   text-align: left;
 }
 
-#cluwcehnzw .gt_empty_group_heading {
+#inxggwndyw .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -849,15 +873,15 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   vertical-align: middle;
 }
 
-#cluwcehnzw .gt_from_md > :first-child {
+#inxggwndyw .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#cluwcehnzw .gt_from_md > :last-child {
+#inxggwndyw .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#cluwcehnzw .gt_row {
+#inxggwndyw .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -876,7 +900,7 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   overflow-x: hidden;
 }
 
-#cluwcehnzw .gt_stub {
+#inxggwndyw .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -889,7 +913,7 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   padding-right: 5px;
 }
 
-#cluwcehnzw .gt_stub_row_group {
+#inxggwndyw .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -903,15 +927,15 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   vertical-align: top;
 }
 
-#cluwcehnzw .gt_row_group_first td {
+#inxggwndyw .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#cluwcehnzw .gt_row_group_first th {
+#inxggwndyw .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#cluwcehnzw .gt_summary_row {
+#inxggwndyw .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -921,16 +945,16 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   padding-right: 5px;
 }
 
-#cluwcehnzw .gt_first_summary_row {
+#inxggwndyw .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#cluwcehnzw .gt_first_summary_row.thick {
+#inxggwndyw .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#cluwcehnzw .gt_last_summary_row {
+#inxggwndyw .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -940,7 +964,7 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   border-bottom-color: #D3D3D3;
 }
 
-#cluwcehnzw .gt_grand_summary_row {
+#inxggwndyw .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -950,7 +974,7 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   padding-right: 5px;
 }
 
-#cluwcehnzw .gt_first_grand_summary_row {
+#inxggwndyw .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -960,7 +984,7 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   border-top-color: #D3D3D3;
 }
 
-#cluwcehnzw .gt_last_grand_summary_row_top {
+#inxggwndyw .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -970,11 +994,11 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   border-bottom-color: #D3D3D3;
 }
 
-#cluwcehnzw .gt_striped {
+#inxggwndyw .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#cluwcehnzw .gt_table_body {
+#inxggwndyw .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -983,7 +1007,7 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   border-bottom-color: #D3D3D3;
 }
 
-#cluwcehnzw .gt_footnotes {
+#inxggwndyw .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -997,7 +1021,7 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   border-right-color: #D3D3D3;
 }
 
-#cluwcehnzw .gt_footnote {
+#inxggwndyw .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1006,7 +1030,7 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   padding-right: 5px;
 }
 
-#cluwcehnzw .gt_sourcenotes {
+#inxggwndyw .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1020,7 +1044,7 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   border-right-color: #D3D3D3;
 }
 
-#cluwcehnzw .gt_sourcenote {
+#inxggwndyw .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1028,72 +1052,72 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
   padding-right: 5px;
 }
 
-#cluwcehnzw .gt_left {
+#inxggwndyw .gt_left {
   text-align: left;
 }
 
-#cluwcehnzw .gt_center {
+#inxggwndyw .gt_center {
   text-align: center;
 }
 
-#cluwcehnzw .gt_right {
+#inxggwndyw .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#cluwcehnzw .gt_font_normal {
+#inxggwndyw .gt_font_normal {
   font-weight: normal;
 }
 
-#cluwcehnzw .gt_font_bold {
+#inxggwndyw .gt_font_bold {
   font-weight: bold;
 }
 
-#cluwcehnzw .gt_font_italic {
+#inxggwndyw .gt_font_italic {
   font-style: italic;
 }
 
-#cluwcehnzw .gt_super {
+#inxggwndyw .gt_super {
   font-size: 65%;
 }
 
-#cluwcehnzw .gt_footnote_marks {
+#inxggwndyw .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#cluwcehnzw .gt_asterisk {
+#inxggwndyw .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#cluwcehnzw .gt_indent_1 {
+#inxggwndyw .gt_indent_1 {
   text-indent: 5px;
 }
 
-#cluwcehnzw .gt_indent_2 {
+#inxggwndyw .gt_indent_2 {
   text-indent: 10px;
 }
 
-#cluwcehnzw .gt_indent_3 {
+#inxggwndyw .gt_indent_3 {
   text-indent: 15px;
 }
 
-#cluwcehnzw .gt_indent_4 {
+#inxggwndyw .gt_indent_4 {
   text-indent: 20px;
 }
 
-#cluwcehnzw .gt_indent_5 {
+#inxggwndyw .gt_indent_5 {
   text-indent: 25px;
 }
 
-#cluwcehnzw .katex-display {
+#inxggwndyw .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#cluwcehnzw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#inxggwndyw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
