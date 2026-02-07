@@ -23,8 +23,8 @@ comments: false
 
 ## Bio
 
-I am a Data Scientist at Google. I received my PhD in Biostatistics from the 
-University of Michigan in 2021. 
+I am a Data Scientist at Netflix. I received my 
+PhD in Biostatistics from the University of Michigan in 2021. 
 
 I write about statistical ideas [here](blog.html), and ideas related to the 
 built environment at my blog [xstreetvalidated](https://xstreetvalidated.com).
