@@ -2,8 +2,12 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/posts/2025-01-25-Sampling-Designs-And-Algorithms-Review/index.html",
       "/posts/2025-02-15-Sampling-Designs-And-Algorithms-Review/index.html",
-      "/posts/2021-05-05-PhD-Lessons-Learned/index.html"
+      "/posts/2021-05-05-PhD-Lessons-Learned/index.html",
+      "/posts/2019-12-13-Concentration-Parameter-Part-III/index.html",
+      "/posts/2019-12-10-Concentration-Parameter-Part-II/index.html",
+      "/posts/2019-12-01-Concentration-Parameter-Part-I/index.html"
     ]
   }
 ]

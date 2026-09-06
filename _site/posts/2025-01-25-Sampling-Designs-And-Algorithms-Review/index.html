@@ -7,10 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Adam Peterson">
-<meta name="dcterms.date" content="2021-05-05">
-<meta name="description" content="A few lessons learned along the way in completing my PhD">
 
-<title>Adam Peterson - PhD Lessons Learned</title>
+<title>Adam Peterson - Sampling Designs and Algorithms: A Review</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,7 +21,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -64,16 +81,17 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../styles.css">
-<meta property="og:title" content="Adam Peterson - PhD Lessons Learned">
-<meta property="og:description" content="A few lessons learned along the way in completing my PhD">
-<meta property="og:image" content="banner.png">
+<meta property="og:title" content="Adam Peterson - Sampling Designs and Algorithms: A Review">
+<meta property="og:description" content="">
 <meta property="og:site-name" content="Adam Peterson">
 <meta property="og:locale" content="en-US">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -129,16 +147,8 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">PhD Lessons Learned</h1>
-                  <div>
-        <div class="description">
-          A few lessons learned along the way in completing my PhD
-        </div>
-      </div>
-                          <div class="quarto-categories">
-                <div class="quarto-category">PhD Posts</div>
-              </div>
-                  </div>
+      <h1 class="title">Sampling Designs and Algorithms: A Review</h1>
+                      </div>
   </div>
     
   
@@ -151,12 +161,6 @@ ul.task-list li input[type="checkbox"] {
             </div>
     </div>
       
-      <div>
-      <div class="quarto-title-meta-heading">Published</div>
-      <div class="quarto-title-meta-contents">
-        <p class="date">May 5, 2021</p>
-      </div>
-    </div>
     
       
     </div>
@@ -165,27 +169,7 @@ ul.task-list li input[type="checkbox"] {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
-  <li><a href="#philosophical" id="toc-philosophical" class="nav-link" data-scroll-target="#philosophical">Philosophical</a>
-  <ul class="collapse">
-  <li><a href="#personal-attitude" id="toc-personal-attitude" class="nav-link" data-scroll-target="#personal-attitude">(1) Personal Attitude</a></li>
-  <li><a href="#approach-to-the-problem-research-philosophy" id="toc-approach-to-the-problem-research-philosophy" class="nav-link" data-scroll-target="#approach-to-the-problem-research-philosophy">(2) Approach to the Problem; Research Philosophy</a></li>
-  <li><a href="#statistical-philosophy" id="toc-statistical-philosophy" class="nav-link" data-scroll-target="#statistical-philosophy">(3) Statistical Philosophy</a></li>
-  </ul></li>
-  <li><a href="#conceptual-workflow" id="toc-conceptual-workflow" class="nav-link" data-scroll-target="#conceptual-workflow">Conceptual Workflow</a>
-  <ul class="collapse">
-  <li><a href="#working-on-methods" id="toc-working-on-methods" class="nav-link" data-scroll-target="#working-on-methods">Working on methods?</a></li>
-  <li><a href="#working-on-an-analysis" id="toc-working-on-an-analysis" class="nav-link" data-scroll-target="#working-on-an-analysis">Working on an analysis?</a></li>
-  </ul></li>
-  <li><a href="#technical" id="toc-technical" class="nav-link" data-scroll-target="#technical">Technical</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -194,117 +178,56 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="preface" class="level1">
 <h1>Preface</h1>
-<p>I’m offering the following key observations on things I learned in my PhD as a way of documenting for myself some of my major lessons learned. It is also my hope that others may find it useful as a kind of reference list from which they might learn, as I have greatly benefited from other PhD students or professor’s documentation of similar references and tools.</p>
+<p>After writing up all my notes on Thomas Lumley’s excellent book on his complex survey software package, I found myself still interested in reading and writing more about the subject, particularly those areas that weren’t explicitly covered in Lumley’s text. I found myself reading Lumley’s main theoretical reference for his book, <span class="citation" data-cites="sarndal2003model">(<a href="#ref-sarndal2003model" role="doc-biblioref">Särndal, Swensson, and Wretman 2003</a>)</span> and enjoying it immensely It also didn’t hurt that these topics overlapped with my own professional work considerably.</p>
+<p>So I thought I’d continue writing on the subject. In particular, this post looks to make a more thorough review of the types of sampling one might encounter in a complex survey sample - prior to the analysis of the data. Additionally, while certain sampling types — sampling without replacement for example — are defined in statistical terms by their sampling distribution, the implementation of any algorithm that produces the desired sampling distribution is another matter that can have implications on how easily one is able to draw a sample on, say, a very large data set. Details here can only get more complicated depending on what’s being measured, or how quickly samples need to be drawn. I’ll address some of these issues and refer to my own experience in working in this area to highlight what I think are the best strategies.</p>
 </section>
-<section id="philosophical" class="level1">
-<h1>Philosophical</h1>
-<p>Few different layers here worth exploring (1) Personal Attitude (2) Approach to Problem, or Research Philosophy and (3) Statistical Philosophy.</p>
-<section id="personal-attitude" class="level2">
-<h2 class="anchored" data-anchor-id="personal-attitude">(1) Personal Attitude</h2>
-<p>One’s personal attitude towards the PhD will define everything else learned from it. One key lesson worth learning early on is to let go of your ego. This is easier said than done, as everyone in academia care’s a lot about their intelligence – obviously. That’s how we got to be in graduate school after all – so learning to accept that you’re not that smart and that there’s still a lot one has to learn before becoming a peer of the academy can take some getting used to. Further, it helps to be acclimated to the lifestyle. You need to be very self-driven to get a PhD, as there is much less structure as compared to a M.S. program and one’s experience is largely determined by what the student makes of it. This means that while, yes you can get up any time you want in the day, it helps if you’re self-disciplined enough to get up at such a time that you still get the things done that you need to in order to make progress in your research.</p>
-</section>
-<section id="approach-to-the-problem-research-philosophy" class="level2">
-<h2 class="anchored" data-anchor-id="approach-to-the-problem-research-philosophy">(2) Approach to the Problem; Research Philosophy</h2>
-<p>There’s two things to think about under this heading: (i) The Science (referring to a specific branch of science) and (ii) the Statistics</p>
-<ol type="i">
-<li><p>This is where a statistician would typically collaborate with “subject-matter experts”. That is, other scientists who are more familiar with the conceptual models, standards in the field and so on that define the current state of knowledge and research within the domain of study. Questions in this domain may follow fairly easily from the questions that are most often posed in the literature, or they may be more subtly hidden.</p></li>
-<li><p>Concerns research that extends old or develops new statistical ideas for the purposes of providing statisticians or other scientists with more tools to model natural phenomenon. For example creating a new distribution on the space of some species of graphs I’d consider to be something like “Pure” Statistics research. It may be the case (for the better) that this is developed with an application in mind and so the statistical idea may be merely an adaptation or tweaking of previously established methods to a new kind of data structure or problem. Both would fall under the heading of what’s called “Methods Research”.</p></li>
+<section id="sampling-designs-and-survey-estimators-for-sampling-population-elements" class="level1">
+<h1>Sampling Designs and Survey Estimators for Sampling Population Elements</h1>
+<p><span class="citation" data-cites="sarndal2003model">(<a href="#ref-sarndal2003model" role="doc-biblioref">Särndal, Swensson, and Wretman 2003</a>)</span> provides a formal definition for the technical requirements of a sampling design. In this post, it’ll suffice to say that a sampling design provides some procedure by which elements are drawn <em>probabilistically</em> from a population. The use of the word “probabilistically” here is key, as it denotes that the realized sample was but one of possible samples and grounds our inference as a method that can provided unbiased estimators with quantifiable uncertainty. A further distinction worth noting here is that we’re sampling the elements of the population themselves upon which we’ll construct our measurement. This distinction is worth making because more complex survey designs will sample clusters of elements before the elements themselves to reduce the overall cost of the design and/or improve efficiency of estimate’s precision.</p>
+<p><span class="citation" data-cites="sarndal2003model">(<a href="#ref-sarndal2003model" role="doc-biblioref">Särndal, Swensson, and Wretman 2003</a>)</span> lists the following eight element sampling designs in chapter 3:</p>
+<ol type="1">
+<li>Bernoulli Sampling</li>
+<li>Simple random sampling with replacement</li>
+<li>Simple random sampling without replacement.</li>
+<li>Systematic Sampling</li>
+<li>Poisson Sampling</li>
+<li>Probability proportional to size sampling with replacement</li>
 </ol>
+<p><a href="https://cran.r-project.org/web/packages/sampling/index.html">sampling</a> R package.</p>
+<ol start="7" type="1">
+<li>Probability proportional to size sampling without replacement</li>
+<li>Stratified Sampling.</li>
+</ol>
+<p>Each of these have various advantages and disadvantages that we’ll now walk through, with special attention to their properties for estimating the total of some measure of the population via the Horvitz Thompson or <span class="math inline">\(\pi\)</span> estimator, as <span class="citation" data-cites="sarndal2003model">(<a href="#ref-sarndal2003model" role="doc-biblioref">Särndal, Swensson, and Wretman 2003</a>)</span> refers to it in this section.</p>
+<section id="bernoulli-sampling" class="level2">
+<h2 class="anchored" data-anchor-id="bernoulli-sampling">Bernoulli Sampling</h2>
 </section>
-<section id="statistical-philosophy" class="level2">
-<h2 class="anchored" data-anchor-id="statistical-philosophy">(3) Statistical Philosophy</h2>
-<p>My foundational training was in what is commonly referred to as “classical” or Frequentist statistics. There’s good reason for this as this approach laid the groundwork for much of the applied statistical work that is done today. From the get-go though, I was interested in and hearing about the “new kid on the block”: Bayesian statistics. Of course, this philosophy isn’t all that new, with the first documented work describing Bayesian statistics, going way back to the 1700s, with a work authored by Laplace. I found there to be a number of reasons Bayesian statistics is worth learning in the modern era, principal among them the phenomenon of “concentration of measure”, which provides evidence that the posterior mode (the frequentist’s standard maximum likelihood estimator) is not an “appropriate” description of the posterior distribution in high dimensional spaces. As high dimensional spaces characterize a lot of the work in advanced statistics, this is of increasing importance. There is a nice <a href="https://mc-stan.org/users/documentation/case-studies/curse-dims.html">case study</a> by Bob Carpenter, that tries to provide intuition for these ideas via simulation, as well as a more technical discussion of these ideas <a href="https://discourse.mc-stan.org/t/concentration-of-measure-and-typical-sets/2786">here</a> in the stan forums.</p>
+<section id="simple-random-sampling" class="level2">
+<h2 class="anchored" data-anchor-id="simple-random-sampling">Simple Random Sampling</h2>
 </section>
+<section id="systematic-sampling" class="level2">
+<h2 class="anchored" data-anchor-id="systematic-sampling">Systematic Sampling</h2>
 </section>
-<section id="conceptual-workflow" class="level1">
-<h1>Conceptual Workflow</h1>
-<section id="working-on-methods" class="level3">
-<h3 class="anchored" data-anchor-id="working-on-methods">Working on methods?</h3>
-<p>Think about the question you’re trying to answer. Think long. Think hard.</p>
-<p>Some things you might do to guide your thinking:</p>
-<ul>
-<li>Brainstorm on established statistical methods/techniques = read literature</li>
-<li>Write simple theoretical models down</li>
-<li>Run simple simulations to jog intuition</li>
-</ul>
-<p>Think you’ve got a worthy idea? Run it by someone else if possible, regardless run it in the lab:</p>
-<ul>
-<li>Run a simple simulation - does the generating data make sense?</li>
-<li>Does the model make sense? Can the model recapture the data?</li>
-<li>Start making a package to document the development of your code used to estimate the model</li>
-</ul>
-<p>Document your simulation progress using vignettes/markdown notebooks - they’ll make it easy to refer back to. Try to version everything with git to make it easier to keep track of.</p>
+<section id="poisson-sampling" class="level2">
+<h2 class="anchored" data-anchor-id="poisson-sampling">Poisson Sampling</h2>
 </section>
-<section id="working-on-an-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="working-on-an-analysis">Working on an analysis?</h3>
-<ul>
-<li>Think about the question you’re trying to answer. Typically this is more concretely defined than in the broad methods setting since here, you’re likely to use a more standard method.</li>
-<li>Run descriptives, make simple plots at first (fancier plots after :-D )</li>
-<li>Come up with a model that answers or approximates the question as best possible with the available data (consider more idyllic data/experimental setting as well in your documentation)</li>
-<li>Follow (with judicious liberality) the workflow in Gelman et al.’s 2020 “Bayesian workflow” - using reproducible tools if possible</li>
-<li>At most this includes a git versioned R project with data manipulation, modelling, and presentations all documented and included for future modification and reference</li>
-<li>Jeff Leek has some good writing on this subject. You can check out his <a href="https://leanpub.com/modernscientist">book</a> or his <a href="https://github.com/jtleek">github</a> repos that touch on these topics in different ways.</li>
-</ul>
+<section id="pps-sampling" class="level2">
+<h2 class="anchored" data-anchor-id="pps-sampling">PPS Sampling</h2>
 </section>
-</section>
-<section id="technical" class="level1">
-<h1>Technical</h1>
-<p>You read a lot of textbooks in grad school. Some are good, others aren’t. Here are the ones I continue to reference after first exposure.</p>
-<section id="statistics" class="level4">
-<h4 class="anchored" data-anchor-id="statistics">Statistics:</h4>
-<ul>
-<li>Casella and Berger (2nd edition 2001)</li>
-<li>Bayesian Data Analysis (Gelman et al.&nbsp;3rd edition 2013)</li>
-<li>Regression and Other Stories (Gelman et al.&nbsp;2020)</li>
-<li>Applied Longitudinal Analysis (Fitzmaurice &amp; Laird 2008)</li>
-<li>Hierarchical Modeling and Analysis for Spatial Data (Banerjee, 2004)</li>
-<li>Generalized Additive Models: an Introduction with R (Wood, 2016)</li>
-<li>Causal Inference – What if? (Hernan and Robins 2020)</li>
-<li>Mastering Metric (Angrist &amp; Pischke 2014)</li>
-<li>The Matrix Cookbook (Petersen 2012)</li>
-<li>Handbook of Markov Chain Monte Carlo (Brooks et al.&nbsp;2011)</li>
-<li>Machine Learning: A Probabilistic Perspective (Murphy 2013)</li>
-</ul>
-</section>
-<section id="computational" class="level4">
-<h4 class="anchored" data-anchor-id="computational">Computational:</h4>
-<ul>
-<li><a href="https://r4ds.had.co.nz/">R for data science</a> (Wickham and Grolemund)</li>
-<li><a href="https://r-pkgs.org/">R packages</a> (Wickham)</li>
-<li><a href="https://adv-r.hadley.nz/">Advanced R</a> (Wickham)</li>
-<li>C++ Primer (Lipmann et al.&nbsp;fifth edition)</li>
-<li><a href="https://teuder.github.io/rcpp4everyone_en/">Rcpp for everyone</a> (Tsuda)</li>
-<li><a href="https://geocompr.robinlovelace.net/">Geocomputation with R</a> (Lovelace)</li>
-</ul>
-<section id="r-packages" class="level5">
-<h5 class="anchored" data-anchor-id="r-packages">R packages</h5>
-<p>Rstudio has a good list of well supported R packages across a wide range of domains <a href="https://support.rstudio.com/hc/en-us/articles/201057987-Quick-list-of-useful-R-packages">here</a>.</p>
-<p>Here are the (non-specialized) R packages I’ve come to use regularly.</p>
-<ul>
-<li>Drake + dflow (currently transitioning to <a href="https://github.com/ropensci/targets">targets</a> + <a href="https://github.com/MilesMcBain/tflow">tflow</a>)</li>
-<li><a href="https://www.tidyverse.org/">Tidyverse</a> of course</li>
-<li>The <a href="https://paul-buerkner.github.io/brms/">brms</a> package for most “standard” bayesian modeling - E.g. Bayesian (potentially hierarchical) glms</li>
-<li>The <a href="https://mc-stan.org/users/interfaces/rstan">rstan</a> package for some “non-standard” bayesian modeling</li>
-<li><a href="https://rcpp.org">Rcpp</a> (and associated Rcpp packages like RcppEigen, RcppProgress,RcppParallel) for other “non-standard” bayesian models.</li>
-<li>– It can often help to read the code of other developers working in this space, as well as R in general</li>
-<li>The <a href="http://www.danieldsjoberg.com/gtsummary/">gtsummary</a> package for paper/presentation tables</li>
-<li>– I sometimes use <a href="https://gt.rstudio.com/">gt</a> directly</li>
-</ul>
-<p>For making other packages: * <a href="https://usethis.r-lib.org/">usethis</a> * <a href="https://devtools.r-lib.org/">devtools</a> (including roxygen2, etc.) * <a href="https://rstudio.github.io/renv/articles/renv.html">renv</a> - can also be useful for analyses potentially</p>
-<p>Specialized R Packages I use for spatial analysis:</p>
-<ul>
-<li>The <a href="https://r-spatial.github.io/sf/">sf</a> package</li>
-<li>The <a href="https://github.com/NCAR/fields">fields</a> package</li>
-<li>The <a href="http://spatstat.org/">spatstat</a> package</li>
-<li>The <a href="https://github.com/dkahle/ggmap">ggmap</a>, or <a href="https://rstudio.github.io/leaflet/">leaflet</a> packages for visualization</li>
-</ul>
+<section id="stratified-sampling" class="level2">
+<h2 class="anchored" data-anchor-id="stratified-sampling">Stratified Sampling</h2>
+<p>The benefits of stratified sampling have already been covered in my notes on Lumley’s text <a href="https://apeterson91.github.io/ComplexSurveys/ComplexSurveyNotes.html#stratified-sampling">here</a>, but to recap briefly, stratified samples gain their power from identifying some discrete measure that is associated with the outcome of interest. By ensuring that a sufficient number of elements are sampled within this group, a better estimate of the overall population value can be obtained. Additionally, if the strata represent some domain of interest - race, income group or other area of interest, stratified sampling can ensure that the measurement within that domain attains the desired estimate precision.</p>
+
 
 
 </section>
 </section>
-</section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-sarndal2003model" class="csl-entry" role="listitem">
+Särndal, Carl-Erik, Bengt Swensson, and Jan Wretman. 2003. <em>Model Assisted Survey Sampling</em>. Springer Science &amp; Business Media.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Adam Peterson">
-<meta name="dcterms.date" content="2021-05-05">
-<meta name="description" content="A few lessons learned along the way in completing my PhD">
+<meta name="dcterms.date" content="2019-12-13">
+<meta name="description" content="The mysteries multiply as we look through the literature but some answers are still forthcoming.">
 
-<title>Adam Peterson - PhD Lessons Learned</title>
+<title>Adam Peterson - The Curious Case of the Collapsing Concentration Parameter: Part III</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,7 +23,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -64,11 +83,12 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../styles.css">
-<meta property="og:title" content="Adam Peterson - PhD Lessons Learned">
-<meta property="og:description" content="A few lessons learned along the way in completing my PhD">
-<meta property="og:image" content="banner.png">
+<meta property="og:title" content="Adam Peterson - The Curious Case of the Collapsing Concentration Parameter: Part III">
+<meta property="og:description" content="The mysteries multiply as we look through the literature but some answers are still forthcoming.">
 <meta property="og:site-name" content="Adam Peterson">
 <meta property="og:locale" content="en-US">
 </head>
@@ -129,14 +149,16 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">PhD Lessons Learned</h1>
+      <h1 class="title">The Curious Case of the Collapsing Concentration Parameter: Part III</h1>
                   <div>
         <div class="description">
-          A few lessons learned along the way in completing my PhD
+          The mysteries multiply as we look through the literature but some answers are still forthcoming.
         </div>
       </div>
                           <div class="quarto-categories">
                 <div class="quarto-category">PhD Posts</div>
+                <div class="quarto-category">Dirichlet Process</div>
+                <div class="quarto-category">Bayesian NonParametrics</div>
               </div>
                   </div>
   </div>
@@ -154,7 +176,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">May 5, 2021</p>
+        <p class="date">December 13, 2019</p>
       </div>
     </div>
     
@@ -170,19 +192,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
-  <li><a href="#philosophical" id="toc-philosophical" class="nav-link" data-scroll-target="#philosophical">Philosophical</a>
-  <ul class="collapse">
-  <li><a href="#personal-attitude" id="toc-personal-attitude" class="nav-link" data-scroll-target="#personal-attitude">(1) Personal Attitude</a></li>
-  <li><a href="#approach-to-the-problem-research-philosophy" id="toc-approach-to-the-problem-research-philosophy" class="nav-link" data-scroll-target="#approach-to-the-problem-research-philosophy">(2) Approach to the Problem; Research Philosophy</a></li>
-  <li><a href="#statistical-philosophy" id="toc-statistical-philosophy" class="nav-link" data-scroll-target="#statistical-philosophy">(3) Statistical Philosophy</a></li>
-  </ul></li>
-  <li><a href="#conceptual-workflow" id="toc-conceptual-workflow" class="nav-link" data-scroll-target="#conceptual-workflow">Conceptual Workflow</a>
-  <ul class="collapse">
-  <li><a href="#working-on-methods" id="toc-working-on-methods" class="nav-link" data-scroll-target="#working-on-methods">Working on methods?</a></li>
-  <li><a href="#working-on-an-analysis" id="toc-working-on-an-analysis" class="nav-link" data-scroll-target="#working-on-an-analysis">Working on an analysis?</a></li>
-  </ul></li>
-  <li><a href="#technical" id="toc-technical" class="nav-link" data-scroll-target="#technical">Technical</a></li>
+  <li><a href="#the-dps-start" id="toc-the-dps-start" class="nav-link active" data-scroll-target="#the-dps-start">The DP’s Start</a></li>
+  <li><a href="#the-dps-alpha-update" id="toc-the-dps-alpha-update" class="nav-link" data-scroll-target="#the-dps-alpha-update">The DP’s <span class="math inline">\(\alpha\)</span> Update</a></li>
+  <li><a href="#simulated-and-real-the-dps-current-use" id="toc-simulated-and-real-the-dps-current-use" class="nav-link" data-scroll-target="#simulated-and-real-the-dps-current-use">Simulated and Real: The DP’s Current Use</a></li>
+  <li><a href="#lessons-learned-in-the-process-of-learning-about-the-dirichlet-process" id="toc-lessons-learned-in-the-process-of-learning-about-the-dirichlet-process" class="nav-link" data-scroll-target="#lessons-learned-in-the-process-of-learning-about-the-dirichlet-process">Lessons Learned in the Process of Learning about the Dirichlet Process</a></li>
   </ul>
 </nav>
     </div>
@@ -192,119 +205,88 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="preface" class="level1">
-<h1>Preface</h1>
-<p>I’m offering the following key observations on things I learned in my PhD as a way of documenting for myself some of my major lessons learned. It is also my hope that others may find it useful as a kind of reference list from which they might learn, as I have greatly benefited from other PhD students or professor’s documentation of similar references and tools.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Archival Post
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This post originally appeared in December 2019 during my PhD, on an earlier version of this website. It’s preserved here largely as-is; some links, code, or context may be out of date. I first encountered this issue while developing the method that would eventually become <span class="citation" data-cites="peterson2023close">(<a href="#ref-peterson2023close" role="doc-biblioref">Peterson et al. 2023</a>)</span>.</p>
+</div>
+</div>
+<p>In the Curious Case of the Collapsing Concentration Parameter: Parts I and II we learned about the Dirichlet Process(DP), a cool tool for clustering data, and an odd phenomena that occurs whenever you have a model that easily captures the data. Specifically, we saw that the concentration parameter <span class="math inline">\(\alpha\)</span> collapses at zero under specific conditions and what that means in terms of the model’s parametric interpretation. In this post we’ll return to the history of the DP, looking at its original construction, the key developments and patterns of use that have been made along the way and attempt to close this series with some thoughtful reflection from everything we’ve learned.</p>
+<section id="the-dps-start" class="level2">
+<h2 class="anchored" data-anchor-id="the-dps-start">The DP’s Start</h2>
+<p>The Dirichlet Process was first introduced, as we discussed during part I, in a 1973 paper by Thompson S. Ferguson. In this original paper, Ferguson did not even use the parameterization with the concentration parameter that we have been using and that is most commonplace today. Instead, he implicitly set this value to one and instead denoted <span class="math inline">\(\alpha\)</span> as the base measure. Here’s the full original quote from the paper:</p>
+<blockquote class="blockquote">
+<p>Let <span class="math inline">\(\mathcal{X}\)</span> be a space and <span class="math inline">\(\mathcal{A}\)</span> be a <span class="math inline">\(\sigma\)</span>-field of subsets, and let <span class="math inline">\(\alpha\)</span> be a finite non-null measure on (<span class="math inline">\(\mathcal{X},\mathcal{A})\)</span>. Then a stochastic process P indexed by elements <span class="math inline">\(A\)</span> of <span class="math inline">\(\mathcal{A}\)</span>, is said to be a Dirichlet Process on <span class="math inline">\((\mathcal{X},\mathcal{A})\)</span> with parameter <span class="math inline">\(\alpha\)</span> if for any measurable partition (<span class="math inline">\(A_1,...,A_k\)</span>) of <span class="math inline">\(\mathcal{X}\)</span>, the random vector <span class="math inline">\((P(A_1),...,P(A_k))\)</span> has a Dirichlet Distribution with parameter <span class="math inline">\((\alpha(A_1),...,\alpha(A_k))\)</span>.</p>
+</blockquote>
+<p>Furthermore, we can see later in Ferguson’s development that he specifically wants to allow the parameters of the Dirichlet <strong>Distribution</strong>, not the process, (confusingly, these are also usually denoted as a vector parameter, <span class="math inline">\(\alpha_1,...,\alpha_k\)</span>) to be zero. Quoting from Section 2 of Ferguson’s paper:</p>
+<blockquote class="blockquote">
+<p>The Dirichlet Distribution. The discussion of this section is well known but our definition of the Dirichlet distribution is slightly more general than the usual one… We define the Dirichlet distribution slightly more generally than in Wilks[11], by allowing some of the variables to be degenerate at zero… Use of the notation <span class="math inline">\(\mathcal{D}(\alpha_{1},...,\alpha_{k})\)</span> is taken to imply that <span class="math inline">\(\alpha_{j} \geq 0 \forall j\)</span> and <span class="math inline">\(\alpha_{j} &gt;0\)</span> for some <span class="math inline">\(j\)</span>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+</blockquote>
+<p>Again this doesn’t mean that <span class="math inline">\(\alpha=0\)</span> <em>a priori</em> is okay, as it will still result in a degenerate distribution. However, it seems that Ferguson is explicitly allowing these values to be zero in the posterior, as long as some of the weights <span class="math inline">\(\pi_{l}\)</span> from estimation are non-zero, as they were in our simulation.</p>
+<p>While Ferguson’s paper doesn’t even mention the concentration parameter as its own entity, let alone estimating it, we still learned some worthwhile tidbits in its pages. To learn more about the concentration parameter specificaclly, we’ll now travel forward in time about 30 years, to discuss two papers by Ishwaran and James.</p>
 </section>
-<section id="philosophical" class="level1">
-<h1>Philosophical</h1>
-<p>Few different layers here worth exploring (1) Personal Attitude (2) Approach to Problem, or Research Philosophy and (3) Statistical Philosophy.</p>
-<section id="personal-attitude" class="level2">
-<h2 class="anchored" data-anchor-id="personal-attitude">(1) Personal Attitude</h2>
-<p>One’s personal attitude towards the PhD will define everything else learned from it. One key lesson worth learning early on is to let go of your ego. This is easier said than done, as everyone in academia care’s a lot about their intelligence – obviously. That’s how we got to be in graduate school after all – so learning to accept that you’re not that smart and that there’s still a lot one has to learn before becoming a peer of the academy can take some getting used to. Further, it helps to be acclimated to the lifestyle. You need to be very self-driven to get a PhD, as there is much less structure as compared to a M.S. program and one’s experience is largely determined by what the student makes of it. This means that while, yes you can get up any time you want in the day, it helps if you’re self-disciplined enough to get up at such a time that you still get the things done that you need to in order to make progress in your research.</p>
+<section id="the-dps-alpha-update" class="level2">
+<h2 class="anchored" data-anchor-id="the-dps-alpha-update">The DP’s <span class="math inline">\(\alpha\)</span> Update</h2>
+<p>While Ferguson would eventually introduce the concentration parameter as we know it in a later <a href="https://www.sciencedirect.com/science/article/pii/B9780125893206500186">paper</a>, our journey is going to fast forward to a 2000 <a href="https://academic.oup.com/biomet/article/87/2/371/221380">article</a> by Ishwaran and Zarepour, where the method<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> of updating <span class="math inline">\(\alpha\)</span> is introduced. In this paper, we find the authors discussing some interesting numerical issues:</p>
+<blockquote class="blockquote">
+<p>Selecting an appropriate prior for <span class="math inline">\(\alpha\)</span> is critical to the model’s performance, since the value for <span class="math inline">\(\alpha\)</span> is directly related to the number of distinct <span class="math inline">\(Y_i\)</span> values. We use a Gamma(<span class="math inline">\(\nu_1,\nu_2)\)</span> prior, which has been used by Escobar &amp; West (1995) in density estimation problems involving the Dirichlet process. A gamma prior is appropriate because of its flexibility. For example, to discourage small and large values for <span class="math inline">\(\alpha\)</span> we choose large values for both <span class="math inline">\(\nu_1\)</span> and <span class="math inline">\(\nu_2\)</span>.</p>
+</blockquote>
+<p>This is an interesting sentence because (1) it shows that someone else has encountered some issues with <span class="math inline">\(\alpha\)</span> and (2) the author argues for setting <span class="math inline">\(\alpha\)</span>’s’ prior on the basis of computational motivation rather than substantive or “subject-matter” grounds. This is not something that statisticians are usually comfortable with<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. Their concern with computation is further underscored by their recognition of numerical problems in the Discussion:</p>
+<blockquote class="blockquote">
+<p>With a large value of <span class="math inline">\(N\)</span> (the number of DP truncated components), it can sometimes happen that a few <span class="math inline">\(p_{k}\)</span> values become extremely small, and this can lead to serious numerical problems when running the Metropolis step;… Small <span class="math inline">\(p_{k}\)</span> values are still an issue in evaluating the conditional distributions (3) and (31) (refer to equations in the text) for <span class="math inline">\(\alpha\)</span> in the DP(<span class="math inline">\(\alpha H\)</span>) and <span class="math inline">\(\mathcal{B}(\alpha,1,H)\)</span> processes. However, there is a simple way to increase the numerical stability if we remember that the current value for <span class="math inline">\(p\)</span> is sampled from a generalised Dirichlet Distribution. Since the value of <span class="math inline">\(p\)</span> is constructed in terms of <span class="math inline">\(V_{k}\)</span> beta random variables in (25) it means that we can re-express the conditional distribution for <span class="math inline">\(\alpha\)</span> in terms of <span class="math inline">\(V_{k}\)</span> …<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
+</blockquote>
+<p>The authors then add the same equation we have in part II, for sampling updates from the posterior distribution of <span class="math inline">\(\alpha\)</span>. So, not a great help to us in our present computational predicament, but it does give us more information on why <span class="math inline">\(\alpha|- \to 0\)</span> and some previous attempts to address it.</p>
+<p>We now turn to two last papers that use the Dirichlet Process in published papers, in order to see how they handle the same concentration parameter problems we have, so we can learn from them by example.</p>
 </section>
-<section id="approach-to-the-problem-research-philosophy" class="level2">
-<h2 class="anchored" data-anchor-id="approach-to-the-problem-research-philosophy">(2) Approach to the Problem; Research Philosophy</h2>
-<p>There’s two things to think about under this heading: (i) The Science (referring to a specific branch of science) and (ii) the Statistics</p>
-<ol type="i">
-<li><p>This is where a statistician would typically collaborate with “subject-matter experts”. That is, other scientists who are more familiar with the conceptual models, standards in the field and so on that define the current state of knowledge and research within the domain of study. Questions in this domain may follow fairly easily from the questions that are most often posed in the literature, or they may be more subtly hidden.</p></li>
-<li><p>Concerns research that extends old or develops new statistical ideas for the purposes of providing statisticians or other scientists with more tools to model natural phenomenon. For example creating a new distribution on the space of some species of graphs I’d consider to be something like “Pure” Statistics research. It may be the case (for the better) that this is developed with an application in mind and so the statistical idea may be merely an adaptation or tweaking of previously established methods to a new kind of data structure or problem. Both would fall under the heading of what’s called “Methods Research”.</p></li>
+<section id="simulated-and-real-the-dps-current-use" class="level2">
+<h2 class="anchored" data-anchor-id="simulated-and-real-the-dps-current-use">Simulated and Real: The DP’s Current Use</h2>
+<p>Fast forwarding even closer to the present, we’ll look at two papers that use the Dirichlet Process in their extension work. Specifically, we’ll look at the <a href="https://amstat.tandfonline.com/doi/abs/10.1198/016214508000000553">Nested Dirichlet Process</a> by Rodriguez et al.&nbsp;and <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/biom.12778">Clustering Distributions with the Marginalized Nested Dirichlet Process</a> by Zuanetti et al. Both of these are chosen mainly for convenience, since I happened to run into them in the course of my research and because they both show an interesting use of the concentration parameter and the concentration parameter prior in their work<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
+<p>We’ll skip over the novelty of their new extension, since we’re mainly interested in what they’re doing with the concentration parameters in the DP. These two particular papers each look at a DP that uses another DP as its base measure, so there are two concentration parameters to consider, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>. In the first paper, Rodriguez et al. have the following setting for their concentration parameters in the simulations:</p>
+<blockquote class="blockquote">
+<p>The precision parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> were both fixed to 1 ….</p>
+</blockquote>
+<p>Similarly in the Marginalized Nested Dirichlet Process paper:</p>
+<blockquote class="blockquote">
+<p>The total mass parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are both fixed to 1.</p>
+</blockquote>
+<p>If we look at the data analysis in each paper, we find that Rodriguez et al.&nbsp;uses informative priors, as Ishwaran and Zarepour discussed, while Zuanetti keeps <span class="math inline">\(\alpha=\beta =1\)</span>:</p>
+<blockquote class="blockquote">
+<p>Finally, we set <span class="math inline">\(\alpha,\beta \sim \text{G}(3,3)\)</span> a priori, implying that <span class="math inline">\(E[\alpha] = E[\beta] = 1\)</span> ( a common choice in the literature) and <span class="math inline">\(P(\alpha &gt;3) = P(\beta &gt;3) \approx 0.006\)</span> - Rodriguez et al.</p>
+</blockquote>
+<p>I don’t know about you, but all of this reading left me with a lot of questions. For example, in the Zuanetti et al.&nbsp;paper, they discuss how sampling for <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> can be implemented for their model, but they don’t do it themselves, so they leave their concentration parameters fixed at 1. In the Rodriguez et al.&nbsp;paper, they set a fairly informative prior on <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, in their data application without any justification beyond saying that the mean is a common choice in the literature. After working through the DP as we have and seeing the tendency of <span class="math inline">\(\alpha\)</span> to collapse, I can’t help but wonder if the authors here assign <span class="math inline">\(\alpha, \beta\)</span> an informative prior, or simply keep it fixed, in order to “sweep the numerical issue” under the table so they don’t have to explain it. I’m also surprised that reviewers did not ask them to justify the use of these priors in either substantive or computational terms.</p>
+<p>I’m obviously a bit perplexed, but other readers may think that this isn’t unreasonable. I’ll leave you to draw your own conclusions. For now, I think it’s time we take a step back, and think about what we learned to take away from all of this.</p>
+</section>
+<section id="lessons-learned-in-the-process-of-learning-about-the-dirichlet-process" class="level2">
+<h2 class="anchored" data-anchor-id="lessons-learned-in-the-process-of-learning-about-the-dirichlet-process">Lessons Learned in the Process of Learning about the Dirichlet Process</h2>
+<p>In this post we delved through several different articles in the DP literature that described the initial construction of the DP and how it uses a non-traditional Dirichlet Distribution, concerns with the numerical process of updating <span class="math inline">\(\alpha\)</span> and, finally, the manner in which <span class="math inline">\(\alpha\)</span> is currently used or updated in the literature. We found that, ever since an inference producedure for <span class="math inline">\(\alpha\)</span> was implemented, there have been numerical concerns about <span class="math inline">\(\alpha\)</span>, though it is not clear, to me at least, that these issues neccessarily result in invalid model inference. Further, it seems plausible that authors in this field try to work their way around these issues either by restricting the concentration parameters to be fixed, or by setting informative priors. I don’t think either of these approaches are “bad”, as the model typically performs well in any of these settings, at least when there is a sufficient sample size. However, I do think that everything we’ve discovered thus far does merit some new work on the Dirichlet Process’ theoretical construction and what role the concentration parameter plays in its’ behavior.</p>
+<p>Regarldess of what work may remain to be done, I thank you for joinging me on this journey. I hope, dear reader, that you’ve enjoyed this expedition into the dark nether realms of statistical research in Bayesian NonParametrics and that you’ve learned something about the Dirichlet Process, the “process” of research itself and all the mysteries you can find diving down a rabbit hole in search for a collapsed concentration parameter.</p>
+
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-peterson2023close" class="csl-entry" role="listitem">
+Peterson, Adam T., Veronica J. Berrocal, Emma V. Sanchez-Vaznaugh, and Brisa N. Sánchez. 2023. <span>“How Close and How Much? <span>L</span>inking Health Outcomes to Built Environment Spatial Distributions.”</span> <em>Annals of Applied Statistics</em> 17 (2): 1641–62. <a href="https://doi.org/10.1214/22-AOAS1687">https://doi.org/10.1214/22-AOAS1687</a>.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>In the quote, the <span class="math inline">\(\alpha\)</span>s mentioned are now scalar variables defined on <span class="math inline">\([0,\infty)\)</span>, rather than the non-null finite measure.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Are there other ways of updating <span class="math inline">\(\alpha\)</span>? Yes! In fact there are, though this method requires an entirely different sampler that’s been shown to be less efficient (both statistically and computationally). See <a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.1995.10476550">Escobar and West (1995)</a> for more.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>See the first chapter of Bayesian Data Analysis by Gelman et al.&nbsp;for a discussion of priors.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>The non numerical parentheses are mine, added to clarify things.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>If you, dear reader, come across an article that shows a similar or different setting of the concentration parameter, I would be interested to hear it.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section>
-<section id="statistical-philosophy" class="level2">
-<h2 class="anchored" data-anchor-id="statistical-philosophy">(3) Statistical Philosophy</h2>
-<p>My foundational training was in what is commonly referred to as “classical” or Frequentist statistics. There’s good reason for this as this approach laid the groundwork for much of the applied statistical work that is done today. From the get-go though, I was interested in and hearing about the “new kid on the block”: Bayesian statistics. Of course, this philosophy isn’t all that new, with the first documented work describing Bayesian statistics, going way back to the 1700s, with a work authored by Laplace. I found there to be a number of reasons Bayesian statistics is worth learning in the modern era, principal among them the phenomenon of “concentration of measure”, which provides evidence that the posterior mode (the frequentist’s standard maximum likelihood estimator) is not an “appropriate” description of the posterior distribution in high dimensional spaces. As high dimensional spaces characterize a lot of the work in advanced statistics, this is of increasing importance. There is a nice <a href="https://mc-stan.org/users/documentation/case-studies/curse-dims.html">case study</a> by Bob Carpenter, that tries to provide intuition for these ideas via simulation, as well as a more technical discussion of these ideas <a href="https://discourse.mc-stan.org/t/concentration-of-measure-and-typical-sets/2786">here</a> in the stan forums.</p>
-</section>
-</section>
-<section id="conceptual-workflow" class="level1">
-<h1>Conceptual Workflow</h1>
-<section id="working-on-methods" class="level3">
-<h3 class="anchored" data-anchor-id="working-on-methods">Working on methods?</h3>
-<p>Think about the question you’re trying to answer. Think long. Think hard.</p>
-<p>Some things you might do to guide your thinking:</p>
-<ul>
-<li>Brainstorm on established statistical methods/techniques = read literature</li>
-<li>Write simple theoretical models down</li>
-<li>Run simple simulations to jog intuition</li>
-</ul>
-<p>Think you’ve got a worthy idea? Run it by someone else if possible, regardless run it in the lab:</p>
-<ul>
-<li>Run a simple simulation - does the generating data make sense?</li>
-<li>Does the model make sense? Can the model recapture the data?</li>
-<li>Start making a package to document the development of your code used to estimate the model</li>
-</ul>
-<p>Document your simulation progress using vignettes/markdown notebooks - they’ll make it easy to refer back to. Try to version everything with git to make it easier to keep track of.</p>
-</section>
-<section id="working-on-an-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="working-on-an-analysis">Working on an analysis?</h3>
-<ul>
-<li>Think about the question you’re trying to answer. Typically this is more concretely defined than in the broad methods setting since here, you’re likely to use a more standard method.</li>
-<li>Run descriptives, make simple plots at first (fancier plots after :-D )</li>
-<li>Come up with a model that answers or approximates the question as best possible with the available data (consider more idyllic data/experimental setting as well in your documentation)</li>
-<li>Follow (with judicious liberality) the workflow in Gelman et al.’s 2020 “Bayesian workflow” - using reproducible tools if possible</li>
-<li>At most this includes a git versioned R project with data manipulation, modelling, and presentations all documented and included for future modification and reference</li>
-<li>Jeff Leek has some good writing on this subject. You can check out his <a href="https://leanpub.com/modernscientist">book</a> or his <a href="https://github.com/jtleek">github</a> repos that touch on these topics in different ways.</li>
-</ul>
-</section>
-</section>
-<section id="technical" class="level1">
-<h1>Technical</h1>
-<p>You read a lot of textbooks in grad school. Some are good, others aren’t. Here are the ones I continue to reference after first exposure.</p>
-<section id="statistics" class="level4">
-<h4 class="anchored" data-anchor-id="statistics">Statistics:</h4>
-<ul>
-<li>Casella and Berger (2nd edition 2001)</li>
-<li>Bayesian Data Analysis (Gelman et al.&nbsp;3rd edition 2013)</li>
-<li>Regression and Other Stories (Gelman et al.&nbsp;2020)</li>
-<li>Applied Longitudinal Analysis (Fitzmaurice &amp; Laird 2008)</li>
-<li>Hierarchical Modeling and Analysis for Spatial Data (Banerjee, 2004)</li>
-<li>Generalized Additive Models: an Introduction with R (Wood, 2016)</li>
-<li>Causal Inference – What if? (Hernan and Robins 2020)</li>
-<li>Mastering Metric (Angrist &amp; Pischke 2014)</li>
-<li>The Matrix Cookbook (Petersen 2012)</li>
-<li>Handbook of Markov Chain Monte Carlo (Brooks et al.&nbsp;2011)</li>
-<li>Machine Learning: A Probabilistic Perspective (Murphy 2013)</li>
-</ul>
-</section>
-<section id="computational" class="level4">
-<h4 class="anchored" data-anchor-id="computational">Computational:</h4>
-<ul>
-<li><a href="https://r4ds.had.co.nz/">R for data science</a> (Wickham and Grolemund)</li>
-<li><a href="https://r-pkgs.org/">R packages</a> (Wickham)</li>
-<li><a href="https://adv-r.hadley.nz/">Advanced R</a> (Wickham)</li>
-<li>C++ Primer (Lipmann et al.&nbsp;fifth edition)</li>
-<li><a href="https://teuder.github.io/rcpp4everyone_en/">Rcpp for everyone</a> (Tsuda)</li>
-<li><a href="https://geocompr.robinlovelace.net/">Geocomputation with R</a> (Lovelace)</li>
-</ul>
-<section id="r-packages" class="level5">
-<h5 class="anchored" data-anchor-id="r-packages">R packages</h5>
-<p>Rstudio has a good list of well supported R packages across a wide range of domains <a href="https://support.rstudio.com/hc/en-us/articles/201057987-Quick-list-of-useful-R-packages">here</a>.</p>
-<p>Here are the (non-specialized) R packages I’ve come to use regularly.</p>
-<ul>
-<li>Drake + dflow (currently transitioning to <a href="https://github.com/ropensci/targets">targets</a> + <a href="https://github.com/MilesMcBain/tflow">tflow</a>)</li>
-<li><a href="https://www.tidyverse.org/">Tidyverse</a> of course</li>
-<li>The <a href="https://paul-buerkner.github.io/brms/">brms</a> package for most “standard” bayesian modeling - E.g. Bayesian (potentially hierarchical) glms</li>
-<li>The <a href="https://mc-stan.org/users/interfaces/rstan">rstan</a> package for some “non-standard” bayesian modeling</li>
-<li><a href="https://rcpp.org">Rcpp</a> (and associated Rcpp packages like RcppEigen, RcppProgress,RcppParallel) for other “non-standard” bayesian models.</li>
-<li>– It can often help to read the code of other developers working in this space, as well as R in general</li>
-<li>The <a href="http://www.danieldsjoberg.com/gtsummary/">gtsummary</a> package for paper/presentation tables</li>
-<li>– I sometimes use <a href="https://gt.rstudio.com/">gt</a> directly</li>
-</ul>
-<p>For making other packages: * <a href="https://usethis.r-lib.org/">usethis</a> * <a href="https://devtools.r-lib.org/">devtools</a> (including roxygen2, etc.) * <a href="https://rstudio.github.io/renv/articles/renv.html">renv</a> - can also be useful for analyses potentially</p>
-<p>Specialized R Packages I use for spatial analysis:</p>
-<ul>
-<li>The <a href="https://r-spatial.github.io/sf/">sf</a> package</li>
-<li>The <a href="https://github.com/NCAR/fields">fields</a> package</li>
-<li>The <a href="http://spatstat.org/">spatstat</a> package</li>
-<li>The <a href="https://github.com/dkahle/ggmap">ggmap</a>, or <a href="https://rstudio.github.io/leaflet/">leaflet</a> packages for visualization</li>
-</ul>
-
-
-</section>
-</section>
-</section>
-
-</main> <!-- /main -->
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
