@@ -5,6 +5,7 @@ author:
  - name: "Adam Peterson"
 date: "2021-05-05"
 image: banner.png
+categories: ["PhD Posts"]
 format:
   html:
     toc: true
