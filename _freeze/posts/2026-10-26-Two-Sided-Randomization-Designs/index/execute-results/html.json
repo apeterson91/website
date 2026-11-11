@@ -1,0 +1,17 @@
+{
+  "hash": "e2dce67433ca2c77aa34cd8bb69c95e9",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Experimental Design in Marketplaces\"\ndescription: \"Notes on experimental design under interference, and multiple randomization designs for marketplace experiments\"\nauthor:\n - name: \"Adam Peterson\"\ndate: \"2026-10-26\"\ncategories: [\"Statistics\", \"Experimental Design\"]\nbibliography: refs.bib\ndraft: true\nformat:\n  html:\n    toc: true\nengine: knitr\n---\n\nBajari, P., Burdick, B., Imbens, G. W., Masoero, L., McQueen, J., Richardson, T. S., & Rosen, I. M. (2023). Experimental design in marketplaces. *Statistical Science*, 38(3), 458-476. [@bajari2023experimental]\n\n# Context\n\n<!-- Why marketplace experiments matter; how interference between units breaks the standard RCT (SUTVA) assumption; what the review covers. -->\n\n# Details\n\n<!-- Experimental designs for settings with interference (e.g. buyers and sellers).\nMultiple Randomization Designs (MRDs): multiple layers of randomization in one experiment.\nEstimands (direct effects, spillovers) and what each design can identify. -->\n\n# Simulations\n\n\n::: {.cell}\n::: {.cell-output .cell-output-stderr}\n\n```\nWarning: package 'ggplot2' was built under R version 4.3.3\n```\n\n\n:::\n:::\n\n\n<!-- Simulate a two-sided marketplace with interference; compare bias/variance of a naive A/B estimate vs a multiple-randomization estimate. -->\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

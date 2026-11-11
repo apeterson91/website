@@ -1,0 +1,34 @@
+---
+title: "Experimental Design in Marketplaces"
+description: "Notes on experimental design under interference, and multiple randomization designs for marketplace experiments"
+author:
+ - name: "Adam Peterson"
+date: "2026-10-26"
+categories: ["Statistics", "Experimental Design"]
+bibliography: refs.bib
+draft: true
+format:
+  html:
+    toc: true
+engine: knitr
+---
+
+Bajari, P., Burdick, B., Imbens, G. W., Masoero, L., McQueen, J., Richardson, T. S., & Rosen, I. M. (2023). Experimental design in marketplaces. *Statistical Science*, 38(3), 458-476. [@bajari2023experimental]
+
+# Context
+
+<!-- Why marketplace experiments matter; how interference between units breaks the standard RCT (SUTVA) assumption; what the review covers. -->
+
+# Details
+
+<!-- Experimental designs for settings with interference (e.g. buyers and sellers).
+Multiple Randomization Designs (MRDs): multiple layers of randomization in one experiment.
+Estimands (direct effects, spillovers) and what each design can identify. -->
+
+# Simulations
+
+```{r setup, echo = FALSE, results='hide', message=FALSE}
+library(tidyverse)
+```
+
+<!-- Simulate a two-sided marketplace with interference; compare bias/variance of a naive A/B estimate vs a multiple-randomization estimate. -->

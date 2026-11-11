@@ -3,6 +3,7 @@ title: "Sampling Designs and Algorithms: A Review"
 description: "An overview of different sampling designs"
 author: "Adam Peterson"
 date: "2025-04-30"
+categories: ["Sample Design"]
 format:
   html:
     toc: true
