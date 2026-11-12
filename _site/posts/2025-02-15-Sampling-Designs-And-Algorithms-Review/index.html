@@ -497,14 +497,6 @@ window.Quarto = {
 
 
 
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'ggplot2' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'gt' was built under R version 4.3.3</code></pre>
-</div>
-</div>
 <section id="preface" class="level1">
 <h1>Preface</h1>
 <p>After writing up my <a href="https://apeterson91.github.io/ComplexSurveys/ComplexSurveyNotes.html">notes</a> on Thomas Lumley’s excellent book detailing how to use his survey methods software <a href="https://r-survey.r-forge.r-project.org/survey/">package</a> and some of the associated theory, I found myself wanting to cover the subject further. In particular, I found myself reading Lumley’s main theoretical reference for his book, <span class="citation" data-cites="sarndal2003model">(<a href="#ref-sarndal2003model" role="doc-biblioref">Särndal et al. 2003</a>)</span>, and enjoying it immensely.</p>
@@ -553,20 +545,20 @@ Note that a different formulation of this estimator is used for designs that sam
 <p>A Bernoulli sample is arguably the simplest sampling design. Iterating through each element of the population, flip a coin that shows heads with some specified probability. If the coin shows heads, include the sample in your population, if not, don’t include it. The same principle can be applied by using a random uniform number generator and applying a cutoff according to the same principle. The probability of flipping a heads, <span class="math inline">\pi</span> is the sampling probability for all elements. Since each indicator is independent of the other, the joint sampling probability is simply the product, <span class="math inline">\pi_{ij} = \pi_i^2, i \neq j</span>.</p>
 <p>This algorithm is straightforward and can be implemented in a variety of ways, if the population can be stored in memory in a simple vector, the function below shows one way to draw a Bernoulli sample.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>bernoulli_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(population_data, pi) {</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  N <span class="ot">&lt;-</span> <span class="fu">length</span>(population_data)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(population_data[<span class="fu">runif</span>(<span class="at">n =</span> N) <span class="sc">&lt;=</span> pi])</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>bernoulli_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(population_data, pi) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  N <span class="ot">&lt;-</span> <span class="fu">length</span>(population_data)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(population_data[<span class="fu">runif</span>(<span class="at">n =</span> N) <span class="sc">&lt;=</span> pi])</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Alternatively, a call to <a href="https://dplyr.tidyverse.org/reference/slice.html"><code>dplyr::slice_sample()</code></a> on a <code>data.frame</code> will perform the same operation.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">prop =</span> .<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">prop =</span> .<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>               mpg cyl  disp  hp drat   wt  qsec vs am gear carb
-Duster 360    14.3   8 360.0 245 3.21 3.57 15.84  0  0    3    4
 Porsche 914-2 26.0   4 120.3  91 4.43 2.14 16.70  0  1    5    2
-Mazda RX4     21.0   6 160.0 110 3.90 2.62 16.46  0  1    4    4</code></pre>
+Datsun 710    22.8   4 108.0  93 3.85 2.32 18.61  1  1    4    1
+Merc 450SL    17.3   8 275.8 180 3.07 3.73 17.60  0  0    3    3</code></pre>
 </div>
 </div>
 <p>Note that the inclusion probability independence property here — and elsewhere — will allow this sampling design to be easily parallelized if the entire population’s information is stored on disk or <a href="https://en.wikipedia.org/wiki/Shard_(database_architecture)">sharded</a>.</p>
@@ -589,30 +581,30 @@ The alternative estimator uses the observed sample size, <span class="math inlin
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">pi =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fl">0.01</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">map</span>(pi, <span class="cf">function</span>(pi_) mtcars <span class="sc">|&gt;</span> <span class="fu">slice_sample</span>(<span class="at">prop =</span> pi_) <span class="sc">|&gt;</span> <span class="fu">pull</span>(mpg))</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pi) <span class="sc">|&gt;</span> </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(y) <span class="sc">|&gt;</span> </span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># min function here simply takes one of the values since we have duplicates</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># within each pi group </span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">var_pi =</span> <span class="fu">min</span>(<span class="dv">1</span> <span class="sc">/</span> pi <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">/</span> pi <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="fu">sum</span>(y<span class="sc">^</span><span class="dv">2</span>))),</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">var_alt =</span> <span class="fu">min</span>((<span class="dv">1</span> <span class="sc">-</span> pi) <span class="sc">/</span> <span class="fu">n</span>() <span class="sc">*</span> <span class="fu">var</span>(y) <span class="sc">*</span> (<span class="fu">var</span>(y)))</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="fu">contains</span>(<span class="st">"var"</span>), <span class="at">key =</span> <span class="st">"Estimator"</span>, <span class="at">value =</span> <span class="st">"Variance"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Estimator =</span> <span class="fu">if_else</span>(Estimator <span class="sc">==</span> <span class="st">"var_pi"</span>, <span class="st">"pi"</span>, <span class="st">"alt"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> pi, <span class="at">y =</span> Variance, <span class="at">color =</span> Estimator)) <span class="sc">+</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Sampling Probability"</span>) <span class="sc">+</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Estimator Variance"</span>) <span class="sc">+</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Estimator Variance Comparison"</span>, </span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle =</span> <span class="st">"Bernoulli Sample Design"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">pi =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fl">0.01</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">map</span>(pi, <span class="cf">function</span>(pi_) mtcars <span class="sc">|&gt;</span> <span class="fu">slice_sample</span>(<span class="at">prop =</span> pi_) <span class="sc">|&gt;</span> <span class="fu">pull</span>(mpg))</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pi) <span class="sc">|&gt;</span> </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(y) <span class="sc">|&gt;</span> </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># min function here simply takes one of the values since we have duplicates</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># within each pi group </span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">var_pi =</span> <span class="fu">min</span>(<span class="dv">1</span> <span class="sc">/</span> pi <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">/</span> pi <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="fu">sum</span>(y<span class="sc">^</span><span class="dv">2</span>))),</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">var_alt =</span> <span class="fu">min</span>((<span class="dv">1</span> <span class="sc">-</span> pi) <span class="sc">/</span> <span class="fu">n</span>() <span class="sc">*</span> <span class="fu">var</span>(y) <span class="sc">*</span> (<span class="fu">var</span>(y)))</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="fu">contains</span>(<span class="st">"var"</span>), <span class="at">key =</span> <span class="st">"Estimator"</span>, <span class="at">value =</span> <span class="st">"Variance"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Estimator =</span> <span class="fu">if_else</span>(Estimator <span class="sc">==</span> <span class="st">"var_pi"</span>, <span class="st">"pi"</span>, <span class="st">"alt"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> pi, <span class="at">y =</span> Variance, <span class="at">color =</span> Estimator)) <span class="sc">+</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Sampling Probability"</span>) <span class="sc">+</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Estimator Variance"</span>) <span class="sc">+</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Estimator Variance Comparison"</span>, </span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle =</span> <span class="st">"Bernoulli Sample Design"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -638,35 +630,35 @@ The alternative estimator uses the observed sample size, <span class="math inlin
 </ol>
 <p>This same algorithm is shown below in R, but can also be utilized by calling the <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/sample"><code>sample()</code></a> or <a href="https://dplyr.tidyverse.org/reference/slice.html"><code>slice_sample()</code></a> function.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>simple_random_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(N, n) {</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  random_indicators <span class="ot">&lt;-</span> <span class="fu">runif</span>(N)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (random_indicators[<span class="dv">1</span>] <span class="sc">&lt;</span> n <span class="sc">/</span> N) {</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    sample_index_container <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    sample_index_container <span class="ot">&lt;-</span> <span class="fu">vector</span>()</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  n_i <span class="ot">&lt;-</span> <span class="fu">length</span>(sample_index_container)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>N) {</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    prob_frac <span class="ot">&lt;-</span> n <span class="sc">-</span> n_i <span class="sc">/</span> (N <span class="sc">-</span> i <span class="sc">+</span> <span class="dv">1</span>)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (random_indicators[i] <span class="sc">&lt;</span> prob_frac) {</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>      sample_index_container <span class="ot">&lt;-</span> <span class="fu">c</span>(sample_index_container, i)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(sample_index_container)</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>simple_random_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(N, n) {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  random_indicators <span class="ot">&lt;-</span> <span class="fu">runif</span>(N)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (random_indicators[<span class="dv">1</span>] <span class="sc">&lt;</span> n <span class="sc">/</span> N) {</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    sample_index_container <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    sample_index_container <span class="ot">&lt;-</span> <span class="fu">vector</span>()</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  n_i <span class="ot">&lt;-</span> <span class="fu">length</span>(sample_index_container)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>N) {</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    prob_frac <span class="ot">&lt;-</span> n <span class="sc">-</span> n_i <span class="sc">/</span> (N <span class="sc">-</span> i <span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (random_indicators[i] <span class="sc">&lt;</span> prob_frac) {</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>      sample_index_container <span class="ot">&lt;-</span> <span class="fu">c</span>(sample_index_container, i)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(sample_index_container)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
-Fiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
-Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
-Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
-Merc 230            22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
-Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
-Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
-Merc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4</code></pre>
+<pre><code>                    mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+Toyota Corona      21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+Fiat 128           32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+Mazda RX4          21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+Merc 450SLC        15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+Cadillac Fleetwood 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+Toyota Corolla     33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+Chrysler Imperial  14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4</code></pre>
 </div>
 </div>
 <p>This is one of a class of sampling algorithms called “Reservoir samplers” of which you can read more about, both in theoretical and implementation details from wikipedia <a href="https://en.wikipedia.org/wiki/Reservoir_sampling">here</a>. I also enjoyed <a href="https://florian.github.io/">Florian Hartmann’s</a> blog post on reservoir sampling with streaming data <a href="https://florian.github.io/reservoir-sampling/">here</a> based on <span class="citation" data-cites="vitter1985random">(<a href="#ref-vitter1985random" role="doc-biblioref">Vitter 1985</a>)</span>.</p>
@@ -696,54 +688,38 @@ Read more about Big O notation <a href="https://en.wikipedia.org/wiki/Big_O_nota
 </blockquote>
 <p>One simple algorithm to conduct this sample could be written as follows:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>systematic_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(N, n, a) {</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  random_start <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>a, <span class="dv">1</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  sample_indices <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> random_start, <span class="at">to =</span> N, <span class="at">by =</span> a)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># or alternatively</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sample_indices &lt;- seq(from = random_start, to = N, length.out = n)</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(sample_indices)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>systematic_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(N, n, a) {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  random_start <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>a, <span class="dv">1</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  sample_indices <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> random_start, <span class="at">to =</span> N, <span class="at">by =</span> a)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># or alternatively</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sample_indices &lt;- seq(from = random_start, to = N, length.out = n)</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(sample_indices)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>If sampling via SQL interface, a Modulus operator could be used in conjunction with the <code>ROW_NUMBER()</code> function. There’s an analogous implementation via tidyverse functions.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a is chosen prior to sampling</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>random_start <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>a, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">row_number</span>() <span class="sc">%%</span> random_start <span class="sc">==</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a is chosen prior to sampling</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>random_start <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>a, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">row_number</span>() <span class="sc">%%</span> random_start <span class="sc">==</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
-Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
 Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
-Datsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
 Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
-Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
 Valiant             18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
-Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
 Merc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
-Merc 230            22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
 Merc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
-Merc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
 Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
-Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
 Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
-Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
 Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
-Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
 Fiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
-Honda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
 Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
-Toyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
 Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
-AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
 Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
-Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
 Fiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
-Porsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
 Lotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
-Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
 Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
-Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
 Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
 </div>
 </div>
@@ -782,7 +758,7 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
 <p>Now that there are element specific sampling probabilities <code>slice_sample</code>’s algorithm <a href="https://github.com/tidyverse/dplyr/blob/893dbac96d9b1b0931cbfa222d19105f4a5346a1/R/slice.R#L22">will not weight</a> the elements appropriately when drawing the samples.</p>
 <p>In contrast, the <a href="https://cran.r-project.org/web/packages/sampling/index.html"><code>sampling</code></a> R package uses the following simple implementation - where <code>pik</code> is a vector of inclusion probabilities and <code>runif()</code> draws random variables from a Uniform(<span class="math inline">0,1)</span> distribution.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sampling<span class="sc">::</span>UPpoisson</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sampling<span class="sc">::</span>UPpoisson</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>function (pik) 
 {
@@ -790,7 +766,7 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
         stop("there are missing values in the pik vector")
     as.numeric(runif(length(pik)) &lt; pik)
 }
-&lt;bytecode: 0x128ff45d0&gt;
+&lt;bytecode: 0x10fce64a0&gt;
 &lt;environment: namespace:sampling&gt;</code></pre>
 </div>
 </div>
@@ -829,23 +805,23 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
 </ul>
 <p>Here’s a brief example of how to draw a weighted sample from my ComplexSurvey <a href="https://apeterson91.github.io/ComplexSurveys/ComplexSurveyNotes.html#other-preliminary-items">notes</a> using the <code>sampling</code> package functions described above. Below that, I plot the variable of interest for each of the elements in the population alongside their respective sampling probabilities to show how they relate to one another.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1E3</span>,</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Income =</span> <span class="fl">5E4</span> <span class="sc">*</span> <span class="fu">rlnorm</span>(<span class="fl">1E3</span>, <span class="at">meanlog =</span> <span class="dv">0</span>, <span class="at">sdlog =</span> <span class="fl">0.5</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>weighted_sample <span class="ot">&lt;-</span> population <span class="sc">%&gt;%</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">pi =</span> sampling<span class="sc">::</span><span class="fu">inclusionprobabilities</span>(<span class="fu">floor</span>(population<span class="sc">$</span>Income), <span class="dv">50</span>),</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">in_weighted_sample =</span> sampling<span class="sc">::</span><span class="fu">UPbrewer</span>(pi) <span class="sc">==</span> <span class="dv">1</span>,</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>weighted_sample <span class="sc">|&gt;</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Income <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Income, <span class="at">y =</span> pi)) <span class="sc">+</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="fu">expression</span>(pi)) <span class="sc">+</span></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Income vs. Sampling Probability"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fl">1E3</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Income =</span> <span class="fl">5E4</span> <span class="sc">*</span> <span class="fu">rlnorm</span>(<span class="fl">1E3</span>, <span class="at">meanlog =</span> <span class="dv">0</span>, <span class="at">sdlog =</span> <span class="fl">0.5</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>weighted_sample <span class="ot">&lt;-</span> population <span class="sc">%&gt;%</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">pi =</span> sampling<span class="sc">::</span><span class="fu">inclusionprobabilities</span>(<span class="fu">floor</span>(population<span class="sc">$</span>Income), <span class="dv">50</span>),</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">in_weighted_sample =</span> sampling<span class="sc">::</span><span class="fu">UPbrewer</span>(pi) <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>weighted_sample <span class="sc">|&gt;</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Income <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Income, <span class="at">y =</span> pi)) <span class="sc">+</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="fu">expression</span>(pi)) <span class="sc">+</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Income vs. Sampling Probability"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -866,23 +842,23 @@ V[\hat{T}_{Poisson}] =  \sum_{i=1}^{n} (1 - \pi_i)y_i^2.
 <p>Stratified sampling is easily combined with any of the sampling designs described previously. One can draw a SRS within strata, or a PPS sample, etc. The key principle is that each strata contains an unbiased estimate of the measure of interest, with associated variance which is then added to the other independent stratified samples.</p>
 <p>Here’s a simple example of how to draw a stratified sample with SRS using tidyverse functions, though functions from the <code>sampling</code> R package can also be used here.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">|&gt;</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 9 × 11
+<pre><code># A tibble: 9 x 11
 # Groups:   cyl [3]
     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1  24.4     4 147.     62  3.69  3.19  20       1     0     4     2
-2  22.8     4 141.     95  3.92  3.15  22.9     1     0     4     2
-3  30.4     4  95.1   113  3.77  1.51  16.9     1     1     5     2
-4  21       6 160     110  3.9   2.88  17.0     0     1     4     4
-5  18.1     6 225     105  2.76  3.46  20.2     1     0     3     1
-6  19.7     6 145     175  3.62  2.77  15.5     0     1     5     6
-7  15.2     8 276.    180  3.07  3.78  18       0     0     3     3
-8  15       8 301     335  3.54  3.57  14.6     0     1     5     8
-9  10.4     8 460     215  3     5.42  17.8     0     0     3     4</code></pre>
+1  22.8     4 141.     95  3.92  3.15  22.9     1     0     4     2
+2  21.4     4 121     109  4.11  2.78  18.6     1     1     4     2
+3  30.4     4  75.7    52  4.93  1.62  18.5     1     1     4     2
+4  19.2     6 168.    123  3.92  3.44  18.3     1     0     4     4
+5  21       6 160     110  3.9   2.62  16.5     0     1     4     4
+6  21.4     6 258     110  3.08  3.22  19.4     1     0     3     1
+7  10.4     8 472     205  2.93  5.25  18.0     0     0     3     4
+8  15.2     8 304     150  3.15  3.44  17.3     0     0     3     2
+9  15.5     8 318     150  2.76  3.52  16.9     0     0     3     2</code></pre>
 </div>
 </div>
 <section id="considerations-3" class="level3">
@@ -904,23 +880,23 @@ Table&nbsp;1: Sampling Designs
 </figcaption>
 <div aria-describedby="tbl-design-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="tvhwpupwts" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#tvhwpupwts table {
+<div id="adzqxgtahf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#adzqxgtahf table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#tvhwpupwts thead, #tvhwpupwts tbody, #tvhwpupwts tfoot, #tvhwpupwts tr, #tvhwpupwts td, #tvhwpupwts th {
+#adzqxgtahf thead, #adzqxgtahf tbody, #adzqxgtahf tfoot, #adzqxgtahf tr, #adzqxgtahf td, #adzqxgtahf th {
   border-style: none;
 }
 
-#tvhwpupwts p {
+#adzqxgtahf p {
   margin: 0;
   padding: 0;
 }
 
-#tvhwpupwts .gt_table {
+#adzqxgtahf .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -946,12 +922,12 @@ Table&nbsp;1: Sampling Designs
   border-left-color: #D3D3D3;
 }
 
-#tvhwpupwts .gt_caption {
+#adzqxgtahf .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#tvhwpupwts .gt_title {
+#adzqxgtahf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -963,7 +939,7 @@ Table&nbsp;1: Sampling Designs
   border-bottom-width: 0;
 }
 
-#tvhwpupwts .gt_subtitle {
+#adzqxgtahf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -975,7 +951,7 @@ Table&nbsp;1: Sampling Designs
   border-top-width: 0;
 }
 
-#tvhwpupwts .gt_heading {
+#adzqxgtahf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -987,13 +963,13 @@ Table&nbsp;1: Sampling Designs
   border-right-color: #D3D3D3;
 }
 
-#tvhwpupwts .gt_bottom_border {
+#adzqxgtahf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#tvhwpupwts .gt_col_headings {
+#adzqxgtahf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1008,7 +984,7 @@ Table&nbsp;1: Sampling Designs
   border-right-color: #D3D3D3;
 }
 
-#tvhwpupwts .gt_col_heading {
+#adzqxgtahf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1028,7 +1004,7 @@ Table&nbsp;1: Sampling Designs
   overflow-x: hidden;
 }
 
-#tvhwpupwts .gt_column_spanner_outer {
+#adzqxgtahf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1040,15 +1016,15 @@ Table&nbsp;1: Sampling Designs
   padding-right: 4px;
 }
 
-#tvhwpupwts .gt_column_spanner_outer:first-child {
+#adzqxgtahf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#tvhwpupwts .gt_column_spanner_outer:last-child {
+#adzqxgtahf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#tvhwpupwts .gt_column_spanner {
+#adzqxgtahf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1060,11 +1036,11 @@ Table&nbsp;1: Sampling Designs
   width: 100%;
 }
 
-#tvhwpupwts .gt_spanner_row {
+#adzqxgtahf .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#tvhwpupwts .gt_group_heading {
+#adzqxgtahf .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1090,7 +1066,7 @@ Table&nbsp;1: Sampling Designs
   text-align: left;
 }
 
-#tvhwpupwts .gt_empty_group_heading {
+#adzqxgtahf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1105,15 +1081,15 @@ Table&nbsp;1: Sampling Designs
   vertical-align: middle;
 }
 
-#tvhwpupwts .gt_from_md > :first-child {
+#adzqxgtahf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#tvhwpupwts .gt_from_md > :last-child {
+#adzqxgtahf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#tvhwpupwts .gt_row {
+#adzqxgtahf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1132,7 +1108,7 @@ Table&nbsp;1: Sampling Designs
   overflow-x: hidden;
 }
 
-#tvhwpupwts .gt_stub {
+#adzqxgtahf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1145,7 +1121,7 @@ Table&nbsp;1: Sampling Designs
   padding-right: 5px;
 }
 
-#tvhwpupwts .gt_stub_row_group {
+#adzqxgtahf .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1159,15 +1135,15 @@ Table&nbsp;1: Sampling Designs
   vertical-align: top;
 }
 
-#tvhwpupwts .gt_row_group_first td {
+#adzqxgtahf .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#tvhwpupwts .gt_row_group_first th {
+#adzqxgtahf .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#tvhwpupwts .gt_summary_row {
+#adzqxgtahf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1177,16 +1153,16 @@ Table&nbsp;1: Sampling Designs
   padding-right: 5px;
 }
 
-#tvhwpupwts .gt_first_summary_row {
+#adzqxgtahf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#tvhwpupwts .gt_first_summary_row.thick {
+#adzqxgtahf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#tvhwpupwts .gt_last_summary_row {
+#adzqxgtahf .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1196,7 +1172,7 @@ Table&nbsp;1: Sampling Designs
   border-bottom-color: #D3D3D3;
 }
 
-#tvhwpupwts .gt_grand_summary_row {
+#adzqxgtahf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1206,7 +1182,7 @@ Table&nbsp;1: Sampling Designs
   padding-right: 5px;
 }
 
-#tvhwpupwts .gt_first_grand_summary_row {
+#adzqxgtahf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1216,7 +1192,7 @@ Table&nbsp;1: Sampling Designs
   border-top-color: #D3D3D3;
 }
 
-#tvhwpupwts .gt_last_grand_summary_row_top {
+#adzqxgtahf .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1226,11 +1202,11 @@ Table&nbsp;1: Sampling Designs
   border-bottom-color: #D3D3D3;
 }
 
-#tvhwpupwts .gt_striped {
+#adzqxgtahf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#tvhwpupwts .gt_table_body {
+#adzqxgtahf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1239,7 +1215,7 @@ Table&nbsp;1: Sampling Designs
   border-bottom-color: #D3D3D3;
 }
 
-#tvhwpupwts .gt_footnotes {
+#adzqxgtahf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1253,7 +1229,7 @@ Table&nbsp;1: Sampling Designs
   border-right-color: #D3D3D3;
 }
 
-#tvhwpupwts .gt_footnote {
+#adzqxgtahf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1262,7 +1238,7 @@ Table&nbsp;1: Sampling Designs
   padding-right: 5px;
 }
 
-#tvhwpupwts .gt_sourcenotes {
+#adzqxgtahf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1276,7 +1252,7 @@ Table&nbsp;1: Sampling Designs
   border-right-color: #D3D3D3;
 }
 
-#tvhwpupwts .gt_sourcenote {
+#adzqxgtahf .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1284,72 +1260,72 @@ Table&nbsp;1: Sampling Designs
   padding-right: 5px;
 }
 
-#tvhwpupwts .gt_left {
+#adzqxgtahf .gt_left {
   text-align: left;
 }
 
-#tvhwpupwts .gt_center {
+#adzqxgtahf .gt_center {
   text-align: center;
 }
 
-#tvhwpupwts .gt_right {
+#adzqxgtahf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#tvhwpupwts .gt_font_normal {
+#adzqxgtahf .gt_font_normal {
   font-weight: normal;
 }
 
-#tvhwpupwts .gt_font_bold {
+#adzqxgtahf .gt_font_bold {
   font-weight: bold;
 }
 
-#tvhwpupwts .gt_font_italic {
+#adzqxgtahf .gt_font_italic {
   font-style: italic;
 }
 
-#tvhwpupwts .gt_super {
+#adzqxgtahf .gt_super {
   font-size: 65%;
 }
 
-#tvhwpupwts .gt_footnote_marks {
+#adzqxgtahf .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#tvhwpupwts .gt_asterisk {
+#adzqxgtahf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#tvhwpupwts .gt_indent_1 {
+#adzqxgtahf .gt_indent_1 {
   text-indent: 5px;
 }
 
-#tvhwpupwts .gt_indent_2 {
+#adzqxgtahf .gt_indent_2 {
   text-indent: 10px;
 }
 
-#tvhwpupwts .gt_indent_3 {
+#adzqxgtahf .gt_indent_3 {
   text-indent: 15px;
 }
 
-#tvhwpupwts .gt_indent_4 {
+#adzqxgtahf .gt_indent_4 {
   text-indent: 20px;
 }
 
-#tvhwpupwts .gt_indent_5 {
+#adzqxgtahf .gt_indent_5 {
   text-indent: 25px;
 }
 
-#tvhwpupwts .katex-display {
+#adzqxgtahf .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#tvhwpupwts div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#adzqxgtahf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
